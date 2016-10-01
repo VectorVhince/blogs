@@ -1,0 +1,16 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.navbar-default {
+	background-color: transparent;
+	color: #c0392b;
+	border-color: transparent;
+}
+
+.navbar-default .navbar-brand {
+	color: #000;
+	font-size: 20px;
+	font-weight: bold;
+}
+
