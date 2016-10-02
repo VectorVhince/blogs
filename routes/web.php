@@ -11,14 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::resource('posts', 'PostController');
 
 Route::resource('opinion', 'OpinionController');
 
-// Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
+
+Route::post('save.comment/{id}', 'OpinionController@saveComment')->name('save.comment');

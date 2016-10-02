@@ -117,27 +117,22 @@
 	    <div class="col-lg-6">
 		    <div class="row bgc-lbrown mgb30 mgh0">
 		    	<span class="dp-bl fc-gold fs25 pd5">Opinion</span>
-		    	<div class="col-md-4 pdb15">
-					<img src="{{ asset('/img/400x400.png') }}" class="img-responsive">
-		    	</div>
-		    	<div class="col-md-8 pdl0">
-		    		<div class="bdl-gold pdh15 dp-bl wwrap">
-			    		<span class="fs25">asdfghjkl; jhfkldshfjkhsd fsdjk fhskldjfh</span>
-			    		<div class="mgh15 mgv10">
-			    			<span class="fc-gold fs15 pdh15">by: The Angelite</span> | <span class="fs15 pdh15">July 29, 2016</span>
+		    	@foreach($opinions as $opinion)
+		    	<div class="row pd15">
+			    	<div class="col-md-4 pdb15">
+						<img src="{{ asset('img/uploads/' . $opinion->opinion_img) }}" class="img-responsive">
+			    	</div>
+			    	<div class="col-md-8 pdl0">
+			    		<div class="bdl-gold pdh15 dp-bl wwrap">
+				    		<span class="fs25">{{ $opinion->opinion_title }}</span>
+				    		<div class="mgh15 mgv10">
+				    			<span class="fc-gold fs15 pdh15">by: {{ $opinion->opinion_user }}</span> | <span class="fs15 pdh15">{{ date_format($opinion->created_at, 'F d, Y') }}</span>
+				    		</div>
+				    		<p class="fs15 wwrap">{{ substr($opinion->opinion_body, 0, 100) }}</p>
 			    		</div>
-			    		<p class="fs15 wwrap">hdfgb shdfb sdkfhb sdhfb skdfhb sdkfhbdskjfbsdfhb sdkjfbdsjkf bsdkfh bsdhf bsdkfhbsdkfhbds hfbsdhb sjd fbjsd bfjsdh bfds bfsjd bfjsdh bfjsdbf jksbdjk asdhfgsdhufgsdjfgisdhufgidsjfgsidh gfiu</p>
-		    		</div>
+			    	</div>
 		    	</div>
-		    	<div class="col-md-12 pdb15">
-		    		<div class="bdl-gold pdh15 dp-bl wwrap">
-			    		<span class="fs25">asdfghjkl; jhfkldshfjkhsd fsdjk fhskldjfh</span>
-			    		<div class="mgh15 mgv10">
-			    			<span class="fc-gold fs15 pdh15">by: The Angelite</span> | <span class="fs15 pdh15">July 29, 2016</span>
-			    		</div>
-			    		<p class="fs15 wwrap">hdfgb shdfb sdkfhb sdhfb skdfhb sdkfhbdskjfbsdfhb sdkjfbdsjkf bsdkfh bsdhf bsdkfhbsdkfhbds hfbsdhb sjd fbjsd bfjsdh bfds bfsjd bfjsdh bfjsdbf jksbdjk asdhfgsdhufgsdjfgisdhufgidsjfgsidh gfiu</p>
-		    		</div>
-		    	</div>
+		    	@endforeach
 		    </div>
 		    <div class="row bgc-lbrown mgb30 mgh0">
 		    	<span class="dp-bl fc-gold fs25 pd5">Features</span>

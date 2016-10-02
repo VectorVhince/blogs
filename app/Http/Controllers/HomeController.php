@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Opinion;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $opinions = Opinion::orderBy('id', 'desc')->take(2)->get();
+        return view('welcome')->with('opinions', $opinions);
     }
 }
