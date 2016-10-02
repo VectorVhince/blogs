@@ -19,4 +19,6 @@ Auth::routes();
 
 Route::resource('posts', 'PostController');
 
+Route::resource('opinion', 'OpinionController');
+
 // Route::get('/home', 'HomeController@index');

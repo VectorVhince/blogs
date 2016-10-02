@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
     <div class="row">
         <a href="{{ route('posts.create')}}"><button class="btn btn-primary pull-right">Add</button></a>
         
@@ -22,5 +21,4 @@
         </div>
         @endforeach
     </div>
-</div>
 @endsection

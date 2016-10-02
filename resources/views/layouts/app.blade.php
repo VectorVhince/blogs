@@ -28,7 +28,7 @@
     
     @include('partials.nav')
 
-    <div class="container"> 
+    <div class="container-fluid pdh45"> 
         @yield('content')
     </div>
 
