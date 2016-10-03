@@ -55,6 +55,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('posts.index') }}">Posts</a></li>
                         <li><a href="{{-- route('guardians.index') --}}">Golden Guardians</a></li>
+                        <li><a href="{{-- route('guardians.index') --}}">Announcements</a></li>
                         <li>
                             <a href="{{ url('/logout') }}"
                                 onclick="event.preventDefault();

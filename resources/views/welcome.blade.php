@@ -6,13 +6,18 @@
 <div class="container">
 	<div class="row">
 	    <div class="col-lg-6">
-	    	<div class="tile-group">
-		    	<img src="{{ asset('/img/uploads/default.jpg') }}" class="tile-img">
-		    	<div class="tile-content text-center">
-		    		<span class="fs40 fc-gold dp-bl wwrap">Marketing Bazaar Kicks Off SBA Days 2016</span>
-		    		<span class="fs20 fc-white dp-bl mgt5">by: The Angelite</span>
+		    @if(isset($post_featured))
+    		<a href="{{ route('posts.show', $post_featured->id) }}" class="fc-black">
+		    	<div class="tile-group">
+					<img src="{{ asset('img/uploads/' . $post_featured->post_img) }}" class="tile-img">
+			    	<div class="tile-content text-center">
+			    		<span class="fs40 fc-gold dp-bl wwrap">{{ $post_featured->post_title }}</span>
+			    		<span class="fs20 fc-white dp-bl mgt5">by: {{ $post_featured->post_user }}</span>
+			    	</div>
 		    	</div>
-	    	</div>
+		    </a>
+	    	@else
+	    	@endif
 	    </div>
 	    <div class="col-lg-6">
 		    @if($posts->isEmpty())
@@ -39,19 +44,22 @@
 	    <div class="col-lg-6">
 	    	<div class="tile-group-long bgc-lbrown">
 	    		<span class="dp-bl fc-gold fs25 pd5">News</span>
-	    		<div class="mgb20">
-			    	<img src="{{ asset('/img/uploads/default.jpg') }}" class="img-responsive">
-	    		</div>
 		    	<div class="tile-content-long">
+		    		@if(isset($news_featured))
+		    		<div class="mgb20">
+						<img src="{{ asset('img/uploads/' . $news_featured->news_img) }}" class="img-responsive">
+		    		</div>
 		    		<div class="bdl-gold mgh15 pdh15 dp-bl wwrap">
-			    		<span class="fs25">asdfghjkl; jhfkldshfjkhsd fsdjk fhskldjfh slkdjf shdlfjkshdfjklh sdjklf hsdjklfh sdjkl</span>
+			    		<span class="fs25">{{ $news_featured->news_title }}</span>
 		    		</div>
 		    		<div class="dp-bl mgt20">
-		    			<span class="fc-gold fs15 pdh15">by: The Angelite</span> | <span class="fs15 pdh15">July 30, 2016</span>
+		    			<span class="fc-gold fs15 pdh15">by: {{ $news_featured->news_user }}</span> | <span class="fs15 pdh15">{{ $news_featured->created_at }}</span>
 		    		</div>
 		    		<div class="dp-bl mgt20 text-left pdb15">
-		    			<p class="fs15 pdh15 wwrap">hdfgb shdfb sdkfhb sdhfb skdfhb sdkfhbdskjfbsdfhb sdkjfbdsjkf bsdkfh bsdhf bsdkfhbsdkfhbds hfbsdhb sjd fbjsd bfjsdh bfds bfsjd bfjsdh bfjsdbf jksbdjk asdhfgsdhufgsdjfgisdhufgidsjfgsidh gfiu</p>
+		    			<p class="fs15 pdh15 wwrap">{{ substr($news_featured->news_body, 0, 100) }}</p>
 		    		</div>
+			    	@else
+		    		@endif
 		    		@if($news->isEmpty())
 			    	@else
 		    		@foreach($news as $new)
@@ -76,10 +84,10 @@
 	    	</div>
 	    </div>
 	    <div class="col-lg-6">
-	    	@if($opinions->isEmpty())
-	    	@else
 		    <div class="row bgc-lbrown mgb30 mgh0 f-shadow">
 		    	<span class="dp-bl fc-gold fs25 pd5">Opinion</span>
+	    	@if($opinions->isEmpty())
+	    	@else
 		    	@foreach($opinions as $opinion)
 	    		<a href="{{ route('opinion.show', $opinion->id) }}" class="fc-black">
 			    	<div class="row pd15">
@@ -98,12 +106,12 @@
 			    	</div>
 		    	</a>
 		    	@endforeach
-		    </div>
 		    @endif
-		    @if($features->isEmpty())
-	    	@else
+		    </div>
 		    <div class="row bgc-lbrown mgb30 mgh0 f-shadow">
 		    	<span class="dp-bl fc-gold fs25 pd5">Features</span>
+		    @if($features->isEmpty())
+	    	@else
 		    	@foreach($features as $feature)
 	    		<a href="{{ route('features.show', $feature->id) }}" class="fc-black">
 			    	<div class="row pd15">
@@ -122,12 +130,12 @@
 			    	</div>
 		    	</a>
 		    	@endforeach
-		    </div>
 		    @endif
-		    @if($editors->isEmpty())
-	    	@else
+		    </div>
 		    <div class="row bgc-lbrown mgb30 mgh0 f-shadow">
 		    	<span class="dp-bl fc-gold fs25 pd5">Editor's Notes</span>
+		    @if($editors->isEmpty())
+	    	@else
 		    	@foreach($editors as $editor)
 	    		<a href="{{ route('editors.show', $editor->id) }}" class="fc-black">
 			    	<div class="row pd15">
@@ -146,8 +154,8 @@
 			    	</div>
 		    	</a>
 		    	@endforeach
-		    </div>
 		    @endif
+		    </div>
 	    </div>
 	</div>
 	<div class="row">
