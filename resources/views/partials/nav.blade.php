@@ -27,10 +27,10 @@
     <div class="collapse navbar-collapse pdh45" id="app-navbar-collapse">
         <!-- Left Side Of Navbar -->
         <ul class="nav navbar-nav">
-            <li><a href=" {{ route('posts.index') }} " class="fc-black fs17 pdh5">NEWS</a></li>
+            <li><a href=" {{ route('news.index') }} " class="fc-black fs17 pdh5">NEWS</a></li>
             <li><a href=" {{ route('opinion.index') }} " class="fc-black fs17 pdh5">OPINION</a></li>
-            <li><a href="#" class="fc-black fs17 pdh5">FEATURE</a></li>
-            <li><a href="#" class="fc-black fs17 pdh5">EDITOR'S NOTE</a></li>
+            <li><a href=" {{ route('features.index') }} " class="fc-black fs17 pdh5">FEATURES</a></li>
+            <li><a href=" {{ route('editors.index') }} " class="fc-black fs17 pdh5">EDITOR'S NOTE</a></li>
         </ul>
 
         <!-- Right Side Of Navbar -->
@@ -53,6 +53,8 @@
                     </a>
 
                     <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ route('posts.index') }}">Posts</a></li>
+                        <li><a href="{{-- route('guardians.index') --}}">Golden Guardians</a></li>
                         <li>
                             <a href="{{ url('/logout') }}"
                                 onclick="event.preventDefault();

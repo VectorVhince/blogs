@@ -16,9 +16,10 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('post_title'); 
-            $table->longText('post_body'); //sa textare name same name dapat maganda
-            $table->string('post_author');
-            $table->string('post_created');
+            $table->longText('post_body');
+            $table->string('post_img')->default('default.jpg');
+            $table->string('post_user');
+            $table->string('post_update');
             $table->timestamps();
         });
     }

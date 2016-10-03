@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Opinion;
-
-use App\Comment;
+use App\OpinionComment;
 
 use Auth;
 
@@ -61,6 +60,7 @@ class OpinionController extends Controller
         $opinion->opinion_body = $request->opinion_body;
         $opinion->opinion_img = $fileName;
         $opinion->opinion_user = Auth::user()->name;
+        $opinion->opinion_update = Auth::user()->name;
         $opinion->save();
         
         return redirect()->route('opinion.show',$opinion->id);
@@ -76,7 +76,7 @@ class OpinionController extends Controller
     public function show($id)
     {
         $opinion = Opinion::find($id);
-        $comments = Opinion::find($id)->comments;
+        $comments = Opinion::find($id)->opinionComments;
         return view('opinion.show')->with('opinion', $opinion)->with('comments', $comments);
     }
 
@@ -88,7 +88,9 @@ class OpinionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $opinion = Opinion::find($id);
+
+        return view('opinion.edit')->with('opinion', $opinion);
     }
 
     /**
@@ -100,7 +102,25 @@ class OpinionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'opinion_title' => 'required|max:255',
+            'opinion_body' => 'required',
+        ]);
+        $opinion = Opinion::find($id);
+
+
+        if ($request->hasFile('opinion_img')) {
+            $fileName = time() . '.' . $request->file('opinion_img')->getClientOriginalExtension();
+            $request->file('opinion_img')->move(public_path('img/uploads'), $fileName);
+            $opinion->opinion_img = $fileName;
+        }
+
+        $opinion->opinion_title = $request->opinion_title;
+        $opinion->opinion_body = $request->opinion_body;
+        $opinion->opinion_update = Auth::user()->name;
+        $opinion->update();
+        
+        return redirect()->route('opinion.show',$opinion->id);
     }
 
     /**
@@ -111,10 +131,12 @@ class OpinionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Opinion::find($id)->delete();
+
+        return redirect()->route('opinion.index');
     }
 
-    public function saveComment(Request $request, $id) {
+    public function opinionComment(Request $request, $id) {
         $this->validate($request, [
             'comment_name' => 'required',
             'comment_email' => 'required',
@@ -124,7 +146,7 @@ class OpinionController extends Controller
 
         $opinion = Opinion::find($id);
 
-        $comment = new Comment;
+        $comment = new OpinionComment;
         $comment->opinion_id = $opinion->id;
         $comment->comment_name = $request->comment_name;
         $comment->comment_email = $request->comment_email;

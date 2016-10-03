@@ -19,6 +19,7 @@ class CreateOpinionsTable extends Migration
             $table->longText('opinion_body');
             $table->string('opinion_img')->default('default.jpg');
             $table->string('opinion_user');
+            $table->string('opinion_update');
             $table->timestamps();
         });
     }

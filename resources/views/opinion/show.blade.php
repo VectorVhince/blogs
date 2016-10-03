@@ -30,7 +30,7 @@
             <p class="wwrap fc-black bdb-black pdb15 text-justify">{{ $opinion->opinion_body }}</p>
             <div class="row bgc-lbrown mgh0 pd15">
                 <span class="fc-gold fs30">LEAVE A COMMENT/FEEDBACK</span>
-                <form method="post" action="{{ route('save.comment',$opinion->id) }}">
+                <form method="post" action="{{ route('opinion.comment',$opinion->id) }}">
                     {{ csrf_field() }}
                     <div class="col-md-6 pdl0">
                         <input type="text" name="comment_name" placeholder="Name" class="form-control db-bl mgb5">
@@ -45,6 +45,17 @@
             </div>
         </div>        
     </div>
-
 </div>
+@if(Auth::user())
+<div class="button-container">
+    <form action="{{ route('opinion.destroy',$opinion->id) }}" method="post">
+    {{ csrf_field() }}
+    {{ method_field('delete') }}
+        <div class="btn-group">
+            <a href="{{ route('opinion.edit',$opinion->id) }}" class="btn btn-primary">Edit</a>
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </form>
+</div>
+@endif
 @stop

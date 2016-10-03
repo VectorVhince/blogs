@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['post_title', 'post_body', 'post_created', 'post_author'];
+    public function postComments() {
+    	return $this->hasMany('\App\PostComment', 'post_id')->orderBy('id', 'desc');
+    }
 }

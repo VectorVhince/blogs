@@ -17,7 +17,12 @@
                 </ul>                
             </div>
         </div>
-        <div class="col-md-8 bgc-lbrown mgh0" id="opinionContent">
+        <div class="col-md-8 bgc-lbrown mgh0">
+        @if($opinions->isEmpty())
+        <div class="alert alert-danger mgt20">
+          <strong>Danger!</strong> No opinions posted.
+        </div>
+        @else
             @foreach($opinions as $opinion)
             <a href="{{ route('opinion.show',$opinion->id) }}">
                 <div class="row bdb-black pdv30 pdh30 bgc-white-hover transition">
@@ -32,6 +37,7 @@
                 </div>
             </a>
             @endforeach
+        @endif
         </div>
     </div>
 </div>
@@ -40,14 +46,4 @@
     <a href="{{ route('opinion.create') }}"><button class="btn btn-primary">Add</button></a>
 </div>
 @endif
-@stop
-
-@section('script')
-    <script type="text/javascript">
-        $(document).ready(function(){
-            if ($('#opinionContent').is(':empty')) {
-                $(this).text('Please add me some content!');
-            }
-        });
-    </script>
 @stop

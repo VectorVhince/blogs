@@ -17,6 +17,20 @@ Route::resource('posts', 'PostController');
 
 Route::resource('opinion', 'OpinionController');
 
+Route::resource('news', 'NewsController');
+
+Route::resource('features', 'FeaturesController');
+
+Route::resource('editors', 'EditorsController');
+
 Route::get('/', 'HomeController@index');
 
-Route::post('save.comment/{id}', 'OpinionController@saveComment')->name('save.comment');
+Route::post('opinion.comment/{id}', 'OpinionController@opinionComment')->name('opinion.comment');
+
+Route::post('post.comment/{id}', 'PostController@postComment')->name('post.comment');
+
+Route::post('news.comment/{id}', 'NewsController@newsComment')->name('news.comment');
+
+Route::post('features.comment/{id}', 'FeaturesController@featuresComment')->name('features.comment');
+
+Route::post('editors.comment/{id}', 'EditorsController@editorsComment')->name('editors.comment');
