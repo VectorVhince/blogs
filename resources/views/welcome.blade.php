@@ -46,18 +46,20 @@
 	    		<span class="dp-bl fc-gold fs25 pd5">News</span>
 		    	<div class="tile-content-long">
 		    		@if(isset($news_featured))
-		    		<div class="mgb20">
-						<img src="{{ asset('img/uploads/' . $news_featured->news_img) }}" class="img-responsive">
-		    		</div>
-		    		<div class="bdl-gold mgh15 pdh15 dp-bl wwrap">
-			    		<span class="fs25">{{ $news_featured->news_title }}</span>
-		    		</div>
-		    		<div class="dp-bl mgt20">
-		    			<span class="fc-gold fs15 pdh15">by: {{ $news_featured->news_user }}</span> | <span class="fs15 pdh15">{{ $news_featured->created_at }}</span>
-		    		</div>
-		    		<div class="dp-bl mgt20 text-left pdb15">
-		    			<p class="fs15 pdh15 wwrap">{{ substr($news_featured->news_body, 0, 100) }}</p>
-		    		</div>
+		    		<a href="{{ route('news.show', $news_featured->id) }}" class="fc-black">
+			    		<div class="mgb20 text-center">
+							<img src="{{ asset('img/uploads/' . $news_featured->news_img) }}" class="img-responsive">
+			    		</div>
+			    		<div class="bdl-gold mgh15 pdh15 dp-bl wwrap">
+				    		<span class="fs25">{{ $news_featured->news_title }}</span>
+			    		</div>
+			    		<div class="dp-bl mgt20">
+			    			<span class="fc-gold fs15 pdh15">by: {{ $news_featured->news_user }}</span> | <span class="fs15 pdh15">{{ $news_featured->created_at }}</span>
+			    		</div>
+			    		<div class="dp-bl mgt20 text-left pdb15">
+			    			<p class="fs15 pdh15 wwrap">{{ substr($news_featured->news_body, 0, 100) }}</p>
+			    		</div>
+			    	</a>
 			    	@else
 		    		@endif
 		    		@if($news->isEmpty())
