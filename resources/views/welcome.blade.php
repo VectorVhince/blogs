@@ -57,7 +57,7 @@
 			    			<span class="fc-gold fs15 pdh15">by: {{ $news_featured->news_user }}</span> | <span class="fs15 pdh15">{{ $news_featured->created_at }}</span>
 			    		</div>
 			    		<div class="dp-bl mgt20 text-left pdb15">
-			    			<p class="fs15 pdh15 wwrap">{{ substr($news_featured->news_body, 0, 100) }}</p>
+			    			<p class="fs15 pdh15 wwrap">{{ substr($news_featured->news_body, 0, 250) }}...</p>
 			    		</div>
 			    	</a>
 			    	@else
@@ -102,7 +102,7 @@
 					    		<div class="mgh15 mgv10">
 					    			<span class="fc-gold fs15 pdh15">by: {{ $opinion->opinion_user }}</span> | <span class="fs15 pdh15">{{ date_format($opinion->created_at, 'F d, Y') }}</span>
 					    		</div>
-					    		<p class="fs15 wwrap">{{ substr($opinion->opinion_body, 0, 100) }}</p>
+					    		<p class="fs15 wwrap">{{ substr($opinion->opinion_body, 0, 250) }}...</p>
 				    		</div>
 				    	</div>
 			    	</div>
@@ -126,7 +126,7 @@
 					    		<div class="mgh15 mgv10">
 					    			<span class="fc-gold fs15 pdh15">by: {{ $feature->features_user }}</span> | <span class="fs15 pdh15">{{ date_format($feature->created_at, 'F d, Y') }}</span>
 					    		</div>
-					    		<p class="fs15 wwrap">{{ substr($feature->features_body, 0, 100) }}</p>
+					    		<p class="fs15 wwrap">{{ substr($feature->features_body, 0, 250) }}...</p>
 				    		</div>
 				    	</div>
 			    	</div>
@@ -150,7 +150,7 @@
 					    		<div class="mgh15 mgv10">
 					    			<span class="fc-gold fs15 pdh15">by: {{ $editor->editors_user }}</span> | <span class="fs15 pdh15">{{ date_format($editor->created_at, 'F d, Y') }}</span>
 					    		</div>
-					    		<p class="fs15 wwrap">{{ substr($editor->editors_body, 0, 100) }}</p>
+					    		<p class="fs15 wwrap">{{ substr($editor->editors_body, 0, 250) }}...</p>
 				    		</div>
 				    	</div>
 			    	</div>
