@@ -49,9 +49,12 @@
 .relative { position: relative; }
 
 .bd-rad0 { border-radius: 0; }
+.bd-rad5 { border-radius: 5px; }
 .bd0 { border: none; }
 .bdl-gold { border-left: solid 5px gold; }
 .bdb-black { border-bottom: solid 4px #000; }
+
+.box-shadow { box-shadow: 2px 3px 5px rgba(0,0,0,.5); }
 
 .bgc0 { background-color: transparent; }
 .bgc-white[readonly] { background-color: #fff; }
@@ -157,6 +160,11 @@ html {
 }
 body {
 	margin-bottom: 100px;
+	background-image: url('/img/hau_bg.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 a { cursor:pointer; text-decoration: none; }
 a:hover, a:focus, a:active { text-decoration: none; }
@@ -221,10 +229,16 @@ a:hover, a:focus, a:active { text-decoration: none; }
 .tile-group {
 	position: relative;
 	width: 100%;
+	height: 447px;
+	overflow: hidden;
+	border: none;
 }
 .tile-group-sm {
 	position: relative;
-	width: 100%;
+	width: 360px;
+	height: 213px;
+	overflow: hidden;
+	border: none;
 }
 .tile-group-long {
 	position: relative;
@@ -242,7 +256,7 @@ a:hover, a:focus, a:active { text-decoration: none; }
 }
 .tile-content {
 	position: absolute;
-	bottom: 30%;
+	bottom: 20%;
 	z-index: 2;
 	text-shadow: 0 0 1px rgba(0,0,0,.5);
 	width: 100%;
