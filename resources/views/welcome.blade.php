@@ -9,6 +9,9 @@
           @if(isset($post_featured))
           <a href="{{ route('posts.show', $post_featured->id) }}" class="fc-black">
             <div class="tile-group bd-rad5 box-shadow mgb20">
+            <div class="tile-label">
+            	Featured
+            </div>
             <img src="{{ asset('img/uploads/' . $post_featured->post_img) }}" class="tile-img">
               <div class="tile-content text-center">
                 <span class="fs40 fc-gold dp-bl wwrap">{{ $post_featured->post_title }}</span>
@@ -31,6 +34,9 @@
             @if(isset($post_featured))
             <a href="{{ route('posts.show', $post_featured->id) }}" class="fc-black">
               <div class="tile-group-sm bd-rad5 box-shadow mgb20">
+              <div class="tile-label">
+            	  Featured
+	          </div>
               <img src="{{ asset('img/uploads/' . $post_featured->post_img) }}" class="tile-img">
                 <div class="tile-content text-center">
                   <span class="fs40 fc-gold dp-bl wwrap">{{ $post_featured->post_title }}</span>
@@ -50,6 +56,9 @@
             @if(isset($post_featured))
             <a href="{{ route('posts.show', $post_featured->id) }}" class="fc-black">
               <div class="tile-group-sm bd-rad5 box-shadow mgb20">
+              <div class="tile-label">
+            	  Featured
+	          </div>
               <img src="{{ asset('img/uploads/' . $post_featured->post_img) }}" class="tile-img">
                 <div class="tile-content text-center">
                   <span class="fs40 fc-gold dp-bl wwrap">{{ $post_featured->post_title }}</span>
@@ -75,6 +84,9 @@
           @if(isset($post_featured))
             <a href="{{ route('posts.show', $post_featured->id) }}" class="fc-black">
               <div class="tile-group-sm bd-rad5 box-shadow mgb20">
+              <div class="tile-label">
+            	  Featured
+	          </div>
               <img src="{{ asset('img/uploads/' . $post_featured->post_img) }}" class="tile-img">
                 <div class="tile-content text-center">
                   <span class="fs40 fc-gold dp-bl wwrap">{{ $post_featured->post_title }}</span>
@@ -96,6 +108,9 @@
           @if(isset($post_featured))
             <a href="{{ route('posts.show', $post_featured->id) }}" class="fc-black">
               <div class="tile-group-sm bd-rad5 box-shadow mgb20">
+              <div class="tile-label">
+            	  Featured
+	          </div>
               <img src="{{ asset('img/uploads/' . $post_featured->post_img) }}" class="tile-img">
                 <div class="tile-content text-center">
                   <span class="fs40 fc-gold dp-bl wwrap">{{ $post_featured->post_title }}</span>
@@ -117,6 +132,9 @@
           @if(isset($post_featured))
             <a href="{{ route('posts.show', $post_featured->id) }}" class="fc-black">
               <div class="tile-group-sm bd-rad5 box-shadow mgb20">
+              <div class="tile-label">
+            	  Featured
+	          </div>
               <img src="{{ asset('img/uploads/' . $post_featured->post_img) }}" class="tile-img">
                 <div class="tile-content text-center">
                   <span class="fs40 fc-gold dp-bl wwrap">{{ $post_featured->post_title }}</span>
