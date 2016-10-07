@@ -44,23 +44,23 @@ class OpinionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'opinion_title' => 'required|max:255',
-            'opinion_body' => 'required',
-            'opinion_img' => 'required',
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'image' => 'required',
         ]);
 
-        $fileName = time() . '.' . $request->file('opinion_img')->getClientOriginalExtension();
+        $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
-        if ($request->hasFile('opinion_img')) {
-            $request->file('opinion_img')->move(public_path('img/uploads'), $fileName);
+        if ($request->hasFile('image')) {
+            $request->file('image')->move(public_path('img/uploads'), $fileName);
         }
 
         $opinion = new Opinion;
-        $opinion->opinion_title = $request->opinion_title;
-        $opinion->opinion_body = $request->opinion_body;
-        $opinion->opinion_img = $fileName;
-        $opinion->opinion_user = Auth::user()->name;
-        $opinion->opinion_update = Auth::user()->name;
+        $opinion->title = $request->title;
+        $opinion->body = $request->body;
+        $opinion->image = $fileName;
+        $opinion->user = Auth::user()->name;
+        $opinion->update = Auth::user()->name;
         $opinion->save();
         
         return redirect()->route('opinion.show',$opinion->id);
@@ -103,21 +103,21 @@ class OpinionController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'opinion_title' => 'required|max:255',
-            'opinion_body' => 'required',
+            'title' => 'required|max:255',
+            'body' => 'required',
         ]);
         $opinion = Opinion::find($id);
 
 
-        if ($request->hasFile('opinion_img')) {
-            $fileName = time() . '.' . $request->file('opinion_img')->getClientOriginalExtension();
-            $request->file('opinion_img')->move(public_path('img/uploads'), $fileName);
-            $opinion->opinion_img = $fileName;
+        if ($request->hasFile('image')) {
+            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('image/uploads'), $fileName);
+            $opinion->image = $fileName;
         }
 
-        $opinion->opinion_title = $request->opinion_title;
-        $opinion->opinion_body = $request->opinion_body;
-        $opinion->opinion_update = Auth::user()->name;
+        $opinion->title = $request->title;
+        $opinion->body = $request->body;
+        $opinion->update = Auth::user()->name;
         $opinion->update();
         
         return redirect()->route('opinion.show',$opinion->id);

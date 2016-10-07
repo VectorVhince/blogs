@@ -15,11 +15,12 @@ class CreateOpinionsTable extends Migration
     {
         Schema::create('opinions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('opinion_title');
-            $table->longText('opinion_body');
-            $table->string('opinion_img')->default('default.jpg');
-            $table->string('opinion_user');
-            $table->string('opinion_update');
+            $table->string('category')->default('opinion');
+            $table->string('title');
+            $table->longText('body');
+            $table->string('image')->default('default.jpg');
+            $table->string('user');
+            $table->string('update');
             $table->timestamps();
         });
     }

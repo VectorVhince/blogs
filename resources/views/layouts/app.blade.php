@@ -23,6 +23,8 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    @yield('style')
 </head>
 <body>
     

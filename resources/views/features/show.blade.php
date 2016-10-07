@@ -2,60 +2,173 @@
 
 @section('content')
 <div class="container">
-    <div class="row mgh0">
-        <div class="col-md-4">
-            <div class="bgc-lbrown pdv15 text-center mgb30">
-                <span class="fc-gold fs30 mgb20">ARCHIVE FOR FEATURES</span>
-                <ul class="list-unstyled text-left">
-                    <li class="fs25 pd15 fc-gold pdl30">2013</li>
-                    <li class="fs25 pd15 fc-gold pdl30">2014</li>
-                    <li class="fs25 pd15 fc-gold pdl30">2015</li>
-                    <li class="fs25 pd15 fc-gold pdl30 bgc-white">2016</li>
-                </ul>                
-            </div>
-            <div class="bgc-lbrown pdv15">
-                <span class="fc-gold fs30 mgb20 pdh5">The Angelite VOICE</span>
-                @foreach($comments as $comment)
-                    <div class="bdb-black mgb20 pd15">
-                        <p>{{ $comment->comment_message }}</p>
-                        <span>Comment by: {{ $comment->comment_name }} of {{ $comment->comment_dept }}, {{ date_format($comment->created_at, 'F d, Y') }}</span>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        <div class="col-md-8 mgh0">
-            <span class="dp-bl fc-black fs40 wwrap">{{ $features->features_title }}</span>
-            <span class="dp-bl fc-black mgv50">Posted by: {{ $features->features_user }} | {{ date_format($features->created_at, 'F d, Y') }}</span>
-            <img src="{{ asset('img/uploads/' . $features->features_img) }}" class="img-responsive dp-bl mgv50 center-block">
-            <p class="wwrap fc-black bdb-black pdb15 text-justify">{{ $features->features_body }}</p>
-            <div class="row bgc-lbrown mgh0 pd15">
-                <span class="fc-gold fs30">LEAVE A COMMENT/FEEDBACK</span>
-                <form method="post" action="{{ route('features.comment',$features->id) }}">
+    <div class="col-lg-9">
+        <div class="panel panel-default bd-rad0 box-shadow">
+            <div class="panel-body pd45">
+                <div class="col-md-8 mgb40">
+                    <span class="fs40">{{ $features->title }}</span>
+                </div>
+                <div class="col-md-4">
+                    <form action="{{ route('features.destroy',$features->id) }}" method="post">
                     {{ csrf_field() }}
-                    <div class="col-md-6 pdl0">
-                        <input type="text" name="comment_name" placeholder="Name" class="form-control db-bl mgb5">
-                        <input type="text" name="comment_email" placeholder="Email" class="form-control db-bl mgb5">
-                        <input type="text" name="comment_dept" placeholder="College Department" class="form-control db-bl mgb5">
-                    </div>
-                    <div class="col-md-6 pdr0">
-                        <textarea name="comment_message" class="form-control mgb5" rows="5" placeholder="Message"></textarea>
-                        <button type="submit" class="btn btn-success pull-right">Send</button>
-                    </div>
-                </form>
+                    {{ method_field('delete') }}
+                        <div class="btn-group">
+                            <a href="{{ route('featured',[$features->id,$features->category]) }}" class="btn btn-default">Feature</a>
+                            <a href="{{ route('features.edit',$features->id) }}" class="btn btn-primary">Edit</a>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+                <img src="{{ asset('/img/uploads/' . $features->image) }}" class="img-responsive mgb40">
+                <p>{{ $features->body }}</p>
+                <div>
+                    <span class="text-muted">Author: {{ $features->user }}</span> | <span class="text-muted">{{ date_format($features->created_at, 'F d Y') }}</span>
+                </div>
             </div>
         </div>        
     </div>
-</div>
-@if(Auth::user())
-<div class="button-container">
-    <form action="{{ route('features.destroy',$features->id) }}" method="post">
-    {{ csrf_field() }}
-    {{ method_field('delete') }}
-        <div class="btn-group">
-            <a href="{{ route('features.edit',$features->id) }}" class="btn btn-primary">Edit</a>
-            <button type="submit" class="btn btn-danger">Delete</button>
+    <div class="col-lg-3">
+        <div class="panel panel-default bd-rad0 box-shadow">
+            <div class="panel-body pd15">
+                <div class="mgb30">
+                    <span class="fs25">BLOG ARCHIVE</span>
+                </div>
+                <ul class="list-unstyled">
+                    <li data-toggle="collapse" href="#2016"><span class="caret"></span> 2016
+                        <div id="2016" class="collapse">
+                            <ul class="list-unstyled mgl20">
+                                <li data-toggle="collapse" data-parent="#2016" href="#2016J"><span class="caret"></span> January
+                                    <div id="2016J" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li data-toggle="collapse" data-parent="#2016" href="#2016F"><span class="caret"></span> February
+                                    <div id="2016F" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li data-toggle="collapse" data-parent="#2016" href="#2016M"><span class="caret"></span> March
+                                    <div id="2016M" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li data-toggle="collapse" href="#2015"><span class="caret"></span> 2015
+                        <div id="2015" class="collapse">
+                            <ul class="list-unstyled mgl20">
+                                <li data-toggle="collapse" data-parent="#2015" href="#2015J"><span class="caret"></span> January
+                                    <div id="2015J" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li data-toggle="collapse" data-parent="#2015" href="#2015F"><span class="caret"></span> February
+                                    <div id="2015F" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li data-toggle="collapse" data-parent="#2015" href="#2015M"><span class="caret"></span> March
+                                    <div id="2015M" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li data-toggle="collapse" href="#2014"><span class="caret"></span> 2014
+                        <div id="2014" class="collapse">
+                            <ul class="list-unstyled mgl20">
+                                <li data-toggle="collapse" data-parent="#2014" href="#2014J"><span class="caret"></span> January
+                                    <div id="2014J" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li data-toggle="collapse" data-parent="#2014" href="#2014F"><span class="caret"></span> February
+                                    <div id="2014F" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li data-toggle="collapse" data-parent="#2014" href="#2014M"><span class="caret"></span> March
+                                    <div id="2014M" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li data-toggle="collapse" href="#2013"><span class="caret"></span> 2013
+                        <div id="2013" class="collapse">
+                            <ul class="list-unstyled mgl20">
+                                <li data-toggle="collapse" data-parent="#2013" href="#2013J"><span class="caret"></span> January
+                                    <div id="2013J" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li data-toggle="collapse" data-parent="#2013" href="#2013F"><span class="caret"></span> February
+                                    <div id="2013F" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li data-toggle="collapse" data-parent="#2013" href="#2013M"><span class="caret"></span> March
+                                    <div id="2013M" class="collapse">
+                                        <ul class="list-unstyled mgl20">
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                            <li>Lorem ipsum</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>                        
+                </ul>
+            </div>
         </div>
-    </form>
+    </div>
 </div>
-@endif
-@stop
+@endsection

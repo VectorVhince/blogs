@@ -30,7 +30,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('news.create');
+        //
     }
 
     /**
@@ -42,24 +42,24 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'news_title' => 'required|max:255',
-            'news_body' => 'required',
-            'news_img' => 'required',
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'image' => 'required',
         ]);
 
-        $fileName = time() . '.' . $request->file('news_img')->getClientOriginalExtension();
+        $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
-        if ($request->hasFile('news_img')) {
-            $request->file('news_img')->move(public_path('img/uploads'), $fileName);
+        if ($request->hasFile('image')) {
+            $request->file('image')->move(public_path('img/uploads'), $fileName);
         }
 
         $news = new News; 
 
-        $news->news_title = $request->news_title;
-        $news->news_body = $request->news_body;
-        $news->news_img = $fileName;
-        $news->news_user = Auth::user()->name;
-        $news->news_update = Auth::user()->name;
+        $news->title = $request->title;
+        $news->body = $request->body;
+        $news->image = $fileName;
+        $news->user = Auth::user()->name;
+        $news->update = Auth::user()->name;
         $news->save();
 
         return redirect()->route('news.show',$news->id);
@@ -101,21 +101,21 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'news_title' => 'required|max:255',
-            'news_body' => 'required',
+            'title' => 'required|max:255',
+            'body' => 'required',
         ]);
         $news = News::find($id);
 
 
-        if ($request->hasFile('news_img')) {
-            $fileName = time() . '.' . $request->file('news_img')->getClientOriginalExtension();
-            $request->file('news_img')->move(public_path('img/uploads'), $fileName);
-            $news->news_img = $fileName;
+        if ($request->hasFile('img')) {
+            $fileName = time() . '.' . $request->file('img')->getClientOriginalExtension();
+            $request->file('img')->move(public_path('img/uploads'), $fileName);
+            $news->img = $fileName;
         }
 
-        $news->news_title = $request->news_title;
-        $news->news_body = $request->news_body;
-        $news->news_update = Auth::user()->name;
+        $news->title = $request->title;
+        $news->body = $request->body;
+        $news->update = Auth::user()->name;
         $news->update();
         
         return redirect()->route('news.show',$news->id);

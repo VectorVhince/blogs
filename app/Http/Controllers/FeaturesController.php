@@ -42,24 +42,24 @@ class FeaturesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'features_title' => 'required|max:255',
-            'features_body' => 'required',
-            'features_img' => 'required',
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'image' => 'required',
         ]);
 
-        $fileName = time() . '.' . $request->file('features_img')->getClientOriginalExtension();
+        $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
-        if ($request->hasFile('features_img')) {
-            $request->file('features_img')->move(public_path('img/uploads'), $fileName);
+        if ($request->hasFile('image')) {
+            $request->file('image')->move(public_path('img/uploads'), $fileName);
         }
 
         $features = new features; 
 
-        $features->features_title = $request->features_title;
-        $features->features_body = $request->features_body;
-        $features->features_img = $fileName;
-        $features->features_user = Auth::user()->name;
-        $features->features_update = Auth::user()->name;
+        $features->title = $request->title;
+        $features->body = $request->body;
+        $features->image = $fileName;
+        $features->user = Auth::user()->name;
+        $features->update = Auth::user()->name;
         $features->save();
 
         return redirect()->route('features.show',$features->id);
@@ -101,21 +101,21 @@ class FeaturesController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'features_title' => 'required|max:255',
-            'features_body' => 'required',
+            'title' => 'required|max:255',
+            'body' => 'required',
         ]);
         $features = Features::find($id);
 
 
-        if ($request->hasFile('features_img')) {
-            $fileName = time() . '.' . $request->file('features_img')->getClientOriginalExtension();
-            $request->file('features_img')->move(public_path('img/uploads'), $fileName);
-            $features->features_img = $fileName;
+        if ($request->hasFile('image')) {
+            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('image/uploads'), $fileName);
+            $features->image = $fileName;
         }
 
-        $features->features_title = $request->features_title;
-        $features->features_body = $request->features_body;
-        $features->features_update = Auth::user()->name;
+        $features->title = $request->title;
+        $features->body = $request->body;
+        $features->update = Auth::user()->name;
         $features->update();
         
         return redirect()->route('features.show',$features->id);

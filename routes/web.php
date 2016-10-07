@@ -23,7 +23,11 @@ Route::resource('features', 'FeaturesController');
 
 Route::resource('editors', 'EditorsController');
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('create', 'HomeController@create');
+
+Route::get('featured/{id}/{category}', 'HomeController@featured')->name('featured');
 
 Route::post('opinion.comment/{id}', 'OpinionController@opinionComment')->name('opinion.comment');
 

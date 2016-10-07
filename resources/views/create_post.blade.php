@@ -5,30 +5,50 @@
     <div class="col-lg-9">
         <div class="panel panel-default bd-rad0 box-shadow">
             <div class="panel-body pd45">
-                <div class="mgb40">
-                    <span class="fs40">NEWS</span>
-                </div>
-                @if(!$features->isEmpty())
-                @foreach($features as $feature)
-                <div class="row mgb20">
-                    <div class="col-md-12">
-                        <span class="dp-bl fs25 fc-red">{{ $feature->title }}</span>
-                        <span class="text-muted">Author: {{ $feature->user }}</span> | <span class="text-muted">{{ date_format($feature->created_at, 'F d Y') }}</span>
+                <form action="" method="post" enctype="multipart/form-data" id="formSubmit">
+                    {{ csrf_field() }}
+                    <div class="mgb40">
+                        <span class="fs40">Add New Post</span>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="{{ asset('/img/uploads/' . $feature->image) }}" class="img-responsive">
+                    <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
+                        <select id="category" name="category" class="form-control mgb20 bd-rad0 box-shadow">
+                            <option disabled selected>Select Category</option>
+                            <option value="1">News</option>
+                            <option value="2">Opinion</option>
+                            <option value="3">Features</option>
+                            <option value="4">Humor</option>
+                            <option value="5">Sports</option>
+                            <option value="6">Artwork</option>
+                        </select>
+                        @if ($errors->has('category'))
+                            <span class="help-block"><strong>{{ $errors->first('category') }}</strong></span>
+                        @endif
                     </div>
-                    <div class="col-md-8">
-                        <p>{{ substr($feature->body,0,400) }}...  <a href="{{ route('features.show', $feature->id) }}" class="fc-gold">See More</a></p>
+                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                        <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ old('title') }}">
+                        @if ($errors->has('title'))
+                            <span class="help-block"><strong>{{ $errors->first('title') }}</strong></span>
+                        @endif
                     </div>
-                </div>
-                <hr>
-                @endforeach
-                @else
-                Nothing posted.
-                @endif
+                    <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
+                        <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ old('body') }}</textarea>
+                        @if ($errors->has('body'))
+                            <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
+                        @endif
+                    </div>
+                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                        <input type="file" name="image" class="form-control mgb20 bd-rad0 box-shadow">
+                        @if ($errors->has('image'))
+                            <span class="help-block"><strong>{{ $errors->first('image') }}</strong></span>
+                        @endif
+                    </div>
+                    <div class="col-md-4 col-md-offset-4 text-center mgt40">
+                        <div class="form-inline">
+                            <button type="submit" class="btn btn-success bd-rad0 fs20">Publish</button>
+                            <button type="reset" class="btn btn-danger bd-rad0 fs20">Cancel</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>        
     </div>
@@ -177,3 +197,32 @@
     </div>
 </div>
 @endsection
+
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#category').on('change', function(){
+                switch ($(this).val()) {
+                    case '1':
+                        $('#formSubmit').attr('action','{{ route('news.store') }}');
+                        break;
+                    case '2':
+                        $('#formSubmit').attr('action','{{ route('opinion.store') }}');
+                        break;
+                    case '3':
+                        $('#formSubmit').attr('action','{{ route('features.store') }}');
+                        break;
+                    case '4':
+                        $('#formSubmit').attr('action','{{-- route('humor.store') --}}');
+                        break;
+                    case '5':
+                        $('#formSubmit').attr('action','{{-- route('sports.store') --}}');
+                        break;
+                    case '6':
+                        $('#formSubmit').attr('action','{{-- route('artwork.store') --}}');
+                        break;
+                }
+            });
+        });
+    </script>
+@stop

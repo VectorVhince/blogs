@@ -8,6 +8,7 @@ use App\Opinion;
 use App\Post;
 use App\News;
 use App\Features;
+use App\Featured;
 use App\Editors;
 
 class HomeController extends Controller
@@ -19,14 +20,48 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->take(4)->skip(1)->get();
-        $post_featured = Post::orderBy('id', 'desc')->first();
-        $opinions = Opinion::orderBy('id', 'desc')->take(2)->get();
-        $features = Features::orderBy('id', 'desc')->take(2)->get();
-        $editors = Editors::orderBy('id', 'desc')->take(2)->get();
-        $news = News::orderBy('id', 'desc')->take(3)->skip(1)->get();
-        $news_featured = News::orderBy('id', 'desc')->first();
+        $featured = Featured::orderBy('id', 'desc')->take(4)->get();
 
-        return view('welcome')->with('opinions', $opinions)->with('posts', $posts)->with('post_featured', $post_featured)->with('news', $news)->with('news_featured', $news_featured)->with('features', $features)->with('editors', $editors);
+        return view('welcome')->with('featured', $featured);
+    }
+
+    public function create()
+    {
+        return view('create_post');
+    }
+
+    public function featured($id,$category)
+    {
+        $news = News::find($id);
+        $features = Features::find($id);
+        $opinion = Opinion::find($id);
+        switch ($category) {
+            case $news->category:
+                $get_featured = $news;
+                break;
+
+            case $features->category:
+                $get_featured = $features;
+                break;
+
+            case $opinion->category:
+                $get_featured = $opinion;
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+        $featured = new Featured;
+
+        $featured->title = $get_featured->title;
+        $featured->body = $get_featured->body;
+        $featured->image = $get_featured->image;
+        $featured->user = $get_featured->user;
+        $featured->update = $get_featured->update;
+        $featured->save();
+
+        return redirect()->route('home');
     }
 }

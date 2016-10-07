@@ -15,11 +15,12 @@ class CreateFeaturesTable extends Migration
     {
         Schema::create('features', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('features_title');
-            $table->longText('features_body');
-            $table->string('features_img')->default('default.jpg');
-            $table->string('features_user');
-            $table->string('features_update');
+            $table->string('category')->default('features');
+            $table->string('title');
+            $table->longText('body');
+            $table->string('image')->default('default.jpg');
+            $table->string('user');
+            $table->string('update');
             $table->timestamps();
         });
     }
