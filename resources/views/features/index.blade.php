@@ -6,7 +6,7 @@
         <div class="panel panel-default bd-rad0 box-shadow">
             <div class="panel-body pd45">
                 <div class="mgb40">
-                    <span class="fs40">NEWS</span>
+                    <span class="fs40">FEATURES</span>
                 </div>
                 @if(!$features->isEmpty())
                 @foreach($features as $feature)

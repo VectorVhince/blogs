@@ -35,6 +35,7 @@ class HomeController extends Controller
         $news = News::find($id);
         $features = Features::find($id);
         $opinion = Opinion::find($id);
+
         switch ($category) {
             case $news->category:
                 $get_featured = $news;
@@ -46,10 +47,6 @@ class HomeController extends Controller
 
             case $opinion->category:
                 $get_featured = $opinion;
-                break;
-            
-            default:
-                # code...
                 break;
         }
 
