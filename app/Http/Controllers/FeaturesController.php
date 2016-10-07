@@ -44,7 +44,7 @@ class FeaturesController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'body' => 'required',
-            'image' => 'required',
+            'image' => 'required|mimes:jpeg,png',
         ]);
 
         $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
@@ -103,6 +103,7 @@ class FeaturesController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'body' => 'required',
+            'image' => 'mimes:jpeg,png',
         ]);
         $features = Features::find($id);
 

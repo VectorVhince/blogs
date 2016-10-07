@@ -21,8 +21,11 @@ class HomeController extends Controller
     public function index()
     {
         $featured = Featured::orderBy('id', 'desc')->take(4)->get();
+        $news = News::orderBy('id', 'desc')->first();
+        $opinion = Opinion::orderBy('id', 'desc')->first();
+        $features = Features::orderBy('id', 'desc')->first();
 
-        return view('welcome')->with('featured', $featured);
+        return view('welcome')->with('featured', $featured)->with('news', $news)->with('opinion', $opinion)->with('features', $features);
     }
 
     public function create()
@@ -33,25 +36,27 @@ class HomeController extends Controller
     public function featured($id,$category)
     {
         $news = News::find($id);
-        $features = Features::find($id);
         $opinion = Opinion::find($id);
+        $features = Features::find($id);
 
         switch ($category) {
-            case $news->category:
+            case 'news':
                 $get_featured = $news;
                 break;
 
-            case $features->category:
-                $get_featured = $features;
+            case 'opinion':
+                $get_featured = $opinion;
                 break;
 
-            case $opinion->category:
-                $get_featured = $opinion;
+            case 'features':
+                $get_featured = $features;
                 break;
         }
 
         $featured = new Featured;
 
+        $featured->category_id = $get_featured->id;
+        $featured->category = $get_featured->category;
         $featured->title = $get_featured->title;
         $featured->body = $get_featured->body;
         $featured->image = $get_featured->image;

@@ -44,7 +44,7 @@ class NewsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'body' => 'required',
-            'image' => 'required',
+            'image' => 'required|mimes:jpeg,png',
         ]);
 
         $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
@@ -103,14 +103,15 @@ class NewsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'body' => 'required',
+            'image' => 'mimes:jpeg,png',
         ]);
         $news = News::find($id);
 
 
-        if ($request->hasFile('img')) {
-            $fileName = time() . '.' . $request->file('img')->getClientOriginalExtension();
-            $request->file('img')->move(public_path('img/uploads'), $fileName);
-            $news->img = $fileName;
+        if ($request->hasFile('image')) {
+            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('img/uploads'), $fileName);
+            $news->image = $fileName;
         }
 
         $news->title = $request->title;

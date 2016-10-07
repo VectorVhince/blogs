@@ -2,66 +2,36 @@
 
 @section('content')
 <div class="container">
-    <div class="col-lg-8">
+    <div class="col-lg-9">
         <div class="panel panel-default bd-rad0 box-shadow">
             <div class="panel-body pd45">
-                <div class="col-md-8 mgb40">
-                    <span class="fs40">{{ $opinion->title }}</span>
-                </div>
-                <div class="col-md-4">
-                @if (Auth::user())
-                    <form action="{{ route('opinion.destroy',$opinion->id) }}" method="post">
+                <form action="{{ route('news.update',$news->id) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    {{ method_field('delete') }}
-                        <ul class="list-inline">
-                            <li class="pd0"><a href="{{ route('featured',[$opinion->id,$opinion->category]) }}"><img src="{{ asset('/img/featured.png') }}" class="ht60"></a></li>
-                            <li class="pd0"><a href="{{ route('opinion.edit',$opinion->id) }}"><img src="{{ asset('/img/edit.png') }}" class="ht60"></a></li>
-                            <li class="pd0"><button type="submit" class="bgc0 bd0 pd0"><img src="{{ asset('/img/delete.png') }}" class="ht60"></button></li>
-                        </ul>
-                    </form>
-                @endif
-                </div>
-                <img src="{{ asset('/img/uploads/' . $opinion->image) }}" class="img-responsive mgb40">
-                <p>{{ $opinion->body }}</p>
-                <div>
-                    <span class="text-muted">Author: {{ $opinion->user }}</span> | <span class="text-muted">{{ date_format($opinion->created_at, 'F d Y') }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default bd-rad0 box-shadow mgt40">
-            <div class="panel-body pd45">  
-                <form action="{{ route('opinion.comment',$opinion->id) }}" method="post" enctype="multipart/form-data" id="formSubmit">
-                    {{ csrf_field() }}
+                    {{ method_field('patch') }}
                     <div class="mgb40">
-                        <span class="fs40">Leave a comment</span>
+                        <span class="fs40">Edit Post</span>
                     </div>
-                    <div class="form-group{{ $errors->has('comment_name') ? ' has-error' : '' }}">
-                        <input type="text" name="comment_name" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Name" value="{{ old('comment_name') }}">
-                        @if ($errors->has('comment_name'))
-                            <span class="help-block"><strong>{{ $errors->first('comment_name') }}</strong></span>
+                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                        <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ $news->title }}">
+                        @if ($errors->has('title'))
+                            <span class="help-block"><strong>{{ $errors->first('title') }}</strong></span>
                         @endif
                     </div>
-                    <div class="form-group{{ $errors->has('comment_email') ? ' has-error' : '' }}">
-                        <input type="email" name="comment_email" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Email Address" value="{{ old('comment_email') }}">
-                        @if ($errors->has('comment_email'))
-                            <span class="help-block"><strong>{{ $errors->first('comment_email') }}</strong></span>
+                    <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
+                        <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ $news->body }}</textarea>
+                        @if ($errors->has('body'))
+                            <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
                         @endif
                     </div>
-                    <div class="form-group{{ $errors->has('comment_dept') ? ' has-error' : '' }}">
-                        <input type="text" name="comment_dept" class="form-control mgb20 bd-rad0 box-shadow" placeholder="College Department" value="{{ old('comment_dept') }}">
-                        @if ($errors->has('comment_dept'))
-                            <span class="help-block"><strong>{{ $errors->first('comment_dept') }}</strong></span>
+                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                        <input type="file" name="image" class="form-control mgb20 bd-rad0 box-shadow">
+                        @if ($errors->has('image'))
+                            <span class="help-block"><strong>{{ $errors->first('image') }}</strong></span>
                         @endif
                     </div>
-                    <div class="form-group{{ $errors->has('comment_message') ? ' has-error' : '' }}">
-                        <textarea name="comment_message" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Message">{{ old('comment_message') }}</textarea>
-                        @if ($errors->has('comment_message'))
-                            <span class="help-block"><strong>{{ $errors->first('comment_message') }}</strong></span>
-                        @endif
-                    </div>
-                    <div class="col-md-6 col-md-offset-3 text-center mgt40">
+                    <div class="col-md-4 col-md-offset-4 text-center mgt40">
                         <div class="form-inline">
-                            <button type="submit" class="btn btn-success bd-rad0 fs20">Post</button>
+                            <button type="submit" class="btn btn-success bd-rad0 fs20">Publish</button>
                             <button type="reset" class="btn btn-danger bd-rad0 fs20">Cancel</button>
                         </div>
                     </div>
@@ -69,7 +39,7 @@
             </div>
         </div>        
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-3">
         <div class="panel panel-default bd-rad0 box-shadow">
             <div class="panel-body pd15">
                 <div class="mgb30">
@@ -209,22 +179,6 @@
                         </div>
                     </li>                        
                 </ul>
-            </div>
-        </div>
-        <div class="panel panel-default bd-rad0 box-shadow mgt40">
-            <div class="panel-body pd15">
-                <span class="dp-bl fs25">RECENT COMMENTS</span>
-                <hr class="mgb20">
-                @foreach($comments as $comment)
-                    <div class="mgb20 pd15">
-                        <span class="dp-bl fs20 mgb10">{{ $comment->comment_name }} of {{ $comment->comment_dept }}</span>
-                        <p class="mgl20">{{ $comment->comment_message }}</p>
-                        <div class="text-right">
-                            <span class="text-muted">- {{ date_format($comment->created_at, 'F d, Y') }}</span>
-                        </div>
-                    </div>
-                    <hr class="mgb20">
-                @endforeach
             </div>
         </div>
     </div>

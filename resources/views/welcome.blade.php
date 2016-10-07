@@ -21,7 +21,7 @@
                     <div class="tile-content text-center">
                       <span class="fs40 fc-white dp-bl wwrap">{{ $feature->title }}</span>
                       <span class="fs20 fc-white dp-bl mgt5">by: {{ $feature->user }}</span>
-                      <p class="fc-white mgt20">{{ substr($feature->body,0,200) }}... <a href="{{ route('news.show', $feature->id) }}" class="fc-gold">See More</a></p>
+                      <p class="fc-white mgt20">{{ substr($feature->body,0,200) }}... <a href="{{ route($feature->category . '.show', $feature->category_id) }}" class="fc-gold">See More</a></p>
                     </div>
                   </div>
                 </li>
@@ -30,16 +30,172 @@
             </div>
           @else
             <div class="tile-group bd-rad10 bgc-lbrown mgb20 box-shadow">
-              <div class="tile-content text-center">
-                <a href="{{ route('posts.create') }}" class="fc-gold">
-                  <span class="fc-black dp-bl mgt5">Nothing posted.</span>
+              <div class="text-center">
+                <span class="fc-black dp-bl mgt5">Nothing posted.</span>
+                <a href="{{ url('create') }}" class="fc-gold">
+                  Click here to create.
                 </a>
               </div>
             </div>
           @endif
         </div>
 
-        
+        <div class="col-md-4">
+            @if(isset($news))
+            <a href="{{ route('news.show', $news->id) }}" class="fc-black">
+              <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
+              <img src="{{ asset('img/uploads/' . $news->image) }}" class="tile-img">
+                <div class="tile-content-sm text-center">
+                  <span class="fs25 fc-white dp-bl wwrap">{{ $news->title }}</span>
+                  <span class="fs15 fc-white dp-bl mgt5">by: {{ $news->user }}</span>
+                </div>
+              </div>
+            </a>
+            @else
+            <a href="{{ url('create') }}" class="fc-black">
+              <div class="tile-group-sm bd-rad10 bgc-lbrown mgb20 box-shadow">
+                <div class="text-center">
+                  <span class="fc-black dp-bl mgt5">Nothing posted.</span>
+                  <a href="{{ url('create') }}" class="fc-gold">
+                    Click here to create.
+                  </a>
+                </div>
+              </div>
+            </a>
+            @endif
+            @if(isset($opinion))
+            <a href="{{ route('opinion.show', $opinion->id) }}" class="fc-black">
+              <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
+              <img src="{{ asset('img/uploads/' . $opinion->image) }}" class="tile-img">
+                <div class="tile-content-sm text-center">
+                  <span class="fs25 fc-white dp-bl wwrap">{{ $opinion->title }}</span>
+                  <span class="fs15 fc-white dp-bl mgt5">by: {{ $opinion->user }}</span>
+                </div>
+              </div>
+            </a>
+            @else
+            <a href="{{ url('create') }}" class="fc-black">
+              <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown">
+                <div class="text-center">
+                  <span class="fc-black dp-bl mgt5">Nothing posted.</span>
+                  <a href="{{ url('create') }}" class="fc-gold">
+                    Click here to create.
+                  </a>
+                </div>
+              </div>
+            </a>
+            @endif
+        </div>
+    </div>    
+
+    <div class="row">
+      <div class="col-md-4">
+        @if(isset($opinion))
+          <a href="{{ route('opinion.show', $opinion->id) }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
+            <img src="{{ asset('img/uploads/' . $opinion->image) }}" class="tile-img">
+              <div class="tile-content-sm text-center">
+                <span class="fs25 fc-white dp-bl wwrap">{{ $opinion->title }}</span>
+                <span class="fs15 fc-white dp-bl mgt5">by: {{ $opinion->user }}</span>
+              </div>
+            </div>
+          </a>
+          @else
+          <a href="{{ url('create') }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown">
+              <div class="text-center">
+                <span class="fc-black dp-bl mgt5">Nothing posted.</span>
+                <a href="{{ url('create') }}" class="fc-gold">
+                  Click here to create.
+                </a>
+              </div>
+            </div>
+          </a>
+          @endif
+      </div>
+
+      <div class="col-md-4">
+        @if(isset($opinion))
+          <a href="{{ route('opinion.show', $opinion->id) }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
+            <img src="{{ asset('img/uploads/' . $opinion->image) }}" class="tile-img">
+              <div class="tile-content-sm text-center">
+                <span class="fs25 fc-white dp-bl wwrap">{{ $opinion->title }}</span>
+                <span class="fs15 fc-white dp-bl mgt5">by: {{ $opinion->user }}</span>
+              </div>
+            </div>
+          </a>
+          @else
+          <a href="{{ url('create') }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown">
+              <div class="text-center">
+                <span class="fc-black dp-bl mgt5">Nothing posted.</span>
+                <a href="{{ url('create') }}" class="fc-gold">
+                  Click here to create.
+                </a>
+              </div>
+            </div>
+          </a>
+          @endif
+      </div>
+
+      <div class="col-md-4">
+        @if(isset($features))
+          <a href="{{ route('features.show', $features->id) }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
+            <img src="{{ asset('img/uploads/' . $features->image) }}" class="tile-img">
+              <div class="tile-content-sm text-center">
+                <span class="fs25 fc-white dp-bl wwrap">{{ $features->title }}</span>
+                <span class="fs15 fc-white dp-bl mgt5">by: {{ $features->user }}</span>
+              </div>
+            </div>
+          </a>
+          @else
+          <a href="{{ url('create') }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown">
+              <div class="text-center">
+                <span class="fc-black dp-bl mgt5">Nothing posted.</span>
+                <a href="{{ url('create') }}" class="fc-gold">
+                  Click here to create.
+                </a>
+              </div>
+            </div>
+          </a>
+          @endif
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        @if(isset($features))
+          <a href="{{ route('features.show', $features->id) }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
+            <img src="{{ asset('img/uploads/' . $features->image) }}" class="tile-img">
+              <div class="tile-content-sm text-center">
+                <span class="fs25 fc-white dp-bl wwrap">{{ $features->title }}</span>
+                <span class="fs15 fc-white dp-bl mgt5">by: {{ $features->user }}</span>
+              </div>
+            </div>
+          </a>
+          @else
+          <a href="{{ url('create') }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown">
+              <div class="text-center">
+                <span class="fc-black dp-bl mgt5">Nothing posted.</span>
+                <a href="{{ url('create') }}" class="fc-gold">
+                  Click here to create.
+                </a>
+              </div>
+            </div>
+          </a>
+          @endif
+      </div>
+      <div class="col-md-8">
+        <div class="tile-group-wide bgc-lbrown bd-rad10 mgb20 box-shadow">
+            <div class="text-center pd15">
+              <span class="fs25 fc-white dp-bl wwrap">Announcements</span>
+            </div>
+          </div>
+      </div>
     </div>
   </div>
 @stop
@@ -58,10 +214,10 @@
           next:'<a class="unslider-arrow next fs40 fc-red lh1 f-shadow"><i class="glyphicon glyphicon-chevron-right"></i></a>'
         }
       });
-      $('#slider').on('mouseenter',function(){
-        $(this).data('unslider').stop();
+      $('.tile-content').on('mouseenter',function(){
+        $('#slider').data('unslider').stop();
       }).on('mouseleave',function(){
-        $(this).data('unslider').start();
+        $('#slider').data('unslider').start();
       });
     });
   </script>

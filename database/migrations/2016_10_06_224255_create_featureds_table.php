@@ -15,6 +15,8 @@ class CreateFeaturedsTable extends Migration
     {
         Schema::create('featureds', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('category');
+            $table->integer('category_id');
             $table->string('title');
             $table->longText('body');
             $table->string('image')->default('default.jpg');

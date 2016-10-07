@@ -74,6 +74,9 @@
 
 .ht34 { height: 34px; }
 .ht35 { height: 35px; }
+.ht50 { height: 50px; }
+.ht60 { height: 60px; }
+.ht70 { height: 70px; }
 .ht80 { height: 80px; }
 .ht100 { height: 100px; }
 .ht120 { height: 120px; }
@@ -220,18 +223,17 @@ a:hover, a:focus, a:active { text-decoration: none; }
 .bgc-white-hover:hover {
 	background-color: rgba(255,255,255,.5);
 }
-
 .navbar-default .navbar-nav>li>a {
-	transition: 300ms ease-in-out;
+	border-bottom: solid 2px transparent;
+	transition: all 300ms ease-in-out;
 }
+
 .navbar-default .navbar-nav>li>a:hover { 
-	background-color: gold;
-	color: #000 !important;
+	border-bottom: solid 2px #ffc107 !important;
  }
 
  .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
- 	background-color: gold;
-	color: #000 !important;
+	border-bottom: solid 2px #ffc107 !important;
  }
 
 /*Tile group*/
@@ -252,6 +254,12 @@ a:hover, a:focus, a:active { text-decoration: none; }
 .tile-group-long {
 	position: relative;
 	width: 100%;
+
+}
+.tile-group-wide {
+	position: relative;
+	width: 100%;
+	height: 213px;
 }
 .tile-img {
 	position: absolute;
@@ -261,6 +269,17 @@ a:hover, a:focus, a:active { text-decoration: none; }
 	right: 0;
 	border: 0;
 	width: 100%;
+	height: 100%;
+}
+.tile-content-sm {
+	position: absolute;
+	top: 70%;
+	z-index: 2;
+	background-color: rgba(0,0,0,.2);
+	text-shadow: 0 0 5px rgba(0,0,0,.5);
+	width: 100%;
+	transition: all 500ms ease-in-out;
+	padding: 10px 0 0;
 	height: 100%;
 }
 .tile-content {
