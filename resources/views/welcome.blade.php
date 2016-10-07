@@ -75,7 +75,7 @@
             </a>
             @else
             <a href="{{ url('create') }}" class="fc-black">
-              <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown">
+              <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown box-shadow">
                 <div class="text-center">
                   <span class="fc-black dp-bl mgt5">Nothing posted.</span>
                   <a href="{{ url('create') }}" class="fc-gold">
@@ -90,56 +90,6 @@
 
     <div class="row">
       <div class="col-md-4">
-        @if(isset($opinion))
-          <a href="{{ route('opinion.show', $opinion->id) }}" class="fc-black">
-            <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
-            <img src="{{ asset('img/uploads/' . $opinion->image) }}" class="tile-img">
-              <div class="tile-content-sm text-center">
-                <span class="fs25 fc-white dp-bl wwrap">{{ $opinion->title }}</span>
-                <span class="fs15 fc-white dp-bl mgt5">by: {{ $opinion->user }}</span>
-              </div>
-            </div>
-          </a>
-          @else
-          <a href="{{ url('create') }}" class="fc-black">
-            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown">
-              <div class="text-center">
-                <span class="fc-black dp-bl mgt5">Nothing posted.</span>
-                <a href="{{ url('create') }}" class="fc-gold">
-                  Click here to create.
-                </a>
-              </div>
-            </div>
-          </a>
-          @endif
-      </div>
-
-      <div class="col-md-4">
-        @if(isset($opinion))
-          <a href="{{ route('opinion.show', $opinion->id) }}" class="fc-black">
-            <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
-            <img src="{{ asset('img/uploads/' . $opinion->image) }}" class="tile-img">
-              <div class="tile-content-sm text-center">
-                <span class="fs25 fc-white dp-bl wwrap">{{ $opinion->title }}</span>
-                <span class="fs15 fc-white dp-bl mgt5">by: {{ $opinion->user }}</span>
-              </div>
-            </div>
-          </a>
-          @else
-          <a href="{{ url('create') }}" class="fc-black">
-            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown">
-              <div class="text-center">
-                <span class="fc-black dp-bl mgt5">Nothing posted.</span>
-                <a href="{{ url('create') }}" class="fc-gold">
-                  Click here to create.
-                </a>
-              </div>
-            </div>
-          </a>
-          @endif
-      </div>
-
-      <div class="col-md-4">
         @if(isset($features))
           <a href="{{ route('features.show', $features->id) }}" class="fc-black">
             <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
@@ -152,7 +102,7 @@
           </a>
           @else
           <a href="{{ url('create') }}" class="fc-black">
-            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown">
+            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown box-shadow">
               <div class="text-center">
                 <span class="fc-black dp-bl mgt5">Nothing posted.</span>
                 <a href="{{ url('create') }}" class="fc-gold">
@@ -162,23 +112,39 @@
             </div>
           </a>
           @endif
+      </div>
+
+      <div class="col-md-4">
+          <a href="{{ url('create') }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown box-shadow">
+              <div class="text-center">
+                <span class="fc-black dp-bl mgt5">Nothing posted.</span>
+                <a href="{{ url('create') }}" class="fc-gold">
+                  Click here to create.
+                </a>
+              </div>
+            </div>
+          </a>
+      </div>
+
+      <div class="col-md-4">
+          </a>
+          <a href="{{ url('create') }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown box-shadow">
+              <div class="text-center">
+                <span class="fc-black dp-bl mgt5">Nothing posted.</span>
+                <a href="{{ url('create') }}" class="fc-gold">
+                  Click here to create.
+                </a>
+              </div>
+            </div>
+          </a>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4">
-        @if(isset($features))
-          <a href="{{ route('features.show', $features->id) }}" class="fc-black">
-            <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
-            <img src="{{ asset('img/uploads/' . $features->image) }}" class="tile-img">
-              <div class="tile-content-sm text-center">
-                <span class="fs25 fc-white dp-bl wwrap">{{ $features->title }}</span>
-                <span class="fs15 fc-white dp-bl mgt5">by: {{ $features->user }}</span>
-              </div>
-            </div>
-          </a>
-          @else
           <a href="{{ url('create') }}" class="fc-black">
-            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown">
+            <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown box-shadow">
               <div class="text-center">
                 <span class="fc-black dp-bl mgt5">Nothing posted.</span>
                 <a href="{{ url('create') }}" class="fc-gold">
@@ -187,7 +153,6 @@
               </div>
             </div>
           </a>
-          @endif
       </div>
       <div class="col-md-8">
         <div class="tile-group-wide bgc-lbrown bd-rad10 mgb20 box-shadow">

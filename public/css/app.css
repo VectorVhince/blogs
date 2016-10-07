@@ -233,7 +233,7 @@ a:hover, a:focus, a:active { text-decoration: none; }
  }
 
  .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
-	border-bottom: solid 2px #ffc107 !important;
+	/*border-bottom: solid 2px #ffc107 !important;*/
  }
 
 /*Tile group*/
