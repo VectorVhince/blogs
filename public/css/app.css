@@ -53,6 +53,7 @@
 .bd-rad10 { border-radius: 10px !important; }
 .bdtlr-rad10 { border-top-right-radius: 10px !important; border-top-left-radius: 10px !important; }
 .bd0 { border: none; }
+.bdb0:hover { border-bottom: solid 2px transparent !important; }
 .bdl-gold { border-left: solid 5px gold; }
 .bdb-black { border-bottom: solid 4px #000; }
 
@@ -132,6 +133,7 @@
 
 .pd0 { padding: 0 !important; }
 .pd5 { padding: 5px !important; }
+.pd10 { padding: 10px !important; }
 .pd15 { padding: 15px !important; }
 .pd20 { padding: 20px !important; }
 .pd30 { padding: 30px !important; }
@@ -158,6 +160,8 @@
 .pdh30{ padding-left: 30px !important; padding-right: 30px !important; }
 .pdh45{ padding-left: 45px !important; padding-right: 45px !important; }
 .pdh45 { padding-left: 45px; padding-right: 45px; }
+.pdv0 { padding-top: 0px !important; padding-bottom: 0px !important; }
+.pdv10 { padding-top: 10px !important; padding-bottom: 10px !important; }
 .pdv15 { padding-top: 15px; padding-bottom: 15px; }
 .pdv30 { padding-top: 30px; padding-bottom: 30px; }
 .pdv50 { padding-top: 50px; padding-bottom: 50px; }
@@ -229,11 +233,11 @@ a:hover, a:focus, a:active { text-decoration: none; }
 }
 
 .navbar-default .navbar-nav>li>a:hover { 
-	border-bottom: solid 2px #ffc107 !important;
+	border-bottom: solid 2px #ffc107;
  }
 
  .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
-	/*border-bottom: solid 2px #ffc107 !important;*/
+	border-bottom: solid 2px #ffc107;
  }
 
 /*Tile group*/
@@ -290,7 +294,7 @@ a:hover, a:focus, a:active { text-decoration: none; }
 	text-shadow: 0 0 5px rgba(0,0,0,.5);
 	width: 100%;
 	transition: all 500ms ease-in-out;
-	padding: 10px 0 0;
+	padding: 10px 20px;
 	height: 100%;
 }
 .tile-content:hover {

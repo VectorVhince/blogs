@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEditorsTable extends Migration
+class CreateSportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateEditorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('editors', function (Blueprint $table) {
+        Schema::create('sports', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('editors_title');
-            $table->longText('editors_body');
-            $table->string('editors_img')->default('default.jpg');
-            $table->string('editors_user');
-            $table->string('editors_update');
+            $table->string('category')->default('sports');
+            $table->string('title');
+            $table->longText('body');
+            $table->string('image')->default('default.jpg');
+            $table->string('user');
+            $table->string('update');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateEditorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('editors');
+        Schema::dropIfExists('sports');
     }
 }

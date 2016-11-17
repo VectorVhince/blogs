@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="col-lg-9">
+    <div class="col-lg-8">
         <div class="panel panel-default bd-rad0 box-shadow">
             <div class="panel-body pd45">
                 <div class="mgb40">
@@ -32,7 +32,7 @@
             </div>
         </div>        
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <div class="panel panel-default bd-rad0 box-shadow">
             <div class="panel-body pd15">
                 <div class="mgb30">

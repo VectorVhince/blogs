@@ -8,8 +8,11 @@ use App\Opinion;
 use App\Post;
 use App\News;
 use App\Features;
+use App\Humors;
+use App\Sports;
+use App\Artworks;
 use App\Featured;
-use App\Editors;
+use App\Announcements;
 
 class HomeController extends Controller
 {
@@ -24,8 +27,12 @@ class HomeController extends Controller
         $news = News::orderBy('id', 'desc')->first();
         $opinion = Opinion::orderBy('id', 'desc')->first();
         $features = Features::orderBy('id', 'desc')->first();
+        $humors = Humors::orderBy('id', 'desc')->first();
+        $sports = Sports::orderBy('id', 'desc')->first();
+        $artworks = Artworks::orderBy('id', 'desc')->first();
+        $announcements = Announcements::orderBy('id', 'desc')->take(8)->get();
 
-        return view('welcome')->with('featured', $featured)->with('news', $news)->with('opinion', $opinion)->with('features', $features);
+        return view('welcome')->with('featured', $featured)->with('news', $news)->with('opinion', $opinion)->with('features', $features)->with('humors', $humors)->with('sports', $sports)->with('artworks', $artworks)->with('announcements', $announcements);
     }
 
     public function create()
@@ -33,11 +40,26 @@ class HomeController extends Controller
         return view('create_post');
     }
 
+    public function createAnnouncement()
+    {
+        return view('create_announcement');
+    }
+
+    public function storeAnnouncement(Request $request)
+    {
+        $announcements = new Announcements;
+        $announcements->create($request->all());
+        return redirect()->route('home');
+    }
+
     public function featured($id,$category)
     {
         $news = News::find($id);
         $opinion = Opinion::find($id);
         $features = Features::find($id);
+        $humors = Humors::find($id);
+        $sports = Sports::find($id);
+        $artworks = Artworks::find($id);
 
         switch ($category) {
             case 'news':
@@ -50,6 +72,18 @@ class HomeController extends Controller
 
             case 'features':
                 $get_featured = $features;
+                break;
+
+            case 'humors':
+                $get_featured = $humors;
+                break;
+
+            case 'sports':
+                $get_featured = $sports;
+                break;
+
+            case 'artworks':
+                $get_featured = $artworks;
                 break;
         }
 

@@ -2,49 +2,66 @@
 
 @section('content')
 <div class="container">
-    <div class="col-lg-9">
+    <div class="col-lg-8">
         <div class="panel panel-default bd-rad0 box-shadow">
             <div class="panel-body pd45">
-                <form action="" method="post" enctype="multipart/form-data" id="formSubmit">
+                <div class="col-md-8 mgb40">
+                    <span class="fs40">{{ $sports->title }}</span>
+                </div>
+                <div class="col-md-4">
+                @if (Auth::user())
+                    <form action="{{ route('sports.destroy',$sports->id) }}" method="post">
+                    {{ csrf_field() }}
+                    {{ method_field('delete') }}
+                        <ul class="list-inline">
+                            <li class="pd0"><a href="{{ route('featured',[$sports->id,$sports->category]) }}"><img src="{{ asset('/img/featured.png') }}" class="ht60"></a></li>
+                            <li class="pd0"><a href="{{ route('sports.edit',$sports->id) }}"><img src="{{ asset('/img/edit.png') }}" class="ht60"></a></li>
+                            <li class="pd0"><button type="submit" class="bgc0 bd0 pd0"><img src="{{ asset('/img/delete.png') }}" class="ht60"></button></li>
+                        </ul>
+                    </form>
+                @endif
+                </div>
+                <img src="{{ asset('/img/uploads/' . $sports->image) }}" class="img-responsive mgb40">
+                <p>{{ $sports->body }}</p>
+                <div>
+                    <span class="text-muted">Author: {{ $sports->user }}</span> | <span class="text-muted">{{ date_format($sports->created_at, 'F d Y') }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default bd-rad0 box-shadow mgt40">
+            <div class="panel-body pd45">  
+                <form action="{{ route('sports.comment',$sports->id) }}" method="post" enctype="multipart/form-data" id="formSubmit">
                     {{ csrf_field() }}
                     <div class="mgb40">
-                        <span class="fs40">Add New Post</span>
+                        <span class="fs40">Leave a comment</span>
                     </div>
-                    <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
-                        <select id="category" name="category" class="form-control mgb20 bd-rad0 box-shadow">
-                            <option disabled selected>Select Category</option>
-                            <option value="1">News</option>
-                            <option value="2">Opinion</option>
-                            <option value="3">Features</option>
-                            <option value="4">Humor</option>
-                            <option value="5">Sports</option>
-                            <option value="6">Artwork</option>
-                        </select>
-                        @if ($errors->has('category'))
-                            <span class="help-block"><strong>{{ $errors->first('category') }}</strong></span>
+                    <div class="form-group{{ $errors->has('comment_name') ? ' has-error' : '' }}">
+                        <input type="text" name="comment_name" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Name" value="{{ old('comment_name') }}">
+                        @if ($errors->has('comment_name'))
+                            <span class="help-block"><strong>{{ $errors->first('comment_name') }}</strong></span>
                         @endif
                     </div>
-                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                        <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ old('title') }}">
-                        @if ($errors->has('title'))
-                            <span class="help-block"><strong>{{ $errors->first('title') }}</strong></span>
+                    <div class="form-group{{ $errors->has('comment_email') ? ' has-error' : '' }}">
+                        <input type="email" name="comment_email" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Email Address" value="{{ old('comment_email') }}">
+                        @if ($errors->has('comment_email'))
+                            <span class="help-block"><strong>{{ $errors->first('comment_email') }}</strong></span>
                         @endif
                     </div>
-                    <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                        <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ old('body') }}</textarea>
-                        @if ($errors->has('body'))
-                            <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
+                    <div class="form-group{{ $errors->has('comment_dept') ? ' has-error' : '' }}">
+                        <input type="text" name="comment_dept" class="form-control mgb20 bd-rad0 box-shadow" placeholder="College Department" value="{{ old('comment_dept') }}">
+                        @if ($errors->has('comment_dept'))
+                            <span class="help-block"><strong>{{ $errors->first('comment_dept') }}</strong></span>
                         @endif
                     </div>
-                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                        <input type="file" name="image" class="form-control mgb20 bd-rad0 box-shadow">
-                        @if ($errors->has('image'))
-                            <span class="help-block"><strong>{{ $errors->first('image') }}</strong></span>
+                    <div class="form-group{{ $errors->has('comment_message') ? ' has-error' : '' }}">
+                        <textarea name="comment_message" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Message">{{ old('comment_message') }}</textarea>
+                        @if ($errors->has('comment_message'))
+                            <span class="help-block"><strong>{{ $errors->first('comment_message') }}</strong></span>
                         @endif
                     </div>
-                    <div class="col-md-4 col-md-offset-4 text-center mgt40">
+                    <div class="col-md-6 col-md-offset-3 text-center mgt40">
                         <div class="form-inline">
-                            <button type="submit" class="btn btn-success bd-rad0 fs20">Publish</button>
+                            <button type="submit" class="btn btn-success bd-rad0 fs20">Post</button>
                             <button type="reset" class="btn btn-danger bd-rad0 fs20">Cancel</button>
                         </div>
                     </div>
@@ -52,7 +69,7 @@
             </div>
         </div>        
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <div class="panel panel-default bd-rad0 box-shadow">
             <div class="panel-body pd15">
                 <div class="mgb30">
@@ -194,75 +211,22 @@
                 </ul>
             </div>
         </div>
+        <div class="panel panel-default bd-rad0 box-shadow mgt40">
+            <div class="panel-body pd15">
+                <span class="dp-bl fs25">RECENT COMMENTS</span>
+                <hr class="mgb20">
+                @foreach($comments as $comment)
+                    <div class="mgb20 pd15">
+                        <span class="dp-bl fs20 mgb10">{{ $comment->comment_name }} of {{ $comment->comment_dept }}</span>
+                        <p class="mgl20">{{ $comment->comment_message }}</p>
+                        <div class="text-right">
+                            <span class="text-muted">- {{ date_format($comment->created_at, 'F d, Y') }}</span>
+                        </div>
+                    </div>
+                    <hr class="mgb20">
+                @endforeach
+            </div>
+        </div>
     </div>
 </div>
 @endsection
-
-@section('script')
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#category').on('change', function(){
-                switch ($(this).val()) {
-                    case '1':
-                        $('#formSubmit').attr('action','{{ route('news.store') }}');
-                        break;
-                    case '2':
-                        $('#formSubmit').attr('action','{{ route('opinion.store') }}');
-                        break;
-                    case '3':
-                        $('#formSubmit').attr('action','{{ route('features.store') }}');
-                        break;
-                    case '4':
-                        $('#formSubmit').attr('action','{{ route('humors.store') }}');
-                        break;
-                    case '5':
-                        $('#formSubmit').attr('action','{{ route('sports.store') }}');
-                        break;
-                    case '6':
-                        $('#formSubmit').attr('action','{{ route('artworks.store') }}');
-                        break;
-                }
-            });
-        });
-    </script>
-
-    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script type="text/javascript">
-        function setPlainText() {
-            var ed = tinyMCE.get('textarea');
-
-            ed.pasteAsPlainText = true;  
-
-            //adding handlers crossbrowser
-            if (tinymce.isOpera || /Firefox\/2/.test(navigator.userAgent)) {
-                ed.onKeyDown.add(function (ed, e) {
-                    if (((tinymce.isMac ? e.metaKey : e.ctrlKey) && e.keyCode == 86) || (e.shiftKey && e.keyCode == 45))
-                        ed.pasteAsPlainText = true;
-                });
-            } else {            
-                ed.onPaste.addToTop(function (ed, e) {
-                    ed.pasteAsPlainText = true;
-                });
-            }
-        };
-
-        tinymce.init({ 
-            selector:'textarea',
-            plugins: "autoresize paste",
-            toolbar: "bold italic numlist bullist indent outdent",
-            oninit : "setPlainText",
-            menubar: false,
-            statusbar: false,
-            force_br_newlines : true,
-            force_p_newlines : false,
-            forced_root_block : '',
-            setup : function(ed){
-                ed.on('init', function(){
-                    this.getDoc().body.style.fontSize = '13px';
-                    this.getDoc().body.style.fontFamily = 'Helvetica';
-                    this.getDoc().body.style.color = '#555';
-                });
-            }
-        });
-    </script>
-@stop

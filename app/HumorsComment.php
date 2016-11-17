@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EditorsComment extends Model
+class HumorsComment extends Model
 {
     //
 }

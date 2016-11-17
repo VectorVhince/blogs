@@ -5,33 +5,20 @@
     <div class="col-lg-9">
         <div class="panel panel-default bd-rad0 box-shadow">
             <div class="panel-body pd45">
-                <form action="" method="post" enctype="multipart/form-data" id="formSubmit">
+                <form action="{{ route('sports.update',$sports->id) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
+                    {{ method_field('patch') }}
                     <div class="mgb40">
-                        <span class="fs40">Add New Post</span>
-                    </div>
-                    <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
-                        <select id="category" name="category" class="form-control mgb20 bd-rad0 box-shadow">
-                            <option disabled selected>Select Category</option>
-                            <option value="1">News</option>
-                            <option value="2">Opinion</option>
-                            <option value="3">Features</option>
-                            <option value="4">Humor</option>
-                            <option value="5">Sports</option>
-                            <option value="6">Artwork</option>
-                        </select>
-                        @if ($errors->has('category'))
-                            <span class="help-block"><strong>{{ $errors->first('category') }}</strong></span>
-                        @endif
+                        <span class="fs40">Edit Post</span>
                     </div>
                     <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                        <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ old('title') }}">
+                        <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ $sports->title }}">
                         @if ($errors->has('title'))
                             <span class="help-block"><strong>{{ $errors->first('title') }}</strong></span>
                         @endif
                     </div>
                     <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                        <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ old('body') }}</textarea>
+                        <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ $sports->body }}</textarea>
                         @if ($errors->has('body'))
                             <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
                         @endif
@@ -197,72 +184,3 @@
     </div>
 </div>
 @endsection
-
-@section('script')
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#category').on('change', function(){
-                switch ($(this).val()) {
-                    case '1':
-                        $('#formSubmit').attr('action','{{ route('news.store') }}');
-                        break;
-                    case '2':
-                        $('#formSubmit').attr('action','{{ route('opinion.store') }}');
-                        break;
-                    case '3':
-                        $('#formSubmit').attr('action','{{ route('features.store') }}');
-                        break;
-                    case '4':
-                        $('#formSubmit').attr('action','{{ route('humors.store') }}');
-                        break;
-                    case '5':
-                        $('#formSubmit').attr('action','{{ route('sports.store') }}');
-                        break;
-                    case '6':
-                        $('#formSubmit').attr('action','{{ route('artworks.store') }}');
-                        break;
-                }
-            });
-        });
-    </script>
-
-    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script type="text/javascript">
-        function setPlainText() {
-            var ed = tinyMCE.get('textarea');
-
-            ed.pasteAsPlainText = true;  
-
-            //adding handlers crossbrowser
-            if (tinymce.isOpera || /Firefox\/2/.test(navigator.userAgent)) {
-                ed.onKeyDown.add(function (ed, e) {
-                    if (((tinymce.isMac ? e.metaKey : e.ctrlKey) && e.keyCode == 86) || (e.shiftKey && e.keyCode == 45))
-                        ed.pasteAsPlainText = true;
-                });
-            } else {            
-                ed.onPaste.addToTop(function (ed, e) {
-                    ed.pasteAsPlainText = true;
-                });
-            }
-        };
-
-        tinymce.init({ 
-            selector:'textarea',
-            plugins: "autoresize paste",
-            toolbar: "bold italic numlist bullist indent outdent",
-            oninit : "setPlainText",
-            menubar: false,
-            statusbar: false,
-            force_br_newlines : true,
-            force_p_newlines : false,
-            forced_root_block : '',
-            setup : function(ed){
-                ed.on('init', function(){
-                    this.getDoc().body.style.fontSize = '13px';
-                    this.getDoc().body.style.fontFamily = 'Helvetica';
-                    this.getDoc().body.style.color = '#555';
-                });
-            }
-        });
-    </script>
-@stop

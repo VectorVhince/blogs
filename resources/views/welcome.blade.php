@@ -115,6 +115,17 @@
       </div>
 
       <div class="col-md-4">
+        @if(isset($humors))
+          <a href="{{ route('humors.show', $humors->id) }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
+            <img src="{{ asset('img/uploads/' . $humors->image) }}" class="tile-img">
+              <div class="tile-content-sm text-center">
+                <span class="fs25 fc-white dp-bl wwrap">{{ $humors->title }}</span>
+                <span class="fs15 fc-white dp-bl mgt5">by: {{ $humors->user }}</span>
+              </div>
+            </div>
+          </a>
+          @else
           <a href="{{ url('create') }}" class="fc-black">
             <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown box-shadow">
               <div class="text-center">
@@ -125,10 +136,21 @@
               </div>
             </div>
           </a>
+          @endif
       </div>
 
       <div class="col-md-4">
+        @if(isset($sports))
+          <a href="{{ route('sports.show', $sports->id) }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
+            <img src="{{ asset('img/uploads/' . $sports->image) }}" class="tile-img">
+              <div class="tile-content-sm text-center">
+                <span class="fs25 fc-white dp-bl wwrap">{{ $sports->title }}</span>
+                <span class="fs15 fc-white dp-bl mgt5">by: {{ $sports->user }}</span>
+              </div>
+            </div>
           </a>
+          @else
           <a href="{{ url('create') }}" class="fc-black">
             <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown box-shadow">
               <div class="text-center">
@@ -139,10 +161,22 @@
               </div>
             </div>
           </a>
+          @endif
       </div>
     </div>
     <div class="row">
       <div class="col-md-4">
+        @if(isset($artworks))
+          <a href="{{ route('artworks.show', $artworks->id) }}" class="fc-black">
+            <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
+            <img src="{{ asset('img/uploads/' . $artworks->image) }}" class="tile-img">
+              <div class="tile-content-sm text-center">
+                <span class="fs25 fc-white dp-bl wwrap">{{ $artworks->title }}</span>
+                <span class="fs15 fc-white dp-bl mgt5">by: {{ $artworks->user }}</span>
+              </div>
+            </div>
+          </a>
+          @else
           <a href="{{ url('create') }}" class="fc-black">
             <div class="tile-group-sm bd-rad10 mgb20 bgc-lbrown box-shadow">
               <div class="text-center">
@@ -153,11 +187,17 @@
               </div>
             </div>
           </a>
+          @endif
       </div>
       <div class="col-md-8">
         <div class="tile-group-wide bgc-lbrown bd-rad10 mgb20 box-shadow">
             <div class="text-center pd15">
               <span class="fs25 fc-white dp-bl wwrap">Announcements</span>
+                <ol class="text-left">
+                  @foreach($announcements as $announcement)
+                    <li>{{ $announcement->body }}</li>
+                  @endforeach
+                </ol>
             </div>
           </div>
       </div>

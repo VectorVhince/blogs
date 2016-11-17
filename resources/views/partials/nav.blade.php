@@ -24,9 +24,9 @@
                 <li class="fs17 pdh15"><a class="fc-black" href=" {{ route('news.index') }} ">NEWS</a></li>
                 <li class="fs17 pdh15"><a class="fc-black" href=" {{ route('opinion.index') }} ">OPINION</a></li>
                 <li class="fs17 pdh15"><a class="fc-black" href=" {{ route('features.index') }} ">FEATURES</a></li>
-                <li class="fs17 pdh15"><a class="fc-black" href=" {{ route('features.index') }} ">HUMOR</a></li>
-                <li class="fs17 pdh15"><a class="fc-black" href=" {{ route('features.index') }} ">SPORTS</a></li>
-                <li class="fs17 pdh15"><a class="fc-black" href=" {{ route('features.index') }} ">ARTWORK</a></li>
+                <li class="fs17 pdh15"><a class="fc-black" href=" {{ route('humors.index') }} ">HUMOR</a></li>
+                <li class="fs17 pdh15"><a class="fc-black" href=" {{ route('sports.index') }} ">SPORTS</a></li>
+                <li class="fs17 pdh15"><a class="fc-black" href=" {{ route('artworks.index') }} ">ARTWORK</a></li>
                 <li class="fs17 pdh15 hidden"><a class="fc-black" href=" {{ route('editors.index') }} " class="fc-black fs17 pdh15">EDITOR'S NOTE</a></li>
             </ul>
 
@@ -41,7 +41,7 @@
                         </div>
                     </li>
                 @if (Auth::guest())
-                    <li class="mgh15"><a href="{{ url('/login') }}" class="btn-red-o bd-rad10 fc-white pd15 fs20"><i class="glyphicon glyphicon-user"></i> Log In</a></li>
+                    <li class="mg15"><a href="{{ url('/login') }}" class="pdv0 pdh15 mgh15 bdb0"><button class="btn-red-o bd-rad10 fc-white pd15"><i class="glyphicon glyphicon-user"></i> Log In</button></a></li>
                     <li class="hidden"><a href="{{ url('/register') }}" class="fc-black">Register</a></li>
                 @else
                     <li class="dropdown mgr15">
@@ -51,6 +51,7 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ url('create') }}">Add New Post</a></li>
+                            <li><a href="{{ url('create/announcement') }}">Make Announcement</a></li>
                             <li>
                                 <a href="{{ url('/logout') }}"
                                     onclick="event.preventDefault();

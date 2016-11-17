@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEditorsCommentsTable extends Migration
+class CreateArtworksCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateEditorsCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('editors_comments', function (Blueprint $table) {
+        Schema::create('artworks_comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('editors_id')->unsigned();
-            $table->foreign('editors_id')->references('id')->on('editors')->onDelete('cascade');
+            $table->integer('artworks_id')->unsigned();
+            $table->foreign('artworks_id')->references('id')->on('artworks')->onDelete('cascade');
             $table->string('comment_name')->nullable();
             $table->string('comment_email')->nullable();
             $table->string('comment_dept')->nullable();
@@ -32,6 +32,6 @@ class CreateEditorsCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('editors_comments');
+        Schema::dropIfExists('artworks_comments');
     }
 }
