@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Features;
 use App\FeaturesComment;
+use App\Featured;
 use Auth;
 
 class FeaturesController extends Controller
@@ -130,6 +131,7 @@ class FeaturesController extends Controller
      */
     public function destroy($id)
     {
+        Featured::where('category_id', Features::find($id)->id)->delete();
         Features::find($id)->delete();
 
         return redirect()->route('features.index');    

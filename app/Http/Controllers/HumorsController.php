@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Humors;
 use App\HumorsComment;
+use App\Featured;
 use Auth;
 
 class HumorsController extends Controller
@@ -130,6 +131,7 @@ class HumorsController extends Controller
      */
     public function destroy($id)
     {
+        Featured::where('category_id', Humors::find($id)->id)->delete();
         Humors::find($id)->delete();
 
         return redirect()->route('humors.index');    

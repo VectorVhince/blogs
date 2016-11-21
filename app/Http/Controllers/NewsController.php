@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\News;
 use App\NewsComment;
+use App\Featured;
 use Auth;
 
 class NewsController extends Controller
@@ -18,9 +19,9 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $newss = News::orderBy('id', 'desc')->get();
+        $news = News::orderBy('id', 'desc')->get();
 
-        return view('news.index')->with('news', $newss);
+        return view('news.index')->with('news', $news);
     }
 
     /**
@@ -130,6 +131,8 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
+        Featured::where('category_id', News::find($id)->id)->delete();
+        
         News::find($id)->delete();
 
         return redirect()->route('news.index');    

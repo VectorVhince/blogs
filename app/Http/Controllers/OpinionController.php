@@ -8,7 +8,7 @@ use App\Http\Requests;
 
 use App\Opinion;
 use App\OpinionComment;
-
+use App\Featured;
 use Auth;
 
 class OpinionController extends Controller
@@ -132,6 +132,7 @@ class OpinionController extends Controller
      */
     public function destroy($id)
     {
+        Featured::where('category_id', News::find($id)->id)->delete();
         Opinion::find($id)->delete();
 
         return redirect()->route('opinion.index');

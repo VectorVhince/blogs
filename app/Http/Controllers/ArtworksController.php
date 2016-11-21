@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Artworks;
 use App\ArtworksComment;
+use App\Featured;
 use Auth;
 
 class ArtworksController extends Controller
@@ -130,6 +131,7 @@ class ArtworksController extends Controller
      */
     public function destroy($id)
     {
+        Featured::where('category_id', Artworks::find($id)->id)->delete();
         Artworks::find($id)->delete();
 
         return redirect()->route('artworks.index');    

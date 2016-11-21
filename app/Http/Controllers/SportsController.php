@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Sports;
 use App\SportsComment;
+use App\Featured;
 use Auth;
 
 class SportsController extends Controller
@@ -130,6 +131,7 @@ class SportsController extends Controller
      */
     public function destroy($id)
     {
+        Featured::where('category_id', News::find($id)->id)->delete();
         Sports::find($id)->delete();
 
         return redirect()->route('sports.index');    
