@@ -42,7 +42,7 @@
                                 <div class="{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <div class="money-group box-shadow">
                                         <span class="money-icon"><i class="glyphicon glyphicon-user fc-gold"></i></span>
-                                        <input id="email" type="email" class="form-control money-input bd-rad0 dp-bl" name="email" value="{{ old('email') }}" required placeholder="Email Address" autofocus>
+                                        <input id="email" type="email" class="form-control money-input bd-rad0 dp-bl" name="email" value="{{ old('email') }}" required placeholder="Username or Email Address" autofocus>
                                     </div>
                                     @if ($errors->has('email'))
                                         <span class="help-block">

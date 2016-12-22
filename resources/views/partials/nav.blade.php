@@ -1,7 +1,13 @@
 <div class="container pdh0">
-    <div class="text-center wd100P mgb20">
-        <img src="{{ asset('/img/TheAngelite.png') }}">
-        <span class="fs60 fc-red">THE ANGELITE</span>
+    <div class="text-center wd100P mgv20">
+        <div style="display: flex; padding: 0 50px;">
+            <div class="text-right" style="width: 30%;">
+                <img src="{{ asset('/img/TheAngelite.png') }}" style="height: 100px; flex: 1;">
+                
+            </div>
+            <div class="fc-red text-left" style="font-size: 70px; width: 70%; font-family: arongrotesque">THE ANGELITE</div>
+            
+        </div>
     </div>
     <nav class="navbar navbar-default navbar-static-top bgc0 bd0">
         <div class="navbar-header">
