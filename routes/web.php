@@ -13,6 +13,8 @@
 
 Auth::routes();
 
+// Route::post('login', 'LoginController@postLogin')->name('login');
+
 Route::resource('posts', 'PostController');
 
 Route::resource('opinion', 'OpinionController');

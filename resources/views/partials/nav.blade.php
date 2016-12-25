@@ -1,7 +1,11 @@
 <div class="container pdh0">
-    <div class="text-center wd100P mgb20">
-        <img src="{{ asset('/img/TheAngelite.png') }}">
-        <span class="fs60 fc-red">THE ANGELITE</span>
+    <div class="text-center wd100P mgv20">
+        <div style="display: flex; padding: 0 50px;">
+            <div class="text-right" style="width: 30%;">
+                <img src="{{ asset('/img/TheAngelite.png') }}" style="height: 100px; flex: 1;">                
+            </div>
+            <div class="fc-red text-left" style="font-size: 70px; width: 70%; font-family: arongrotesque">THE ANGELITE</div>
+        </div>
     </div>
     <nav class="navbar navbar-default navbar-static-top bgc0 bd0">
         <div class="navbar-header">
@@ -33,11 +37,10 @@
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
-                    <li class="mgr10 hidden">
-                        <div class="search-group">
-                            <span class="search-icon"><i class="glyphicon glyphicon-search"></i></span>
-                            <input type="text" name="" class="form-control search-input" placeholder="Search..">
-                            <button class="search-btn">Search</button>
+                    <li class="mgr10">
+                        <div style="display: flex;">
+                            <input type="text" name="" class="form-control" placeholder="Search.." style="flex: 1;">
+                            <span class=""><i class="glyphicon glyphicon-search"></i></span>
                         </div>
                     </li>
                 @if (Auth::guest())

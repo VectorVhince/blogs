@@ -363,3 +363,15 @@ footer {
 	width: 100%;
 	height: 60px;
 }
+
+/*fonts*/
+
+@font-face{
+	font-family: thegould;
+	src: url('/fonts/The Gould St.ttf');
+}
+
+@font-face{
+	font-family: arongrotesque;
+	src: url('/fonts/aron_grotesque_regular.ttf');
+}
