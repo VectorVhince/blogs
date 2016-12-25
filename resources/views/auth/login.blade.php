@@ -27,9 +27,13 @@
 <body>
 
     <div class="container">
-        <div class="text-center wd100P mgb20">
-            <img src="{{ asset('/img/TheAngelite.png') }}">
-            <span class="fs60 fc-red">THE ANGELITE</span>
+        <div class="text-center wd100P mgv20">
+            <div style="display: flex; padding: 0 50px;">
+                <div class="text-right" style="width: 30%;">
+                    <img src="{{ asset('/img/TheAngelite.png') }}" style="height: 100px; flex: 1;">                
+                </div>
+                <div class="fc-red text-left" style="font-size: 70px; width: 70%; font-family: arongrotesque">THE ANGELITE</div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -42,7 +46,7 @@
                                 <div class="{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <div class="money-group box-shadow">
                                         <span class="money-icon"><i class="glyphicon glyphicon-user fc-gold"></i></span>
-                                        <input id="email" type="email" class="form-control money-input bd-rad0 dp-bl" name="email" value="{{ old('email') }}" required placeholder="Username or Email Address" autofocus>
+                                        <input id="email" type="text" class="form-control money-input bd-rad0 dp-bl" name="login" value="{{ old('login') }}" required placeholder="Username or Email Address" autofocus>
                                     </div>
                                     @if ($errors->has('email'))
                                         <span class="help-block">
