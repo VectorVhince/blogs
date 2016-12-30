@@ -15,6 +15,7 @@ class CreateOpinionsTable extends Migration
     {
         Schema::create('opinions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('category')->default('opinion');
             $table->string('title');
             $table->longText('body');

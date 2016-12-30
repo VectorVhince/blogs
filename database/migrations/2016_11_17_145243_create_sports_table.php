@@ -15,6 +15,7 @@ class CreateSportsTable extends Migration
     {
         Schema::create('sports', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('category')->default('sports');
             $table->string('title');
             $table->longText('body');

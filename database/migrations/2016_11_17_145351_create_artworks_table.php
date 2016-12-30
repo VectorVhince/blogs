@@ -15,6 +15,7 @@ class CreateArtworksTable extends Migration
     {
         Schema::create('artworks', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('category')->default('artworks');
             $table->string('title');
             $table->longText('body');

@@ -2,31 +2,36 @@
 
 @section('content')
 <div class="container">
-    <div class="col-lg-9">
-        <div class="panel panel-default bd-rad0 box-shadow">
-            <div class="panel-body pd45">
-                <form action="{{ route('store.announcement') }}" method="post">
-                    {{ csrf_field() }}
-                    <div class="mgb40">
-                        <span class="fs40">Make Announcement</span>
-                    </div>
-                    <input type="hidden" name="user" value="{{ Auth::user()->name }}">
-                    <input type="hidden" name="update" value="{{ Auth::user()->name }}">
-                    <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                        <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ old('body') }}</textarea>
-                        @if ($errors->has('body'))
-                            <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
-                        @endif
-                    </div>
-                    <div class="col-md-4 col-md-offset-4 text-center mgt40">
-                        <div class="form-inline">
-                            <button type="submit" class="btn btn-success bd-rad0 fs20">Publish</button>
-                            <button type="reset" class="btn btn-danger bd-rad0 fs20">Cancel</button>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default bd-rad0 box-shadow">
+                <div style="height: 20px;" class="bgc-red mg0"></div>
+                <div class="panel-body pdh45">
+                    <form action="{{ route('store.announcement') }}" method="post">
+                        {{ csrf_field() }}
+                        <div class="mgb40 text-center">
+                            <span class="fs40">Make Announcement</span>
+                            <div style="height: 2px;" class="bgc-red mg0"></div>
                         </div>
-                    </div>
-                </form>
-            </div>
-        </div>        
+                        <input type="hidden" name="user" value="{{ Auth::user()->name }}">
+                        <input type="hidden" name="update" value="{{ Auth::user()->name }}">
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                        <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
+                            <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ old('body') }}</textarea>
+                            @if ($errors->has('body'))
+                                <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
+                            @endif
+                        </div>
+                        <div class="col-md-4 col-md-offset-4 text-center mgt40">
+                            <div class="form-inline">
+                                <button type="submit" class="btn btn-success bd-rad0 fs20">Publish</button>
+                                <button type="reset" class="btn btn-danger bd-rad0 fs20">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>        
+        </div>
     </div>
 </div>
 @endsection

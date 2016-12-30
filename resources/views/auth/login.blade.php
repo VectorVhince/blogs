@@ -43,14 +43,14 @@
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                             {{ csrf_field() }}
                             <div class="col-md-8 col-md-offset-2 mgb20">                                
-                                <div class="{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <div class="{{ $errors->has('username') ? ' has-error' : '' }}">
                                     <div class="money-group box-shadow">
                                         <span class="money-icon"><i class="glyphicon glyphicon-user fc-gold"></i></span>
-                                        <input id="email" type="text" class="form-control money-input bd-rad0 dp-bl" name="login" value="{{ old('login') }}" required placeholder="Username or Email Address" autofocus>
+                                        <input id="username" type="text" class="form-control money-input bd-rad0 dp-bl" name="username" value="{{ old('login') }}" required placeholder="Username or Email Address" autofocus>
                                     </div>
-                                    @if ($errors->has('email'))
+                                    @if ($errors->has('username'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('email') }}</strong>
+                                            <strong>{{ $errors->first('username') }}</strong>
                                         </span>
                                     @endif
                                 </div>

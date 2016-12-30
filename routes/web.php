@@ -13,7 +13,11 @@
 
 Auth::routes();
 
-// Route::post('login', 'LoginController@postLogin')->name('login');
+Route::get('search', 'HomeController@search')->name('search');
+
+Route::get('settings', 'HomeController@settings');
+
+Route::get('myposts', 'HomeController@myPosts');
 
 Route::resource('posts', 'PostController');
 

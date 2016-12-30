@@ -16,6 +16,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     
     <!-- Scripts -->
     <script>
@@ -27,12 +28,10 @@
     @yield('style')
 </head>
 <body>
-    
+
     @include('partials.nav')
 
-    <div class="container-fluid pdh45"> 
-        @yield('content')
-    </div>
+    @yield('content')
 
     @include('partials.footer')
 
@@ -41,6 +40,12 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     
     @yield('script')
+
+    <script type="text/javascript">
+        $('#searchIcon').click(function(){
+            $('#searchInput').toggle('slide');
+        });
+    </script>
     
     
 </body>

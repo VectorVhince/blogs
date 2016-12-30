@@ -19,7 +19,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy('id', 'desc')->get();
+        $news = News::orderBy('id', 'desc')->paginate(10);
 
         return view('news.index')->with('news', $news);
     }
@@ -56,6 +56,7 @@ class NewsController extends Controller
 
         $news = new News; 
 
+        $news->user_id = Auth::user()->id;
         $news->title = $request->title;
         $news->body = $request->body;
         $news->image = $fileName;

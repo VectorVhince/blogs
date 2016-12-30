@@ -56,6 +56,7 @@ class OpinionController extends Controller
         }
 
         $opinion = new Opinion;
+        $opinion->user_id = Auth::user()->id;
         $opinion->title = $request->title;
         $opinion->body = $request->body;
         $opinion->image = $fileName;

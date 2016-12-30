@@ -56,6 +56,7 @@ class FeaturesController extends Controller
 
         $features = new features; 
 
+        $features->user_id = Auth::user()->id;
         $features->title = $request->title;
         $features->body = $request->body;
         $features->image = $fileName;

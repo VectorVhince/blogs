@@ -56,6 +56,7 @@ class SportsController extends Controller
 
         $sports = new Sports; 
 
+        $sports->user_id = Auth::user()->id;
         $sports->title = $request->title;
         $sports->body = $request->body;
         $sports->image = $fileName;

@@ -9,7 +9,7 @@
                     <span class="fs40">{{ $artworks->title }}</span>
                 </div>
                 <div class="col-md-4">
-                @if (Auth::user())
+                @if (Auth::user()->id == $artworks->user_id)
                     <form action="{{ route('artworks.destroy',$artworks->id) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}

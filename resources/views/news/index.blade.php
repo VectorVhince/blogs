@@ -2,177 +2,54 @@
 
 @section('content')
 <div class="container">
-    <div class="col-lg-8">
-        <div class="panel panel-default bd-rad0 box-shadow">
-            <div class="panel-body pd45">
-                <div class="mgb40">
-                    <span class="fs40">NEWS</span>
-                </div>
-                @if(!$news->isEmpty())
-                @foreach($news as $new)
-                <div class="row mgb20">
-                    <div class="col-md-12">
-                        <span class="dp-bl fs25 fc-red">{{ $new->title }}</span>
-                        <span class="text-muted">Author: {{ $new->user }}</span> | <span class="text-muted">{{ date_format($new->created_at, 'F d Y') }}</span>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="panel panel-default bd-rad0 box-shadow panel-bg">
+                <div style="height: 20px;" class="bgc-red mg0"></div>
+                <div class="panel-body pdh45">
+                    <div class="mgb20">
+                        <span class="fs40">News</span>
+                        <div style="height: 2px;" class="bgc-red mg0"></div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="{{ asset('/img/uploads/' . $new->image) }}" class="img-responsive">
+                    @if(!$news->isEmpty())
+                    @foreach($news as $new)
+                    <div class="row mgb20">
+                        <div class="col-md-12">
+                            <a href="{{ route('news.show', $new->id) }}"><span class="dp-bl fs25 fc-red">{{ $new->title }}</span></a>
+                            <span class="text-muted">Author: </span>{{ $new->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($new->created_at, 'F d, Y') }}
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <p>{{ substr($new->body,0,400) }}... <a href="{{ route('news.show', $new->id) }}" class="fc-gold">See More</a></p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ asset('/img/uploads/' . $new->image) }}" class="img-responsive">
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{ substr($new->body,0,460) }}... <a href="{{ route('news.show', $new->id) }}" class="fc-red">Read More</a></p>
+                        </div>
                     </div>
+                    <div style="height: 1px;" class="bgc-gray mgv20"></div>
+                    @endforeach
+                    @else
+                    Nothing posted.
+                    @endif
+                    {{ $news->links() }}
                 </div>
-                <hr>
-                @endforeach
-                @else
-                Nothing posted.
-                @endif
+            </div>        
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default bd-rad0 box-shadow">
+                <div style="height: 20px;" class="bgc-red mg0"></div>
+                <div class="panel-body pd15">
+                    <div class="mgb20">
+                        <span class="fs25">Weather News</span>
+                        <div style="height: 2px;" class="bgc-red mg0"></div>
+                    </div>
+                    <a href="http://www.accuweather.com/en/ph/angeles-city/265317/weather-forecast/265317" class="aw-widget-legal"></a>
+                    <div id="awcc1482909407673" class="aw-widget-current"  data-locationkey="" data-unit="c" data-language="en-us" data-useip="true" data-uid="awcc1482909407673"></div>
+                    <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+                </div>
             </div>
-        </div>        
-    </div>
-    <div class="col-lg-4">
-        <div class="panel panel-default bd-rad0 box-shadow">
-            <div class="panel-body pd15">
-                <div class="mgb30">
-                    <span class="fs25">BLOG ARCHIVE</span>
-                </div>
-                <ul class="list-unstyled">
-                    <li data-toggle="collapse" href="#2016"><span class="caret"></span> 2016
-                        <div id="2016" class="collapse">
-                            <ul class="list-unstyled mgl20">
-                                <li data-toggle="collapse" data-parent="#2016" href="#2016J"><span class="caret"></span> January
-                                    <div id="2016J" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2016" href="#2016F"><span class="caret"></span> February
-                                    <div id="2016F" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2016" href="#2016M"><span class="caret"></span> March
-                                    <div id="2016M" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li data-toggle="collapse" href="#2015"><span class="caret"></span> 2015
-                        <div id="2015" class="collapse">
-                            <ul class="list-unstyled mgl20">
-                                <li data-toggle="collapse" data-parent="#2015" href="#2015J"><span class="caret"></span> January
-                                    <div id="2015J" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2015" href="#2015F"><span class="caret"></span> February
-                                    <div id="2015F" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2015" href="#2015M"><span class="caret"></span> March
-                                    <div id="2015M" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li data-toggle="collapse" href="#2014"><span class="caret"></span> 2014
-                        <div id="2014" class="collapse">
-                            <ul class="list-unstyled mgl20">
-                                <li data-toggle="collapse" data-parent="#2014" href="#2014J"><span class="caret"></span> January
-                                    <div id="2014J" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2014" href="#2014F"><span class="caret"></span> February
-                                    <div id="2014F" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2014" href="#2014M"><span class="caret"></span> March
-                                    <div id="2014M" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li data-toggle="collapse" href="#2013"><span class="caret"></span> 2013
-                        <div id="2013" class="collapse">
-                            <ul class="list-unstyled mgl20">
-                                <li data-toggle="collapse" data-parent="#2013" href="#2013J"><span class="caret"></span> January
-                                    <div id="2013J" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2013" href="#2013F"><span class="caret"></span> February
-                                    <div id="2013F" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2013" href="#2013M"><span class="caret"></span> March
-                                    <div id="2013M" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>                        
-                </ul>
-            </div>
+            @include('partials.archive')
         </div>
     </div>
 </div>

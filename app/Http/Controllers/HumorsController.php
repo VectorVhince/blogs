@@ -56,6 +56,7 @@ class HumorsController extends Controller
 
         $humors = new Humors; 
 
+        $humors->user_id = Auth::user()->id;
         $humors->title = $request->title;
         $humors->body = $request->body;
         $humors->image = $fileName;

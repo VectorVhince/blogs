@@ -100,4 +100,30 @@ class HomeController extends Controller
 
         return redirect()->route('home');
     }
+
+    public function search(Request $request)
+    {
+        $news = News::where(function($query) use ($request) {
+            if ($search=$request->get('search')) {
+                $query->orWhere('title', 'like', '%' . $search . '%');
+                $query->orWhere('body', 'like', '%' . $search . '%');
+                $query->orWhere('user', 'like', '%' . $search . '%');
+            }
+        })->orderBy('id','desc');
+
+        $items = $news->paginate(10);
+        // dd($items);
+
+        return view('search')->with('items',$items);
+    }
+
+    public function settings()
+    {
+        return view('settings');
+    }
+
+    public function myPosts()
+    {
+        return view('my_posts');
+    }
 }

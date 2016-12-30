@@ -56,6 +56,7 @@ class ArtworksController extends Controller
 
         $artworks = new Artworks; 
 
+        $artworks->user_id = Auth::user()->id;
         $artworks->title = $request->title;
         $artworks->body = $request->body;
         $artworks->image = $fileName;
