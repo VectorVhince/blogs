@@ -125,9 +125,6 @@
             oninit : "setPlainText",
             menubar: false,
             statusbar: false,
-            force_br_newlines : true,
-            force_p_newlines : false,
-            forced_root_block : '',
             setup : function(ed){
                 ed.on('init', function(){
                     this.getDoc().body.style.fontSize = '13px';

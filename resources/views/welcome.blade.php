@@ -28,22 +28,19 @@
           <div class="swiper-container gallery-thumbs">
             <div class="swiper-wrapper">
                 @foreach($featured as $feature)
-                <div class="swiper-slide">
-                  <img src="{{ asset('img/uploads/' . $feature->image) }}" class="img-responsive">
-                </div>
+                {{ $feature->title }}<br>
                 @endforeach
             </div>       
           </div>
         </div>
       </div>
-      
-
 
       <div class="panel-body pdh45">
 
 
 
       </div>
+
     </div>
   </div>
 @stop
@@ -64,18 +61,8 @@
         effect: 'fade',
         autoplayDisableOnInteraction: false,
         grabCursor: true,
-        lazyLoading: true,
+        lazyLoading: true
     });
-
-    var galleryThumbs = new Swiper('.gallery-thumbs', {
-        spaceBetween: 10,
-        slidesPerView: 'auto',
-        touchRatio: 0.2,
-        slideToClickedSlide: true,
-        direction: 'horizontal',
-    });
-    galleryTop.params.control = galleryThumbs;
-    galleryThumbs.params.control = galleryTop;
   });
 </script>
 @stop

@@ -45,7 +45,7 @@
                     </div>
                     <div class="row mgb20">
                         <div class="col-lg-12">
-                            <p>{{ $news->body }}</p>
+                            {!! $news->body !!}
                         </div>
                     </div>
                 </div>
