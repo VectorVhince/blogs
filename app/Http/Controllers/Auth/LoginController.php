@@ -20,6 +20,18 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    public function credentials(Request $request)
+    {
+        $field = filter_var($request->input($this->username()), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $request->merge([$field => $request->input($this->username())]);
+        return $request->only($field, 'password');
+    }
+
+    public function username()
+    {
+        return 'username';
+    }
+
     /**
      * Where to redirect users after login.
      *

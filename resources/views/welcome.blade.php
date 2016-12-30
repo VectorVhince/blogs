@@ -10,6 +10,7 @@
   <div class="container">
     <div class="panel panel-default bd-rad0 box-shadow panel-bg">
       <div class="row">
+      @if(!$featured->isEmpty())
         <div class="col-lg-9 pdr0">
           <div class="swiper-container gallery-images">
             <div class="swiper-wrapper">
@@ -20,8 +21,8 @@
                 @endforeach
             </div>
             <div class="swiper-pagination"></div>        
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>          
+            <div class="swiper-button-prev"><span class="glyphicon glyphicon-chevron-left fs25"></span></div>
+            <div class="swiper-button-next"><span class="glyphicon glyphicon-chevron-right fs25"></span></div>          
           </div>
         </div>
         <div class="col-lg-3 pdl0">
@@ -33,6 +34,11 @@
             </div>       
           </div>
         </div>
+      @else
+        <div class="col-lg-12">
+          <span class="fs25">Nothing posted.</span>
+        </div>
+      @endif
       </div>
 
       <div class="panel-body pdh45">

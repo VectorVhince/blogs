@@ -82,7 +82,7 @@
                         </div>
                     @endforeach
                     @else
-                    <div class="mv20">
+                    <div class="mgv20">
                         <span class="fs12">Be the first to comment</span>
                     </div>
                     @endif

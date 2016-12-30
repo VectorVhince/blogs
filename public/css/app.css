@@ -505,5 +505,20 @@ footer {
 /*swiper*/
 
 .swiper-container {
-    height: 400px;
+    height: 400px; /*width 863px*/
+}
+.swiper-pagination {
+	text-align: right !important;
+	padding-right: 25px !important;
+}
+.swiper-pagination-bullet-active {
+	background-color: #9e1e1c !important;
+}
+.swiper-pagination-bullet {
+	box-shadow: 0 0 2px #000;
+}
+.swiper-button-prev,.swiper-button-next {
+	color: #9e1e1c !important;
+	background-image: none !important;
+	text-shadow: 0 0 2px #000;
 }
