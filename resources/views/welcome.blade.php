@@ -8,9 +8,9 @@
 
 @section('content')
   <div class="container">
+    @if(!$featured->isEmpty())
     <div class="panel panel-default bd-rad0 box-shadow panel-bg" style="background: transparent">
       <div class="row mg0">
-      @if(!$featured->isEmpty())
         <div class="col-lg-9 pd0">
           <div class="swiper-container gallery-images">
             <div class="swiper-wrapper">
@@ -40,17 +40,17 @@
             </div>
           </div>
         </div>
-      @else
-      <div class="panel panel-default bd-rad0 box-shadow panel-bg" style="background: transparent">
-        <div class="row swiper-container">
-          <div class="col-lg-12 text-center pdv100">
-            <span class="fs25">Nothing posted.</span>
-          </div>
-        </div>
-      </div>
-      @endif
       </div>
     </div>
+    @else
+    <div class="panel panel-default bd-rad0 box-shadow panel-bg">
+      <div class="row swiper-container">
+        <div class="col-lg-12 text-center pdv100">
+          <span class="fs25">Nothing posted.</span>
+        </div>
+      </div>
+    </div>      
+    @endif
 
     <div class="row">
       <div class="col-lg-8">
