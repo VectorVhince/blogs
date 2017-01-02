@@ -45,7 +45,7 @@
     @else
     <div class="panel panel-default bd-rad0 box-shadow panel-bg">
       <div class="row swiper-container">
-        <div class="col-lg-12 text-center pdv100">
+        <div class="col-lg-12 text-center pdv200">
           <span class="fs25">Nothing posted.</span>
         </div>
       </div>
