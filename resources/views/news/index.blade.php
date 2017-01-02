@@ -35,7 +35,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{ asset('/img/uploads/' . $new->image) }}" class="img-responsive">
+                            <img src="{{ asset('/img/uploads/' . $new->image) }}" class="img-responsive img-thumbnail">
                         </div>
                         <div class="col-md-8">
                             {{ strip_tags(substr($new->body,0,400)) }}...

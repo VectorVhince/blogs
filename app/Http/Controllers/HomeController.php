@@ -25,13 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $featured = Featured::orderBy('id', 'desc')->take(4)->get();
-        $news = News::orderBy('id', 'desc')->first();
-        $opinion = Opinion::orderBy('id', 'desc')->first();
-        $features = Features::orderBy('id', 'desc')->first();
-        $humors = Humors::orderBy('id', 'desc')->first();
-        $sports = Sports::orderBy('id', 'desc')->first();
-        $artworks = Artworks::orderBy('id', 'desc')->first();
+        $featured = Featured::orderBy('id', 'desc')->take(7)->get();
+        $news = News::orderBy('id', 'desc')->take(3)->get();
+        $opinion = Opinion::orderBy('id', 'desc')->take(3)->get();
+        $features = Features::orderBy('id', 'desc')->take(3)->get();
+        $humors = Humors::orderBy('id', 'desc')->take(3)->get();
+        $sports = Sports::orderBy('id', 'desc')->take(3)->get();
+        $artworks = Artworks::orderBy('id', 'desc')->take(3)->get();
         $announcements = Announcements::orderBy('id', 'desc')->take(8)->get();
 
         return view('welcome')->with('featured', $featured)->with('news', $news)->with('opinion', $opinion)->with('features', $features)->with('humors', $humors)->with('sports', $sports)->with('artworks', $artworks)->with('announcements', $announcements);

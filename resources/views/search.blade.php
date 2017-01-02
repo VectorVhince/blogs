@@ -12,13 +12,20 @@
                     @foreach($items as $item)
                     <div class="row mgb20">
                         <div class="col-md-12">
-                            <a href="{{ route('news.show', $item->id) }}"><span class="dp-bl fs25 fc-red">{{ $item->title }}</span></a>{{ $item->category }}
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <a href="{{ route($item->category . '.show', $item->id) }}"><span class="fs25 fc-red">{{ $item->title }}</span></a>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span class="fs20">{{ ucfirst($item->category) }}</span>
+                                </div>
+                            </div>
                             <span class="text-muted">Author: </span>{{ $item->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($item->created_at, 'F d, Y') }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{ asset('/img/uploads/' . $item->image) }}" class="img-responsive">
+                            <img src="{{ asset('/img/uploads/' . $item->image) }}" class="img-responsive img-thumbnail">
                         </div>
                         <div class="col-md-8">
                             {{ strip_tags(substr($item->body,0,400)) }}...

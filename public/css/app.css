@@ -61,6 +61,7 @@
 .box-shadow { box-shadow: 7px 7px 0px rgba(0,0,0,.2); }
 
 .bgc0 { background-color: transparent; }
+.bgc-black-t { background-color: rgba(0,0,0,.8); }
 .bgc-white[readonly] { background-color: #fff; }
 .bgc-white { background-color: #fff; }
 .bgc-maroon { background-color: maroon !important; }
@@ -86,6 +87,7 @@
 .ht150 { height: 150px !important; }
 .ht151 { height: 151px !important; }
 .ht230 { height: 230px; }
+.ht400 { height: 400px !important; }
 .ht500 { height: 500px !important; }
 
 .mgt-5 { margin-top: -5px; }
@@ -127,6 +129,7 @@
 .mgv30 { margin-top: 30px; margin-bottom: 30px; }
 .mgv40 { margin-top: 40px; margin-bottom: 40px; }
 .mgv50 { margin-top: 50px; margin-bottom: 50px; }
+.mgv100 { margin-top: 100px; margin-bottom: 100px; }
 .mgh0 { margin-right: 0; margin-left: 0; }
 .mgh5 { margin-right: 5px; margin-left: 5px; }
 .mgh15 { margin-right: 15px; margin-left: 15px; }
@@ -169,6 +172,7 @@
 .pdv5 { padding-top: 5px !important; padding-bottom: 5px !important; }
 .pdv10 { padding-top: 10px !important; padding-bottom: 10px !important; }
 .pdv15 { padding-top: 15px; padding-bottom: 15px; }
+.pdv20 { padding-top: 20px; padding-bottom: 20px; }
 .pdv30 { padding-top: 30px; padding-bottom: 30px; }
 .pdv50 { padding-top: 50px; padding-bottom: 50px; }
 
@@ -489,6 +493,27 @@ a:hover, a:focus, a:active { text-decoration: none; }
 	bottom: 20px !important;
 	left: 25px !important;
 	z-index: 999 !important;
+}
+
+.trending-panel {
+	height: 120px;
+	width: 100%;
+	border-bottom: solid 1px rgba(255,255,255,.3);
+	padding: 10px;
+}
+
+.tile-img-container {
+	height: 140px;
+	overflow-y: hidden;
+}
+
+.inset-shadow {
+	box-shadow: inset 0 0 1px rgba(0,0,0,.5);
+}
+
+.btn-black {
+	background-color: rgba(0,0,0,.8);
+	padding: 10px;
 }
 
 /*footer*/
