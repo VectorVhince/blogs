@@ -14,6 +14,7 @@ use App\Artworks;
 use App\Featured;
 use App\Announcements;
 use Auth;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -117,12 +118,55 @@ class HomeController extends Controller
                 $query->orWhere('body', 'like', '%' . $search . '%');
                 $query->orWhere('user', 'like', '%' . $search . '%');
             }
-        })->orderBy('id','desc');
+        });
 
-        $items = $news->paginate(10);
-        $count = $items->total();
-        $search=$request->search;
+        $artworks = Artworks::where(function($query) use ($request) {
+            if ($search=$request->get('search')) {
+                $query->orWhere('title', 'like', '%' . $search . '%');
+                $query->orWhere('body', 'like', '%' . $search . '%');
+                $query->orWhere('user', 'like', '%' . $search . '%');
+            }
+        });
+
+        $features = Features::where(function($query) use ($request) {
+            if ($search=$request->get('search')) {
+                $query->orWhere('title', 'like', '%' . $search . '%');
+                $query->orWhere('body', 'like', '%' . $search . '%');
+                $query->orWhere('user', 'like', '%' . $search . '%');
+            }
+        });
+
+        $humors = Humors::where(function($query) use ($request) {
+            if ($search=$request->get('search')) {
+                $query->orWhere('title', 'like', '%' . $search . '%');
+                $query->orWhere('body', 'like', '%' . $search . '%');
+                $query->orWhere('user', 'like', '%' . $search . '%');
+            }
+        });
+
+        $opinion = Opinion::where(function($query) use ($request) {
+            if ($search=$request->get('search')) {
+                $query->orWhere('title', 'like', '%' . $search . '%');
+                $query->orWhere('body', 'like', '%' . $search . '%');
+                $query->orWhere('user', 'like', '%' . $search . '%');
+            }
+        });
+
+        $sports = Sports::where(function($query) use ($request) {
+            if ($search=$request->get('search')) {
+                $query->orWhere('title', 'like', '%' . $search . '%');
+                $query->orWhere('body', 'like', '%' . $search . '%');
+                $query->orWhere('user', 'like', '%' . $search . '%');
+            }
+        });
+
+        $items = $news->union($artworks)->union($features)->union($humors)->union($opinion)->union($sports)->get();
+
         // dd($items);
+
+        $search = $request->search;
+
+        $count = $items->count();
 
         return view('search')->with('items',$items)->with('search',$search)->with('count',$count);
     }
