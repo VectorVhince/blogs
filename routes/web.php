@@ -15,6 +15,8 @@ Auth::routes();
 
 Route::get('search', 'HomeController@search')->name('search');
 
+Route::get('news/sortby', 'NewsController@sortBy')->name('news.sortBy');
+
 Route::get('settings', 'HomeController@settings');
 
 Route::get('myposts', 'HomeController@myPosts');
@@ -38,6 +40,8 @@ Route::resource('artworks', 'ArtworksController');
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('create', 'HomeController@create');
+
+Route::post('create', 'HomeController@create')->name('create');
 
 Route::get('create/announcement', 'HomeController@createAnnouncement');
 

@@ -11,7 +11,7 @@
             <div class="panel panel-default bd-rad0 box-shadow">
                 <div style="height: 20px;" class="bgc-red mg0"></div>
                 <div class="panel-body pdh45">
-                    <form action="{{ route('create') }}" method="post" enctype="multipart/form-data" id="formSubmit" runat="server">
+                    <form action="" method="post" enctype="multipart/form-data" id="formSubmit" runat="server">
                         {{ csrf_field() }}
                         <div class="mgb20 text-center">
                             <span class="fs40">Add New Post</span>
@@ -44,16 +44,17 @@
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                            <label>Cover photo</label> (Minimum size: 863 x 400 px resolution)
+                            <label>Cover photo</label>
                             <input type="file" name="image" class="form-control mgb20 bd-rad0 box-shadow" id="imgInp" accept="image">
-                            <img class="img-responsive hidden" id="blah" src="#" alt="your image" />
+                            <img class="hidden" id="blah" src="#" alt="your image" />
+                            <button type="button">Save Image</button>
                             @if ($errors->has('image'))
                                 <span class="help-block"><strong>{{ $errors->first('image') }}</strong></span>
                             @endif
                         </div>
                         <div class="col-md-4 col-md-offset-4 text-center mgt40">
                             <div class="form-inline">
-                                <button type="submit" class="btn btn-success bd-rad0 fs20">Publish</button>
+                                <button type="submit" class="btn btn-success bd-rad0 fs20" id="save">Publish</button>
                                 <button type="reset" class="btn btn-danger bd-rad0 fs20">Cancel</button>
                             </div>
                         </div>
@@ -96,14 +97,23 @@
     <script src="{{ asset('js/croppie.js') }}"></script>
 
     <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         var $uploadCrop;
+        var imgInp = $('#blah')
 
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                    $('#blah').attr('src', e.target.result);
+                    $('#blah').attr('src', e.target.result).croppie('bind', {
+                        url: e.target.result
+                    });
                 }
 
                 reader.readAsDataURL(input.files[0]);
@@ -113,6 +123,39 @@
         $uploadCrop = $('#imgInp').on('change', function(){
             $('#blah').removeClass('hidden');
             readURL(this);
+            $('#blah').croppie({
+                enableExif: true,
+                viewport: {
+                    width: 863,
+                    height: 400
+                },
+                boundary: {
+                    width: 1000,
+                    height: 600
+                }
+            });
+        });
+
+        $('#save').on('click', function(ev){
+            $uploadCrop.croppie('result', {
+                type: 'base64',
+                size: 'viewport',
+                format: 'jpeg'
+            }).ajax({
+                method: 'post',
+                url: urlSave,
+                data: { image:studentNumber, _token:token }
+            }).done(function(){
+                $('#queueList').append('<li class="row-stripes fs20 pd10"><div class="row pd0"><div class="col-sm-1 text-left">#' + studentQueue + '</div><div class="col-sm-7 text-left pd0"><strong>' + studentName + '</strong></div><div class="col-sm-4 text-left pd0">' + studentNumber + '</div></div></li>');
+                $('#studentQueue').val(studentQueue);
+
+                $('#studentNumber').val('');
+                $('#studentName').val('');
+                
+
+                var messageSuccess = '<div class="message-box">#' + studentQueue + ', ' + studentName + ' added!</div>';
+                $(messageSuccess).hide().appendTo('#messages').fadeIn(500).delay(5000).fadeOut(500);
+            });;
         });
     </script>
 

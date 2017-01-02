@@ -31,6 +31,8 @@
 
     @include('partials.nav')
 
+    @include('partials.flash_message')
+
     @yield('content')
 
     @include('partials.footer')
@@ -45,8 +47,10 @@
         $('#searchIcon').click(function(){
             $('#searchInput').toggle('slide');
         });
-    </script>
-    
+
+        $('#flashMessage').delay(5000).fadeOut(5000);
+
+    </script>    
     
 </body>
 </html>

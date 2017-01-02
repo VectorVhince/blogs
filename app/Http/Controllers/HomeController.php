@@ -13,6 +13,7 @@ use App\Sports;
 use App\Artworks;
 use App\Featured;
 use App\Announcements;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -52,7 +53,7 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
 
-    public function featured($id,$category)
+    public function featured(Request $request, $id,$category)
     {
         $news = News::find($id);
         $opinion = Opinion::find($id);
@@ -98,11 +99,18 @@ class HomeController extends Controller
         $featured->update = $get_featured->update;
         $featured->save();
 
+        $request->session()->flash('alert-success', 'Post was successfully featured!');
         return redirect()->route('home');
     }
 
     public function search(Request $request)
     {
+        if (Auth::guest()) {
+            if ($request->search == "iamadmin") {
+                return view('auth.login');
+            }
+        }
+
         $news = News::where(function($query) use ($request) {
             if ($search=$request->get('search')) {
                 $query->orWhere('title', 'like', '%' . $search . '%');
@@ -112,9 +120,11 @@ class HomeController extends Controller
         })->orderBy('id','desc');
 
         $items = $news->paginate(10);
+        $count = $items->total();
+        $search=$request->search;
         // dd($items);
 
-        return view('search')->with('items',$items);
+        return view('search')->with('items',$items)->with('search',$search)->with('count',$count);
     }
 
     public function settings()

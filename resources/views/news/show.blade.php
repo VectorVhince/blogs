@@ -16,10 +16,7 @@
                         </div>
                         <div class="col-md-2">
                         @if (Auth::user())
-                            @if (Auth::user()->id == $news->user_id)
-                                <form action="{{ route('news.destroy',$news->id) }}" method="post">
-                                {{ csrf_field() }}
-                                {{ method_field('delete') }}
+                            @if (Auth::user()->id == $news->user_id)                                
                                 <div class="dropdown" style="float: right;">
                                     <a class="dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1">
                                         <div class="icon-circle text-center pdt10 mgt5">
@@ -28,12 +25,11 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu2" aria-labelledby="dropdownMenu1">
                                         <div class="box-arrow1"></div>
-                                        <li><a href="{{ route('featured',[$news->id,$news->category]) }}"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Make this featured</a></li>
+                                        <li><a href="#!" data-toggle="modal" data-target="#modal2"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Mark featured</a></li>
                                         <li><a href="{{ route('news.edit',$news->id) }}"><img src="{{ asset('/img/edit.png') }}" class="ht20"> Edit</a></li>
-                                        <li><a href="#!"><button type="submit" class="bgc0 bd0 pd0"><img src="{{ asset('/img/delete.png') }}" class="ht20"> Delete</button></a></li>
+                                        <li><a href="#!" data-toggle="modal" data-target="#modal1"><img src="{{ asset('/img/delete.png') }}" class="ht20"> Delete</a></li>
                                     </ul>
                                 </div>
-                                </form>
                             @endif
                         @endif
                         </div>
@@ -136,5 +132,37 @@
             </div>
         </div>        
     </div>
+</div>
+
+<div id="modal1" class="modal fade bs-example-modal-sm pdt200" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content text-center pd15">
+    <form action="{{ route('news.destroy',$news->id) }}" method="post">
+    {{ csrf_field() }}
+    {{ method_field('delete') }}
+
+      <span>Delete this post?</span>
+      <div class="row mgt20">
+          <button type="submit" class="btn btn-danger btn-sm">Yes</button>
+          <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
+      </div>
+
+    </form>
+    </div>
+  </div>
+</div>
+
+<div id="modal2" class="modal fade bs-example-modal-sm pdt200" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content text-center pd15">
+
+      <span>Mark this featured?</span>
+      <div class="row mgt20">
+          <a href="{{ route('featured',[$news->id,$news->category]) }}"><button type="button" class="btn btn-success btn-sm">Yes</button></a>
+          <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
+      </div>
+
+    </div>
+  </div>
 </div>
 @endsection

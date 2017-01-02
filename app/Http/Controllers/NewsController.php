@@ -9,6 +9,7 @@ use App\News;
 use App\NewsComment;
 use App\Featured;
 use Auth;
+use Image;
 
 class NewsController extends Controller
 {
@@ -22,6 +23,26 @@ class NewsController extends Controller
         $news = News::orderBy('id', 'desc')->paginate(10);
 
         return view('news.index')->with('news', $news);
+    }
+
+    public function sortBy(Request $request)
+    {
+        switch ($request->key) {
+            case 'date':
+                $news = News::orderBy('created_at', 'desc')->paginate(10);
+                return view('news.index')->with('news', $news);
+                break;
+
+            case 'name':
+                $news = News::orderBy('title', 'asc')->paginate(10);
+                return view('news.index')->with('news', $news);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
     }
 
     /**
@@ -51,7 +72,9 @@ class NewsController extends Controller
         $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
         if ($request->hasFile('image')) {
-            $request->file('image')->move(public_path('img/uploads'), $fileName);
+            Image::make($request->file('image'))->resize(863, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('img/uploads/' . $fileName));
         }
 
         $news = new News; 
@@ -64,6 +87,7 @@ class NewsController extends Controller
         $news->update = Auth::user()->name;
         $news->save();
 
+        $request->session()->flash('alert-success', 'Post was successfully created!');
         return redirect()->route('news.show',$news->id);
     }
 
@@ -112,7 +136,7 @@ class NewsController extends Controller
 
         if ($request->hasFile('image')) {
             $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path('img/uploads'), $fileName);
+            Image::make($request->file('image'))->resize(863, 400)->save(public_path('img/uploads/' . $fileName));
             $news->image = $fileName;
         }
 
@@ -121,6 +145,7 @@ class NewsController extends Controller
         $news->update = Auth::user()->name;
         $news->update();
         
+        $request->session()->flash('alert-success', 'Post was successfully edited!');
         return redirect()->route('news.show',$news->id);
     }
 
@@ -130,12 +155,13 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         Featured::where('category_id', News::find($id)->id)->delete();
         
         News::find($id)->delete();
 
+        $request->session()->flash('alert-danger', 'Post was successfully deleted!');
         return redirect()->route('news.index');    
     }
 

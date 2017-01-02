@@ -147,6 +147,8 @@
 .pdt15 { padding-top: 15px; }
 .pdt30 { padding-top: 30px; }
 .pdt40 { padding-top: 40px; }
+.pdt100 { padding-top: 100px; }
+.pdt200 { padding-top: 200px; }
 .pdb15 { padding-bottom: 15px; }
 .pdb20 { padding-bottom: 20px; }
 .pdb40 { padding-bottom: 40px; }
@@ -371,7 +373,7 @@ a:hover, a:focus, a:active { text-decoration: none; }
 	font-size: 25px;
 	text-align: center;
 	line-height: .5;
-	z-index: 999999999999;
+	z-index: 999;
 }
 .icon-circle {
 	border-radius: 50%;
@@ -480,6 +482,13 @@ a:hover, a:focus, a:active { text-decoration: none; }
 	border-bottom-color: rgba(0,0,0,.15);
 	border-width: 12px;
 	margin-left: -12px;
+}
+
+.flash-message {
+	position: fixed !important;
+	bottom: 20px !important;
+	left: 25px !important;
+	z-index: 999 !important;
 }
 
 /*footer*/
