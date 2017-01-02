@@ -41,9 +41,11 @@
           </div>
         </div>
       @else
+      <div class="row swiper-container">
         <div class="col-lg-12 text-center">
           <span class="fs25 mgv100">Nothing posted.</span>
         </div>
+      </div>
       @endif
       </div>
     </div>
@@ -53,9 +55,9 @@
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
           <div class="bgc-red pd5 fc-white fs20">News</div>
           <div class="panel-body">
-            <div class="row">
             @if(!$news->isEmpty())
             @foreach($news as $new)
+            <div class="row">
               <div class="col-md-4">
                 <a href="{{ route('news.show', $new->id) }}" class="fc-black">
                   <span class="fs17 dp-bl"><b>{{ $new->title }}</b></span>
@@ -65,12 +67,6 @@
                   {{ strip_tags(substr($new->body,0,100)) }}...
                 </a>
               </div>
-            @endforeach
-            @else
-              <div class="col-lg-12 text-center">
-                <span class="fs15 mgv20">Nothing posted.</span>
-              </div>
-            @endif
             </div>
             <div class="row">
               <div class="col-md-3 col-md-offset-9">
@@ -81,6 +77,14 @@
                 </a>
               </div>
             </div>
+            @endforeach
+            @else
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <span class="fs15 mgv20">Nothing posted.</span>
+              </div>
+            </div>
+            @endif
           </div>
         </div>  
 
