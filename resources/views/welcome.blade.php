@@ -41,9 +41,11 @@
           </div>
         </div>
       @else
-      <div class="row swiper-container">
-        <div class="col-lg-12 text-center">
-          <span class="fs25 mgv100">Nothing posted.</span>
+      <div class="panel panel-default bd-rad0 box-shadow panel-bg" style="background: transparent">
+        <div class="row swiper-container">
+          <div class="col-lg-12 text-center pdv100">
+            <span class="fs25">Nothing posted.</span>
+          </div>
         </div>
       </div>
       @endif
