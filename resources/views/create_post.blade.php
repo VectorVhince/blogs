@@ -21,11 +21,11 @@
                             <select id="category" name="category" class="form-control mgb20 bd-rad0 box-shadow">
                                 <option disabled selected>Select Category</option>
                                 <option value="1">News</option>
+                                <option value="6">Editorial</option>
                                 <option value="2">Opinion</option>
-                                <option value="3">Features</option>
+                                <option value="3">Feature</option>
                                 <option value="4">Humor</option>
                                 <option value="5">Sports</option>
-                                <option value="6">Artwork</option>
                             </select>
                             @if ($errors->has('category'))
                                 <span class="help-block"><strong>{{ $errors->first('category') }}</strong></span>

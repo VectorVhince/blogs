@@ -170,7 +170,8 @@ class NewsController extends Controller
             'comment_name' => 'required',
             'comment_email' => 'required',
             'comment_dept' => 'required',
-            'comment_message' => 'required'
+            'comment_message' => 'required',
+            'g-recaptcha-response' => 'required|recaptcha'
         ]);
 
         $news = News::find($id);

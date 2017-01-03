@@ -119,6 +119,7 @@
                                 <span class="help-block"><strong>{{ $errors->first('comment_message') }}</strong></span>
                             @endif
                         </div>
+                        {!! Recaptcha::render() !!}
                         <div class="row">
                             <div class="col-md-12 text-right mgt20">
                                 <div class="form-inline">

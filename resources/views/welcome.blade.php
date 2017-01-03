@@ -58,17 +58,18 @@
           <div class="bgc-red pd5 fc-white fs20">News</div>
           <div class="panel-body">
             @if(!$news->isEmpty())
-            @foreach($news as $new)
             <div class="row">
+            @foreach($news as $new)
               <div class="col-md-4">
                 <a href="{{ route('news.show', $new->id) }}" class="fc-black">
                   <span class="fs17 dp-bl"><b>{{ $new->title }}</b></span>
                   <div class="tile-img-container mgv10">
                     <img src="{{ asset('img/uploads/' . $new->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
-                  {{ strip_tags(substr($new->body,0,100)) }}...
+                  <span class="fs12">{{ strip_tags(substr($new->body,0,200)) }}...</span>
                 </a>
               </div>
+            @endforeach
             </div>
             <div class="row">
               <div class="col-md-3 col-md-offset-9">
@@ -79,7 +80,6 @@
                 </a>
               </div>
             </div>
-            @endforeach
             @else
             <div class="row">
               <div class="col-lg-12 text-center">
@@ -93,25 +93,36 @@
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
           <div class="bgc-red pd5 fc-white fs20">Editorial</div>
           <div class="panel-body">
-            <div class="row">
             @if(!$artworks->isEmpty())
-            @foreach($artworks as $artwork)
+            <div class="row">
+            @foreach($artworks as $editorial)
               <div class="col-md-4">
-                <a href="{{ route('artworks.show', $artwork->id) }}" class="fc-black">
-                  <span class="fs17 dp-bl"><b>{{ $artwork->title }}</b></span>
+                <a href="{{ route('artworks.show', $editorial->id) }}" class="fc-black">
+                  <span class="fs17 dp-bl"><b>{{ $editorial->title }}</b></span>
                   <div class="tile-img-container mgv10">
-                    <img src="{{ asset('img/uploads/' . $artwork->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <img src="{{ asset('img/uploads/' . $editorial->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
-                  {{ strip_tags(substr($artwork->body,0,100)) }}...
+                  <span class="fs12">{{ strip_tags(substr($editorial->body,0,200)) }}...</span>
                 </a>
               </div>
             @endforeach
+            </div>
+            <div class="row">
+              <div class="col-md-3 col-md-offset-9">
+                <a href="{{ route('artworks.index') }}">
+                  <div class="fc-white btn-black mgt20 text-center">
+                    <span class="glyphicon glyphicon-plus"></span> View More
+                  </div>
+                </a>
+              </div>
+            </div>
             @else
+            <div class="row">
               <div class="col-lg-12 text-center">
                 <span class="fs15 mgv20">Nothing posted.</span>
               </div>
-            @endif
             </div>
+            @endif
           </div>
         </div>      
       </div>
