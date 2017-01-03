@@ -124,7 +124,152 @@
             </div>
             @endif
           </div>
-        </div>      
+        </div>
+
+        <div class="panel panel-default bd-rad0 box-shadow panel-bg">
+          <div class="bgc-red pd5 fc-white fs20">Opinion</div>
+          <div class="panel-body">
+            @if(!$opinions->isEmpty())
+            <div class="row">
+            @foreach($opinions as $opinion)
+              <div class="col-md-4">
+                <a href="{{ route('opinion.show', $opinion->id) }}" class="fc-black">
+                  <span class="fs17 dp-bl"><b>{{ $opinion->title }}</b></span>
+                  <div class="tile-img-container mgv10">
+                    <img src="{{ asset('img/uploads/' . $opinion->image) }}" class="img-responsive img-thumbnail dp-bl">
+                  </div>
+                  <span class="fs12">{{ strip_tags(substr($opinion->body,0,200)) }}...</span>
+                </a>
+              </div>
+            @endforeach
+            </div>
+            <div class="row">
+              <div class="col-md-3 col-md-offset-9">
+                <a href="{{ route('opinion.index') }}">
+                  <div class="fc-white btn-black mgt20 text-center">
+                    <span class="glyphicon glyphicon-plus"></span> View More
+                  </div>
+                </a>
+              </div>
+            </div>
+            @else
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <span class="fs15 mgv20">Nothing posted.</span>
+              </div>
+            </div>
+            @endif
+          </div>
+        </div>
+
+        <div class="panel panel-default bd-rad0 box-shadow panel-bg">
+          <div class="bgc-red pd5 fc-white fs20">Feature</div>
+          <div class="panel-body">
+            @if(!$features->isEmpty())
+            <div class="row">
+            @foreach($features as $feature)
+              <div class="col-md-4">
+                <a href="{{ route('features.show', $feature->id) }}" class="fc-black">
+                  <span class="fs17 dp-bl"><b>{{ $feature->title }}</b></span>
+                  <div class="tile-img-container mgv10">
+                    <img src="{{ asset('img/uploads/' . $feature->image) }}" class="img-responsive img-thumbnail dp-bl">
+                  </div>
+                  <span class="fs12">{{ strip_tags(substr($feature->body,0,200)) }}...</span>
+                </a>
+              </div>
+            @endforeach
+            </div>
+            <div class="row">
+              <div class="col-md-3 col-md-offset-9">
+                <a href="{{ route('features.index') }}">
+                  <div class="fc-white btn-black mgt20 text-center">
+                    <span class="glyphicon glyphicon-plus"></span> View More
+                  </div>
+                </a>
+              </div>
+            </div>
+            @else
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <span class="fs15 mgv20">Nothing posted.</span>
+              </div>
+            </div>
+            @endif
+          </div>
+        </div>
+
+        <div class="panel panel-default bd-rad0 box-shadow panel-bg">
+          <div class="bgc-red pd5 fc-white fs20">Humor</div>
+          <div class="panel-body">
+            @if(!$humors->isEmpty())
+            <div class="row">
+            @foreach($humors as $humor)
+              <div class="col-md-4">
+                <a href="{{ route('humors.show', $humor->id) }}" class="fc-black">
+                  <span class="fs17 dp-bl"><b>{{ $humor->title }}</b></span>
+                  <div class="tile-img-container mgv10">
+                    <img src="{{ asset('img/uploads/' . $humor->image) }}" class="img-responsive img-thumbnail dp-bl">
+                  </div>
+                  <span class="fs12">{{ strip_tags(substr($humor->body,0,200)) }}...</span>
+                </a>
+              </div>
+            @endforeach
+            </div>
+            <div class="row">
+              <div class="col-md-3 col-md-offset-9">
+                <a href="{{ route('humors.index') }}">
+                  <div class="fc-white btn-black mgt20 text-center">
+                    <span class="glyphicon glyphicon-plus"></span> View More
+                  </div>
+                </a>
+              </div>
+            </div>
+            @else
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <span class="fs15 mgv20">Nothing posted.</span>
+              </div>
+            </div>
+            @endif
+          </div>
+        </div>
+
+        <div class="panel panel-default bd-rad0 box-shadow panel-bg">
+          <div class="bgc-red pd5 fc-white fs20">Sports</div>
+          <div class="panel-body">
+            @if(!$sports->isEmpty())
+            <div class="row">
+            @foreach($sports as $sport)
+              <div class="col-md-4">
+                <a href="{{ route('sports.show', $sport->id) }}" class="fc-black">
+                  <span class="fs17 dp-bl"><b>{{ $sport->title }}</b></span>
+                  <div class="tile-img-container mgv10">
+                    <img src="{{ asset('img/uploads/' . $sport->image) }}" class="img-responsive img-thumbnail dp-bl">
+                  </div>
+                  <span class="fs12">{{ strip_tags(substr($sport->body,0,200)) }}...</span>
+                </a>
+              </div>
+            @endforeach
+            </div>
+            <div class="row">
+              <div class="col-md-3 col-md-offset-9">
+                <a href="{{ route('sports.index') }}">
+                  <div class="fc-white btn-black mgt20 text-center">
+                    <span class="glyphicon glyphicon-plus"></span> View More
+                  </div>
+                </a>
+              </div>
+            </div>
+            @else
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <span class="fs15 mgv20">Nothing posted.</span>
+              </div>
+            </div>
+            @endif
+          </div>
+        </div>
+
       </div>
       <div class="col-lg-4">
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">

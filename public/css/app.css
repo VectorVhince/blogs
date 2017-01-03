@@ -220,7 +220,8 @@ a:hover, a:focus, a:active { text-decoration: none; }
 .fc-red:hover { color: #9e1e1c; }
 .fc-orange { color: #fbb061; }
 .fc-white{ color: #fff !important; }
-.fc-black { color: #000 !important; }
+.fc-black { color: #333 !important; }
+.fc-black:hover { color: #428bca !important; }
 .f-ul { text-decoration: underline; }
 	
 .f-shadow { text-shadow: 0 0 1px rgba(0,0,0,.5); }

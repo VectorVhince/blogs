@@ -27,14 +27,14 @@ class HomeController extends Controller
     {
         $featured = Featured::orderBy('id', 'desc')->take(7)->get();
         $news = News::orderBy('id', 'desc')->take(3)->get();
-        $opinion = Opinion::orderBy('id', 'desc')->take(3)->get();
+        $opinions = Opinion::orderBy('id', 'desc')->take(3)->get();
         $features = Features::orderBy('id', 'desc')->take(3)->get();
         $humors = Humors::orderBy('id', 'desc')->take(3)->get();
         $sports = Sports::orderBy('id', 'desc')->take(3)->get();
         $artworks = Artworks::orderBy('id', 'desc')->take(3)->get();
         $announcements = Announcements::orderBy('id', 'desc')->take(8)->get();
 
-        return view('welcome')->with('featured', $featured)->with('news', $news)->with('opinion', $opinion)->with('features', $features)->with('humors', $humors)->with('sports', $sports)->with('artworks', $artworks)->with('announcements', $announcements);
+        return view('welcome')->with('featured', $featured)->with('news', $news)->with('opinions', $opinions)->with('features', $features)->with('humors', $humors)->with('sports', $sports)->with('artworks', $artworks)->with('announcements', $announcements);
     }
 
     public function create()

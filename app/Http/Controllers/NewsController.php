@@ -66,7 +66,7 @@ class NewsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'body' => 'required',
-            'image' => 'required|mimes:jpeg,png',
+            'image' => 'required|mimes:jpeg,png,gif',
         ]);
 
         $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
