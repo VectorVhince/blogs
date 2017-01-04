@@ -25,7 +25,7 @@
 					<div style="border-left: solid 1px rgba(0,0,0,.3); padding-left: 10px;">
 						<ul class="list-unstyled">
 							<li><a class="fc-black fs12" href=" {{ route('news.index') }} ">News</a></li>
-			                <li><a class="fc-black fs12" href=" {{ route('artworks.index') }} ">Editorial</a></li>
+			                <li><a class="fc-black fs12" href=" {{ route('editorial.index') }} ">Editorial</a></li>
 			                <li><a class="fc-black fs12" href=" {{ route('opinion.index') }} ">Opinion</a></li>
 			                <li><a class="fc-black fs12" href=" {{ route('features.index') }} ">Feature</a></li>
 			                <li><a class="fc-black fs12" href=" {{ route('humors.index') }} ">Humor</a></li>

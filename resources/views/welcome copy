@@ -166,13 +166,13 @@
     </div>
     <div class="row">
       <div class="col-md-4 hidden">
-        @if(isset($artworks))
-          <a href="{{ route('artworks.show', $artworks->id) }}" class="fc-black">
+        @if(isset($editorials))
+          <a href="{{ route('editorials.show', $editorials->id) }}" class="fc-black">
             <div class="tile-group-sm bd-rad10 mgb20 box-shadow">
-            <img src="{{ asset('img/uploads/' . $artworks->image) }}" class="tile-img">
+            <img src="{{ asset('img/uploads/' . $editorials->image) }}" class="tile-img">
               <div class="tile-content-sm text-center">
-                <span class="fs25 fc-white dp-bl wwrap">{{ $artworks->title }}</span>
-                <span class="fs15 fc-white dp-bl mgt5">by: {{ $artworks->user }}</span>
+                <span class="fs25 fc-white dp-bl wwrap">{{ $editorials->title }}</span>
+                <span class="fs15 fc-white dp-bl mgt5">by: {{ $editorials->user }}</span>
               </div>
             </div>
           </a>

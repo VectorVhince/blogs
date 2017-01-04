@@ -7,34 +7,21 @@
             <div class="panel panel-default bd-rad0 box-shadow">
                 <div style="height: 20px;" class="bgc-red mg0"></div>
                 <div class="panel-body pdh45">
-                    <form action="{{ route('create') }}" method="post" enctype="multipart/form-data" id="formSubmit" runat="server">
+                    <form action="{{ route('editorial.update',$editorials->id) }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
+                        {{ method_field('patch') }}
                         <div class="mgb20 text-center">
-                            <span class="fs40">Add New Post</span>
+                            <span class="fs40">Edit Post</span>
                             <div style="height: 2px;" class="bgc-red mg0"></div>
                         </div>
-                        <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
-                            <select id="category" name="category" class="form-control mgb20 bd-rad0 box-shadow">
-                                <option disabled selected>Select Category</option>
-                                <option value="1">News</option>
-                                <option value="6">Editorial</option>
-                                <option value="2">Opinion</option>
-                                <option value="3">Feature</option>
-                                <option value="4">Humor</option>
-                                <option value="5">Sports</option>
-                            </select>
-                            @if ($errors->has('category'))
-                                <span class="help-block"><strong>{{ $errors->first('category') }}</strong></span>
-                            @endif
-                        </div>
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                            <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ old('title') }}">
+                            <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ $editorials->title }}">
                             @if ($errors->has('title'))
                                 <span class="help-block"><strong>{{ $errors->first('title') }}</strong></span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                            <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ old('body') }}</textarea>
+                            <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ $editorials->body }}</textarea>
                             @if ($errors->has('body'))
                                 <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
                             @endif
@@ -42,7 +29,7 @@
                         <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                             <label>Cover photo</label> (Minimum size: 863 x 400 px resolution)
                             <input type="file" name="image" class="form-control mgb20 bd-rad0 box-shadow" id="imgInp" accept="image">
-                            <img class="img-responsive hidden" id="blah" src="#" alt="your image" />
+                            <img class="img-responsive" id="blah" src="{{ asset('img/uploads/'.$editorials->image) }}" alt="{{ $editorials->image }}">
                             @if ($errors->has('image'))
                                 <span class="help-block"><strong>{{ $errors->first('image') }}</strong></span>
                             @endif
@@ -62,33 +49,7 @@
 @endsection
 
 @section('script')
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#category').on('change', function(){
-                switch ($(this).val()) {
-                    case '1':
-                        $('#formSubmit').attr('action','{{ route('news.store') }}');
-                        break;
-                    case '2':
-                        $('#formSubmit').attr('action','{{ route('opinion.store') }}');
-                        break;
-                    case '3':
-                        $('#formSubmit').attr('action','{{ route('features.store') }}');
-                        break;
-                    case '4':
-                        $('#formSubmit').attr('action','{{ route('humors.store') }}');
-                        break;
-                    case '5':
-                        $('#formSubmit').attr('action','{{ route('sports.store') }}');
-                        break;
-                    case '6':
-                        $('#formSubmit').attr('action','{{ route('editorial.store') }}');
-                        break;
-                }
-            });
-        });
-    </script>
-
+    
     <script type="text/javascript">
         var $uploadCrop;
 
@@ -105,7 +66,6 @@
         }
 
         $uploadCrop = $('#imgInp').on('change', function(){
-            $('#blah').removeClass('hidden');
             readURL(this);
         });
     </script>

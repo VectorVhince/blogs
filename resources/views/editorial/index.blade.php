@@ -10,10 +10,10 @@
                     <div class="mgb20">
                         <div class="row">
                             <div class="col-sm-6">
-                                <span class="fs40">Opinion</span>
+                                <span class="fs40">Editorial</span>
                             </div>
                             <div class="col-sm-4 col-sm-offset-2 mgt10">
-                            <form action="{{ route('opinion.sortBy') }}" method="get">
+                            <form action="{{ route('editorial.sortBy') }}" method="get">
                                 <select class="form-control input-sm" name="key" onchange="this.form.submit()">
                                     <option disabled selected>Sort By</option>
                                     <option value="date">Date</option>
@@ -25,20 +25,20 @@
                         </div>
                         <div style="height: 2px;" class="bgc-red mg0"></div>
                     </div>
-                    @if(!$opinions->isEmpty())
-                    @foreach($opinions as $opinion)
+                    @if(!$editorials->isEmpty())
+                    @foreach($editorials as $editorial)
                     <div class="row mgb20">
                         <div class="col-md-12">
-                            <a href="{{ route('opinion.show', $opinion->id) }}"><span class="dp-bl fs25 fc-red">{{ $opinion->title }}</span></a>
-                            <span class="text-muted">Author: </span>{{ $opinion->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($opinion->created_at, 'F d, Y') }}
+                            <a href="{{ route('editorial.show', $editorial->id) }}"><span class="dp-bl fs25 fc-red">{{ $editorial->title }}</span></a>
+                            <span class="text-muted">Author: </span>{{ $editorial->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($editorial->created_at, 'F d, Y') }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{ asset('/img/uploads/' . $opinion->image) }}" class="img-responsive img-thumbnail">
+                            <img src="{{ asset('/img/uploads/' . $editorial->image) }}" class="img-responsive img-thumbnail">
                         </div>
                         <div class="col-md-8">
-                            {{ strip_tags(substr($opinion->body,0,400)) }}...
+                            {{ strip_tags(substr($editorial->body,0,400)) }}...
                         </div>
                     </div>
                     <div style="height: 1px;" class="bgc-gray mgv20"></div>
@@ -46,7 +46,7 @@
                     @else
                     Nothing posted.
                     @endif
-                    {{ $opinions->links() }}
+                    {{ $editorials->links() }}
                 </div>
             </div>        
         </div>

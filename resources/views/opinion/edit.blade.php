@@ -2,185 +2,119 @@
 
 @section('content')
 <div class="container">
-    <div class="col-lg-9">
-        <div class="panel panel-default bd-rad0 box-shadow">
-            <div class="panel-body pd45">
-                <form action="{{ route('opinion.update',$opinion->id) }}" method="post" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    {{ method_field('patch') }}
-                    <div class="mgb40">
-                        <span class="fs40">Edit Post</span>
-                    </div>
-                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                        <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ $opinion->title }}">
-                        @if ($errors->has('title'))
-                            <span class="help-block"><strong>{{ $errors->first('title') }}</strong></span>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                        <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ $opinion->body }}</textarea>
-                        @if ($errors->has('body'))
-                            <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
-                        @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                        <input type="file" name="image" class="form-control mgb20 bd-rad0 box-shadow">
-                        @if ($errors->has('image'))
-                            <span class="help-block"><strong>{{ $errors->first('image') }}</strong></span>
-                        @endif
-                    </div>
-                    <div class="col-md-4 col-md-offset-4 text-center mgt40">
-                        <div class="form-inline">
-                            <button type="submit" class="btn btn-success bd-rad0 fs20">Publish</button>
-                            <button type="reset" class="btn btn-danger bd-rad0 fs20">Cancel</button>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default bd-rad0 box-shadow">
+                <div style="height: 20px;" class="bgc-red mg0"></div>
+                <div class="panel-body pdh45">
+                    <form action="{{ route('opinion.update',$opinion->id) }}" method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        {{ method_field('patch') }}
+                        <div class="mgb20 text-center">
+                            <span class="fs40">Edit Post</span>
+                            <div style="height: 2px;" class="bgc-red mg0"></div>
                         </div>
-                    </div>
-                </form>
-            </div>
-        </div>        
-    </div>
-    <div class="col-lg-3">
-        <div class="panel panel-default bd-rad0 box-shadow">
-            <div class="panel-body pd15">
-                <div class="mgb30">
-                    <span class="fs25">BLOG ARCHIVE</span>
+                        <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                            <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ $opinion->title }}">
+                            @if ($errors->has('title'))
+                                <span class="help-block"><strong>{{ $errors->first('title') }}</strong></span>
+                            @endif
+                        </div>
+                        <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
+                            <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ $opinion->body }}</textarea>
+                            @if ($errors->has('body'))
+                                <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
+                            @endif
+                        </div>
+                        <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                            <label>Cover photo</label> (Minimum size: 863 x 400 px resolution)
+                            <input type="file" name="image" class="form-control mgb20 bd-rad0 box-shadow" id="imgInp" accept="image">
+                            <img class="img-responsive" id="blah" src="{{ asset('img/uploads/'.$opinion->image) }}" alt="{{ $opinion->image }}">
+                            @if ($errors->has('image'))
+                                <span class="help-block"><strong>{{ $errors->first('image') }}</strong></span>
+                            @endif
+                        </div>
+                        <div class="col-md-4 col-md-offset-4 text-center mgt40">
+                            <div class="form-inline">
+                                <button type="submit" class="btn btn-success bd-rad0 fs20">Publish</button>
+                                <button type="reset" class="btn btn-danger bd-rad0 fs20">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <ul class="list-unstyled">
-                    <li data-toggle="collapse" href="#2016"><span class="caret"></span> 2016
-                        <div id="2016" class="collapse">
-                            <ul class="list-unstyled mgl20">
-                                <li data-toggle="collapse" data-parent="#2016" href="#2016J"><span class="caret"></span> January
-                                    <div id="2016J" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2016" href="#2016F"><span class="caret"></span> February
-                                    <div id="2016F" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2016" href="#2016M"><span class="caret"></span> March
-                                    <div id="2016M" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li data-toggle="collapse" href="#2015"><span class="caret"></span> 2015
-                        <div id="2015" class="collapse">
-                            <ul class="list-unstyled mgl20">
-                                <li data-toggle="collapse" data-parent="#2015" href="#2015J"><span class="caret"></span> January
-                                    <div id="2015J" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2015" href="#2015F"><span class="caret"></span> February
-                                    <div id="2015F" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2015" href="#2015M"><span class="caret"></span> March
-                                    <div id="2015M" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li data-toggle="collapse" href="#2014"><span class="caret"></span> 2014
-                        <div id="2014" class="collapse">
-                            <ul class="list-unstyled mgl20">
-                                <li data-toggle="collapse" data-parent="#2014" href="#2014J"><span class="caret"></span> January
-                                    <div id="2014J" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2014" href="#2014F"><span class="caret"></span> February
-                                    <div id="2014F" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2014" href="#2014M"><span class="caret"></span> March
-                                    <div id="2014M" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li data-toggle="collapse" href="#2013"><span class="caret"></span> 2013
-                        <div id="2013" class="collapse">
-                            <ul class="list-unstyled mgl20">
-                                <li data-toggle="collapse" data-parent="#2013" href="#2013J"><span class="caret"></span> January
-                                    <div id="2013J" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2013" href="#2013F"><span class="caret"></span> February
-                                    <div id="2013F" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li data-toggle="collapse" data-parent="#2013" href="#2013M"><span class="caret"></span> March
-                                    <div id="2013M" class="collapse">
-                                        <ul class="list-unstyled mgl20">
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                            <li>Lorem ipsum</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>                        
-                </ul>
-            </div>
+            </div>        
         </div>
     </div>
 </div>
 @endsection
+
+@section('script')
+    
+    <script type="text/javascript">
+        var $uploadCrop;
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $uploadCrop = $('#imgInp').on('change', function(){
+            readURL(this);
+        });
+    </script>
+
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script type="text/javascript">
+        function setPlainText() {
+            var ed = tinyMCE.get('textarea');
+
+            ed.pasteAsPlainText = true;  
+
+            //adding handlers crossbrowser
+            if (tinymce.isOpera || /Firefox\/2/.test(navigator.userAgent)) {
+                ed.onKeyDown.add(function (ed, e) {
+                    if (((tinymce.isMac ? e.metaKey : e.ctrlKey) && e.keyCode == 86) || (e.shiftKey && e.keyCode == 45))
+                        ed.pasteAsPlainText = true;
+                });
+            } else {            
+                ed.onPaste.addToTop(function (ed, e) {
+                    ed.pasteAsPlainText = true;
+                });
+            }
+        };
+
+        tinymce.init({ 
+            selector:'textarea',
+            plugins: [
+            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+            ],
+            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+            image_advtab: true,
+            templates: [
+            { title: 'Test template 1', content: 'Test 1' },
+            { title: 'Test template 2', content: 'Test 2' }
+            ],
+            oninit : "setPlainText",
+            menubar: false,
+            statusbar: false,
+            setup : function(ed){
+                ed.on('init', function(){
+                    this.getDoc().body.style.fontSize = '13px';
+                    this.getDoc().body.style.fontFamily = 'Helvetica';
+                    this.getDoc().body.style.color = '#555';
+                });
+            }
+        });
+    </script>
+@stop

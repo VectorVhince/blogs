@@ -17,7 +17,7 @@ class CreateOpinionsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('category')->default('opinion');
-            $table->string('title');
+            $table->string('title')->unique();
             $table->longText('body');
             $table->string('image')->default('default.jpg');
             $table->string('user');

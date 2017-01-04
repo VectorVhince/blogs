@@ -10,7 +10,7 @@ use App\News;
 use App\Features;
 use App\Humors;
 use App\Sports;
-use App\Artworks;
+use App\Editorials;
 use App\Featured;
 use App\Announcements;
 use Auth;
@@ -31,10 +31,10 @@ class HomeController extends Controller
         $features = Features::orderBy('id', 'desc')->take(3)->get();
         $humors = Humors::orderBy('id', 'desc')->take(3)->get();
         $sports = Sports::orderBy('id', 'desc')->take(3)->get();
-        $artworks = Artworks::orderBy('id', 'desc')->take(3)->get();
+        $editorials = Editorials::orderBy('id', 'desc')->take(3)->get();
         $announcements = Announcements::orderBy('id', 'desc')->take(8)->get();
 
-        return view('welcome')->with('featured', $featured)->with('news', $news)->with('opinions', $opinions)->with('features', $features)->with('humors', $humors)->with('sports', $sports)->with('artworks', $artworks)->with('announcements', $announcements);
+        return view('welcome')->with('featured', $featured)->with('news', $news)->with('opinions', $opinions)->with('features', $features)->with('humors', $humors)->with('sports', $sports)->with('editorials', $editorials)->with('announcements', $announcements);
     }
 
     public function create()
@@ -61,7 +61,7 @@ class HomeController extends Controller
         $features = Features::find($id);
         $humors = Humors::find($id);
         $sports = Sports::find($id);
-        $artworks = Artworks::find($id);
+        $editorials = Editorials::find($id);
 
         switch ($category) {
             case 'news':
@@ -84,8 +84,8 @@ class HomeController extends Controller
                 $get_featured = $sports;
                 break;
 
-            case 'artworks':
-                $get_featured = $artworks;
+            case 'editorial':
+                $get_featured = $editorials;
                 break;
         }
 
@@ -127,7 +127,7 @@ class HomeController extends Controller
             }
         });
 
-        $artworks = Artworks::where(function($query) use ($request) {
+        $editorials = Editorials::where(function($query) use ($request) {
             if ($search=$request->get('search')) {
                 $query->orWhere('title', 'like', '%' . $search . '%');
                 $query->orWhere('body', 'like', '%' . $search . '%');
@@ -167,7 +167,7 @@ class HomeController extends Controller
             }
         });
 
-        $items = $news->union($artworks)->union($features)->union($humors)->union($opinion)->union($sports)->get();
+        $items = $news->union($editorials)->union($features)->union($humors)->union($opinion)->union($sports)->get();
 
         // dd($items);
 

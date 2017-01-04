@@ -17,6 +17,10 @@ Route::get('search', 'HomeController@search')->name('search');
 
 Route::get('news/sortby', 'NewsController@sortBy')->name('news.sortBy');
 
+Route::get('editorial/sortby', 'EditorialsController@sortBy')->name('editorial.sortBy');
+
+Route::get('opinion/sortby', 'OpinionController@sortBy')->name('opinion.sortBy');
+
 Route::get('settings', 'HomeController@settings');
 
 Route::get('myposts', 'HomeController@myPosts');
@@ -35,7 +39,7 @@ Route::resource('humors', 'HumorsController');
 
 Route::resource('sports', 'SportsController');
 
-Route::resource('artworks', 'ArtworksController');
+Route::resource('editorial', 'EditorialsController');
 
 Route::get('/', 'HomeController@index')->name('home');
 
@@ -63,5 +67,5 @@ Route::post('humors.comment/{id}', 'HumorsController@humorsComment')->name('humo
 
 Route::post('sports.comment/{id}', 'SportsController@sportsComment')->name('sports.comment');
 
-Route::post('artworks.comment/{id}', 'ArtworksController@artworksComment')->name('artworks.comment');
+Route::post('editorial.comment/{id}', 'EditorialsController@editorialsComment')->name('editorial.comment');
 

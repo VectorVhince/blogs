@@ -38,7 +38,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('news.index') }} ">NEWS</a></li>
-                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('artworks.index') }} ">EDITORIAL</a></li>
+                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('editorial.index') }} ">EDITORIAL</a></li>
                 <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('opinion.index') }} ">OPINION</a></li>
                 <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('features.index') }} ">FEATURE</a></li>
                 <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('humors.index') }} ">HUMOR</a></li>

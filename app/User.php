@@ -27,8 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function artworks(){
-        return $this->hasMany('\App\Artworks', 'user_id')->orderBy('id', 'desc');
+    public function editorials(){
+        return $this->hasMany('\App\Editorials', 'user_id')->orderBy('id', 'desc');
     }
 
     public function features(){

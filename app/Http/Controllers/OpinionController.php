@@ -20,9 +20,29 @@ class OpinionController extends Controller
      */
     public function index()
     {
-        $opinions = Opinion::all();
+        $opinions = Opinion::orderBy('id', 'desc')->paginate(10);;
 
         return view('opinion.index')->with('opinions', $opinions);
+    }
+
+    public function sortBy(Request $request)
+    {
+        switch ($request->key) {
+            case 'date':
+                $opinions = Opinion::orderBy('created_at', 'desc')->paginate(10);
+                return view('opinion.index')->with('opinions', $opinions);
+                break;
+
+            case 'name':
+                $opinions = Opinion::orderBy('title', 'asc')->paginate(10);
+                return view('opinion.index')->with('opinions', $opinions);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
     }
 
     /**
@@ -44,15 +64,17 @@ class OpinionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
+            'title' => 'required|max:255|unique:opinion,title',
             'body' => 'required',
-            'image' => 'required|mimes:jpeg,png',
+            'image' => 'required|mimes:jpeg,png,gif',
         ]);
 
         $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
         if ($request->hasFile('image')) {
-            $request->file('image')->move(public_path('img/uploads'), $fileName);
+            Image::make($request->file('image'))->resize(863, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('img/uploads/' . $fileName));
         }
 
         $opinion = new Opinion;
@@ -64,6 +86,7 @@ class OpinionController extends Controller
         $opinion->update = Auth::user()->name;
         $opinion->save();
         
+        $request->session()->flash('alert-success', 'Post was successfully created!');
         return redirect()->route('opinion.show',$opinion->id);
 
     }
@@ -103,25 +126,28 @@ class OpinionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'required|max:255',
-            'body' => 'required',
-            'image' => 'mimes:jpeg,png',
-        ]);
         $opinion = Opinion::find($id);
+        $this->validate($request, [
+            'title' => 'required|max:255|unique:opinion,title,'.$opinion->id,
+            'body' => 'required',
+            'image' => 'mimes:jpeg,png,gif',
+        ]);
 
-
+        $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+        
         if ($request->hasFile('image')) {
-            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path('image/uploads'), $fileName);
-            $opinion->image = $fileName;
+            Image::make($request->file('image'))->resize(863, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('img/uploads/' . $fileName));
         }
 
         $opinion->title = $request->title;
         $opinion->body = $request->body;
+        $editorials->image = $fileName;
         $opinion->update = Auth::user()->name;
         $opinion->update();
         
+        $request->session()->flash('alert-success', 'Post was successfully edited!');
         return redirect()->route('opinion.show',$opinion->id);
     }
 

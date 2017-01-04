@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\News;
-use App\NewsComment;
+use App\Editorials;
+use App\EditorialsComment;
 use App\Featured;
 use Auth;
 use Image;
 
-class NewsController extends Controller
+class EditorialsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,22 +20,22 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy('id', 'desc')->paginate(10);
+        $editorials = Editorials::orderBy('id', 'desc')->paginate(10);
 
-        return view('news.index')->with('news', $news);
+        return view('editorial.index')->with('editorials', $editorials);
     }
 
     public function sortBy(Request $request)
     {
         switch ($request->key) {
             case 'date':
-                $news = News::orderBy('created_at', 'desc')->paginate(10);
-                return view('news.index')->with('news', $news);
+                $editorials = Editorials::orderBy('created_at', 'desc')->paginate(10);
+                return view('editorial.index')->with('editorials', $editorials);
                 break;
 
             case 'name':
-                $news = News::orderBy('title', 'asc')->paginate(10);
-                return view('news.index')->with('news', $news);
+                $editorials = Editorials::orderBy('title', 'asc')->paginate(10);
+                return view('editorial.index')->with('editorials', $editorials);
                 break;
             
             default:
@@ -64,7 +64,7 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255|unique:news,title',
+            'title' => 'required|max:255|unique:editorials,title',
             'body' => 'required',
             'image' => 'required|mimes:jpeg,png,gif',
         ]);
@@ -77,18 +77,18 @@ class NewsController extends Controller
             })->save(public_path('img/uploads/' . $fileName));
         }
 
-        $news = new News; 
+        $editorials = new Editorials; 
 
-        $news->user_id = Auth::user()->id;
-        $news->title = $request->title;
-        $news->body = $request->body;
-        $news->image = $fileName;
-        $news->user = Auth::user()->name;
-        $news->update = Auth::user()->name;
-        $news->save();
+        $editorials->user_id = Auth::user()->id;
+        $editorials->title = $request->title;
+        $editorials->body = $request->body;
+        $editorials->image = $fileName;
+        $editorials->user = Auth::user()->name;
+        $editorials->update = Auth::user()->name;
+        $editorials->save();
 
         $request->session()->flash('alert-success', 'Post was successfully created!');
-        return redirect()->route('news.show',$news->id);
+        return redirect()->route('editorial.show',$editorials->id);
     }
 
     /**
@@ -99,9 +99,9 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        $news = News::find($id);
-        $comments = News::find($id)->newsComments;
-        return view('news.show')->with('news', $news)->with('comments', $comments);
+        $editorials = Editorials::find($id);
+        $comments = Editorials::find($id)->editorialsComments;
+        return view('editorial.show')->with('editorials', $editorials)->with('comments', $comments);
     }
 
     /**
@@ -112,9 +112,9 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $news = News::find($id);
+        $editorials = Editorials::find($id);
 
-        return view('news.edit')->with('news', $news);
+        return view('editorial.edit')->with('editorials', $editorials);
     }
 
     /**
@@ -126,9 +126,9 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $news = News::find($id);
+        $editorials = Editorials::find($id);
         $this->validate($request, [
-            'title' => 'required|max:255|unique:news,title,'.$news->id,
+            'title' => 'required|max:255|unique:editorials,title,'.$editorials->id,
             'body' => 'required',
             'image' => 'mimes:jpeg,png,gif',
         ]);
@@ -141,14 +141,14 @@ class NewsController extends Controller
             })->save(public_path('img/uploads/' . $fileName));
         }
 
-        $news->title = $request->title;
-        $news->body = $request->body;
-        $news->image = $fileName;
-        $news->update = Auth::user()->name;
-        $news->update();
+        $editorials->title = $request->title;
+        $editorials->body = $request->body;
+        $editorials->image = $fileName;
+        $editorials->update = Auth::user()->name;
+        $editorials->update();
         
         $request->session()->flash('alert-success', 'Post was successfully edited!');
-        return redirect()->route('news.show',$news->id);
+        return redirect()->route('editorial.show',$editorials->id);
     }
 
     /**
@@ -159,33 +159,33 @@ class NewsController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        Featured::where('category_id', News::find($id)->id)->delete();
+        Featured::where('category_id', Editorials::find($id)->id)->delete();
         
-        News::find($id)->delete();
+        Editorials::find($id)->delete();
 
         $request->session()->flash('alert-danger', 'Post was successfully deleted!');
-        return redirect()->route('news.index');    
+        return redirect()->route('editorial.index');    
     }
 
-    public function newsComment(Request $request, $id) {
+    public function editorialsComment(Request $request, $id) {
         $this->validate($request, [
             'comment_name' => 'required',
             'comment_email' => 'required',
             'comment_dept' => 'required',
             'comment_message' => 'required',
-            'g-recaptcha-response' => 'required|recaptcha'
+            // 'g-recaptcha-response' => 'required|recaptcha'
         ]);
 
-        $news = News::find($id);
+        $editorials = Editorials::find($id);
 
-        $comment = new NewsComment;
-        $comment->news_id = $news->id;
+        $comment = new EditorialsComment;
+        $comment->editorials_id = $editorials->id;
         $comment->comment_name = $request->comment_name;
         $comment->comment_email = $request->comment_email;
         $comment->comment_dept = $request->comment_dept;
         $comment->comment_message = $request->comment_message;
         $comment->save();
 
-        return redirect()->route('news.show',$news->id);
+        return redirect()->route('editorial.show',$editorials->id);
     }
 }

@@ -93,11 +93,11 @@
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
           <div class="bgc-red pd5 fc-white fs20">Editorial</div>
           <div class="panel-body">
-            @if(!$artworks->isEmpty())
+            @if(!$editorials->isEmpty())
             <div class="row">
-            @foreach($artworks as $editorial)
+            @foreach($editorials as $editorial)
               <div class="col-md-4">
-                <a href="{{ route('artworks.show', $editorial->id) }}" class="fc-black">
+                <a href="{{ route('editorial.show', $editorial->id) }}" class="fc-black">
                   <span class="fs17 dp-bl"><b>{{ $editorial->title }}</b></span>
                   <div class="tile-img-container mgv10">
                     <img src="{{ asset('img/uploads/' . $editorial->image) }}" class="img-responsive img-thumbnail dp-bl">
@@ -109,7 +109,7 @@
             </div>
             <div class="row">
               <div class="col-md-3 col-md-offset-9">
-                <a href="{{ route('artworks.index') }}">
+                <a href="{{ route('editorial.index') }}">
                   <div class="fc-white btn-black mgt20 text-center">
                     <span class="glyphicon glyphicon-plus"></span> View More
                   </div>

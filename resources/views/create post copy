@@ -87,7 +87,7 @@
                         $('#formSubmit').attr('action','{{ route('sports.store') }}');
                         break;
                     case '6':
-                        $('#formSubmit').attr('action','{{ route('artworks.store') }}');
+                        $('#formSubmit').attr('action','{{ route('editorials.store') }}');
                         break;
                 }
             });

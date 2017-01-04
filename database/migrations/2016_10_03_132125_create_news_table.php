@@ -17,7 +17,7 @@ class CreateNewsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('category')->default('news');
-            $table->string('title');
+            $table->string('title')->unique();
             $table->longText('body');
             $table->string('image')->default('default.jpg');
             $table->string('user');
