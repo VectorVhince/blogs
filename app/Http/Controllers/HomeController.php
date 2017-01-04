@@ -89,19 +89,26 @@ class HomeController extends Controller
                 break;
         }
 
-        $featured = new Featured;
+        if (!Featured::where('title', '=', $get_featured->title)->exists()) {
 
-        $featured->category_id = $get_featured->id;
-        $featured->category = $get_featured->category;
-        $featured->title = $get_featured->title;
-        $featured->body = $get_featured->body;
-        $featured->image = $get_featured->image;
-        $featured->user = $get_featured->user;
-        $featured->update = $get_featured->update;
-        $featured->save();
+            $featured = new Featured;
 
-        $request->session()->flash('alert-success', 'Post was successfully featured!');
-        return redirect()->route('home');
+            $featured->category_id = $get_featured->id;
+            $featured->category = $get_featured->category;
+            $featured->title = $get_featured->title;
+            $featured->body = $get_featured->body;
+            $featured->image = $get_featured->image;
+            $featured->user = $get_featured->user;
+            $featured->update = $get_featured->update;
+            $featured->save();
+
+            $request->session()->flash('alert-success', 'Post was successfully featured!');
+            return redirect()->route('home');
+        }
+        else {
+            $request->session()->flash('alert-danger', 'Post is already featured!');
+            return redirect()->route($get_featured->category . '.show', $get_featured->id);
+        }
     }
 
     public function search(Request $request)

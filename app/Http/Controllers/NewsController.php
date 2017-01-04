@@ -64,7 +64,7 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
+            'title' => 'required|unique:news|max:255',
             'body' => 'required',
             'image' => 'required|mimes:jpeg,png,gif',
         ]);
@@ -126,12 +126,12 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $news = News::find($id);
         $this->validate($request, [
-            'title' => 'required|max:255',
+            'title' => 'required|max:255|unique:news,' . $news->id,
             'body' => 'required',
             'image' => 'mimes:jpeg,png',
         ]);
-        $news = News::find($id);
 
 
         if ($request->hasFile('image')) {
