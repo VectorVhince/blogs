@@ -13,59 +13,50 @@
 
 Auth::routes();
 
-Route::get('search', 'HomeController@search')->name('search');
-
-Route::get('news/sortby', 'NewsController@sortBy')->name('news.sortBy');
-
-Route::get('editorial/sortby', 'EditorialsController@sortBy')->name('editorial.sortBy');
-
-Route::get('opinion/sortby', 'OpinionController@sortBy')->name('opinion.sortBy');
-
+// Home Controllers
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('settings', 'HomeController@settings');
-
 Route::get('myposts', 'HomeController@myPosts');
 
-Route::resource('posts', 'PostController');
-
-Route::resource('opinion', 'OpinionController');
-
-Route::resource('news', 'NewsController');
-
-Route::resource('features', 'FeaturesController');
-
-Route::resource('editors', 'EditorsController');
-
-Route::resource('humors', 'HumorsController');
-
-Route::resource('sports', 'SportsController');
-
-Route::resource('editorial', 'EditorialsController');
-
-Route::get('/', 'HomeController@index')->name('home');
-
+// Create Post
 Route::get('create', 'HomeController@create');
-
 Route::post('create', 'HomeController@create')->name('create');
 
+// Create Announcement
 Route::get('create/announcement', 'HomeController@createAnnouncement');
-
 Route::post('store/announcement', 'HomeController@storeAnnouncement')->name('store.announcement');
 
-Route::get('featured/{id}/{category}', 'HomeController@featured')->name('featured');
+// Search
+Route::get('search', 'HomeController@search')->name('search');
 
-Route::post('opinion.comment/{id}', 'OpinionController@opinionComment')->name('opinion.comment');
+// Home Featured
+Route::get('news/featured/{id}', 'NewsController@featured')->name('news.featured');
+Route::get('editorial/featured/{id}', 'EditorialsController@featured')->name('editorial.featured');
+Route::get('opinion/featured/{id}', 'OpinionController@featured')->name('opinion.featured');
+Route::get('feature/featured/{id}', 'FeaturesController@featured')->name('feature.featured');
+Route::get('humor/featured/{id}', 'HumorsController@featured')->name('humor.featured');
+Route::get('sports/featured/{id}', 'SportsController@featured')->name('sports.featured');
 
-Route::post('post.comment/{id}', 'PostController@postComment')->name('post.comment');
+// Sort By
+Route::get('news/sortby', 'NewsController@sortBy')->name('news.sortBy');
+Route::get('editorial/sortby', 'EditorialsController@sortBy')->name('editorial.sortBy');
+Route::get('opinion/sortby', 'OpinionController@sortBy')->name('opinion.sortBy');
+Route::get('feature/sortby', 'FeaturesController@sortBy')->name('feature.sortBy');
+Route::get('humor/sortby', 'HumorsController@sortBy')->name('humor.sortBy');
+Route::get('sports/sortby', 'SportsController@sortBy')->name('sports.sortBy');
 
+//Resource
+Route::resource('news', 'NewsController');
+Route::resource('editorial', 'EditorialsController');
+Route::resource('opinion', 'OpinionController');
+Route::resource('feature', 'FeaturesController');
+Route::resource('humor', 'HumorsController');
+Route::resource('sports', 'SportsController');
+
+// Comment
 Route::post('news.comment/{id}', 'NewsController@newsComment')->name('news.comment');
-
-Route::post('features.comment/{id}', 'FeaturesController@featuresComment')->name('features.comment');
-
-Route::post('editors.comment/{id}', 'EditorsController@editorsComment')->name('editors.comment');
-
-Route::post('humors.comment/{id}', 'HumorsController@humorsComment')->name('humors.comment');
-
-Route::post('sports.comment/{id}', 'SportsController@sportsComment')->name('sports.comment');
-
 Route::post('editorial.comment/{id}', 'EditorialsController@editorialsComment')->name('editorial.comment');
-
+Route::post('opinion.comment/{id}', 'OpinionController@opinionComment')->name('opinion.comment');
+Route::post('feature.comment/{id}', 'FeaturesController@featuresComment')->name('feature.comment');
+Route::post('humor.comment/{id}', 'HumorsController@humorsComment')->name('humor.comment');
+Route::post('sports.comment/{id}', 'SportsController@sportsComment')->name('sports.comment');

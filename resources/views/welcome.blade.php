@@ -57,19 +57,24 @@
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
           <div class="bgc-red pd5 fc-white fs20">News</div>
           <div class="panel-body">
-            @if(!$news->isEmpty())
+            @if(isset($news_first))
             <div class="row">
-            @foreach($news as $new)
-              <div class="col-md-4">
-                <a href="{{ route('news.show', $new->id) }}" class="fc-black">
-                  <span class="fs17 dp-bl"><b>{{ $new->title }}</b></span>
-                  <div class="tile-img-container mgv10">
-                    <img src="{{ asset('img/uploads/' . $new->image) }}" class="img-responsive img-thumbnail dp-bl">
+              <div class="col-md-6 text-center">
+                <a href="{{ route('news.show', $news_first->id) }}" class="fc-black">
+                  <div class="mgv10">
+                    <img src="{{ asset('img/uploads/' . $news_first->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
-                  <span class="fs12">{{ strip_tags(substr($new->body,0,200)) }}...</span>
+                  <span class="fs17 dp-bl"><b>{{ $news_first->title }}</b></span>
                 </a>
               </div>
-            @endforeach
+              <div class="col-md-6 mgv10">
+              @foreach($news as $new)
+              <a href="{{ route('news.show', $new->id) }}" class="fc-black dp-bl">
+                <span class="fs17 dp-bl"><b>{{ $new->title }}</b></span>
+              </a>
+              <hr>
+              @endforeach
+              </div>
             </div>
             <div class="row">
               <div class="col-md-3 col-md-offset-9">
@@ -93,19 +98,24 @@
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
           <div class="bgc-red pd5 fc-white fs20">Editorial</div>
           <div class="panel-body">
-            @if(!$editorials->isEmpty())
+            @if(isset($editorials_first))
             <div class="row">
-            @foreach($editorials as $editorial)
-              <div class="col-md-4">
-                <a href="{{ route('editorial.show', $editorial->id) }}" class="fc-black">
-                  <span class="fs17 dp-bl"><b>{{ $editorial->title }}</b></span>
-                  <div class="tile-img-container mgv10">
-                    <img src="{{ asset('img/uploads/' . $editorial->image) }}" class="img-responsive img-thumbnail dp-bl">
+              <div class="col-md-6 text-center">
+                <a href="{{ route('editorial.show', $editorials_first->id) }}" class="fc-black">
+                  <div class="mgv10">
+                    <img src="{{ asset('img/uploads/' . $editorials_first->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
-                  <span class="fs12">{{ strip_tags(substr($editorial->body,0,200)) }}...</span>
+                  <span class="fs17 dp-bl"><b>{{ $editorials_first->title }}</b></span>
                 </a>
               </div>
-            @endforeach
+              <div class="col-md-6 mgv10">
+              @foreach($editorials as $editorial)
+              <a href="{{ route('editorial.show', $editorial->id) }}" class="fc-black dp-bl">
+                <span class="fs17 dp-bl"><b>{{ $editorial->title }}</b></span>
+              </a>
+              <hr>
+              @endforeach
+              </div>
             </div>
             <div class="row">
               <div class="col-md-3 col-md-offset-9">
@@ -129,19 +139,24 @@
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
           <div class="bgc-red pd5 fc-white fs20">Opinion</div>
           <div class="panel-body">
-            @if(!$opinions->isEmpty())
+            @if(isset($opinions_first))
             <div class="row">
-            @foreach($opinions as $opinion)
-              <div class="col-md-4">
-                <a href="{{ route('opinion.show', $opinion->id) }}" class="fc-black">
-                  <span class="fs17 dp-bl"><b>{{ $opinion->title }}</b></span>
-                  <div class="tile-img-container mgv10">
-                    <img src="{{ asset('img/uploads/' . $opinion->image) }}" class="img-responsive img-thumbnail dp-bl">
+              <div class="col-md-6 text-center">
+                <a href="{{ route('opinion.show', $opinions_first->id) }}" class="fc-black">
+                  <div class="mgv10">
+                    <img src="{{ asset('img/uploads/' . $opinions_first->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
-                  <span class="fs12">{{ strip_tags(substr($opinion->body,0,200)) }}...</span>
+                  <span class="fs17 dp-bl"><b>{{ $opinions_first->title }}</b></span>
                 </a>
               </div>
-            @endforeach
+              <div class="col-md-6 mgv10">
+              @foreach($opinions as $opinion)
+              <a href="{{ route('opinion.show', $opinion->id) }}" class="fc-black dp-bl">
+                <span class="fs17 dp-bl"><b>{{ $opinion->title }}</b></span>
+              </a>
+              <hr>
+              @endforeach
+              </div>
             </div>
             <div class="row">
               <div class="col-md-3 col-md-offset-9">
@@ -165,23 +180,28 @@
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
           <div class="bgc-red pd5 fc-white fs20">Feature</div>
           <div class="panel-body">
-            @if(!$features->isEmpty())
+            @if(isset($features_first))
             <div class="row">
-            @foreach($features as $feature)
-              <div class="col-md-4">
-                <a href="{{ route('features.show', $feature->id) }}" class="fc-black">
-                  <span class="fs17 dp-bl"><b>{{ $feature->title }}</b></span>
-                  <div class="tile-img-container mgv10">
-                    <img src="{{ asset('img/uploads/' . $feature->image) }}" class="img-responsive img-thumbnail dp-bl">
+              <div class="col-md-6 text-center">
+                <a href="{{ route('feature.show', $features_first->id) }}" class="fc-black">
+                  <div class="mgv10">
+                    <img src="{{ asset('img/uploads/' . $features_first->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
-                  <span class="fs12">{{ strip_tags(substr($feature->body,0,200)) }}...</span>
+                  <span class="fs17 dp-bl"><b>{{ $features_first->title }}</b></span>
                 </a>
               </div>
-            @endforeach
+              <div class="col-md-6 mgv10">
+              @foreach($features as $feature)
+              <a href="{{ route('feature.show', $feature->id) }}" class="fc-black dp-bl">
+                <span class="fs17 dp-bl"><b>{{ $feature->title }}</b></span>
+              </a>
+              <hr>
+              @endforeach
+              </div>
             </div>
             <div class="row">
               <div class="col-md-3 col-md-offset-9">
-                <a href="{{ route('features.index') }}">
+                <a href="{{ route('feature.index') }}">
                   <div class="fc-white btn-black mgt20 text-center">
                     <span class="glyphicon glyphicon-plus"></span> View More
                   </div>
@@ -201,23 +221,28 @@
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
           <div class="bgc-red pd5 fc-white fs20">Humor</div>
           <div class="panel-body">
-            @if(!$humors->isEmpty())
+            @if(isset($humors_first))
             <div class="row">
-            @foreach($humors as $humor)
-              <div class="col-md-4">
-                <a href="{{ route('humors.show', $humor->id) }}" class="fc-black">
-                  <span class="fs17 dp-bl"><b>{{ $humor->title }}</b></span>
-                  <div class="tile-img-container mgv10">
-                    <img src="{{ asset('img/uploads/' . $humor->image) }}" class="img-responsive img-thumbnail dp-bl">
+              <div class="col-md-6 text-center">
+                <a href="{{ route('humor.show', $humors_first->id) }}" class="fc-black">
+                  <div class="mgv10">
+                    <img src="{{ asset('img/uploads/' . $humors_first->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
-                  <span class="fs12">{{ strip_tags(substr($humor->body,0,200)) }}...</span>
+                  <span class="fs17 dp-bl"><b>{{ $humors_first->title }}</b></span>
                 </a>
               </div>
-            @endforeach
+              <div class="col-md-6 mgv10">
+              @foreach($humors as $humor)
+              <a href="{{ route('humor.show', $humor->id) }}" class="fc-black dp-bl">
+                <span class="fs17 dp-bl"><b>{{ $humor->title }}</b></span>
+              </a>
+              <hr>
+              @endforeach
+              </div>
             </div>
             <div class="row">
               <div class="col-md-3 col-md-offset-9">
-                <a href="{{ route('humors.index') }}">
+                <a href="{{ route('humor.index') }}">
                   <div class="fc-white btn-black mgt20 text-center">
                     <span class="glyphicon glyphicon-plus"></span> View More
                   </div>
@@ -237,19 +262,24 @@
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
           <div class="bgc-red pd5 fc-white fs20">Sports</div>
           <div class="panel-body">
-            @if(!$sports->isEmpty())
+            @if(isset($sports_first))
             <div class="row">
-            @foreach($sports as $sport)
-              <div class="col-md-4">
-                <a href="{{ route('sports.show', $sport->id) }}" class="fc-black">
-                  <span class="fs17 dp-bl"><b>{{ $sport->title }}</b></span>
-                  <div class="tile-img-container mgv10">
-                    <img src="{{ asset('img/uploads/' . $sport->image) }}" class="img-responsive img-thumbnail dp-bl">
+              <div class="col-md-6 text-center">
+                <a href="{{ route('sports.show', $sports_first->id) }}" class="fc-black">
+                  <div class="mgv10">
+                    <img src="{{ asset('img/uploads/' . $sports_first->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
-                  <span class="fs12">{{ strip_tags(substr($sport->body,0,200)) }}...</span>
+                  <span class="fs17 dp-bl"><b>{{ $sports_first->title }}</b></span>
                 </a>
               </div>
-            @endforeach
+              <div class="col-md-6 mgv10">
+              @foreach($sports as $sport)
+              <a href="{{ route('sports.show', $sport->id) }}" class="fc-black dp-bl">
+                <span class="fs17 dp-bl"><b>{{ $sport->title }}</b></span>
+              </a>
+              <hr>
+              @endforeach
+              </div>
             </div>
             <div class="row">
               <div class="col-md-3 col-md-offset-9">
@@ -271,6 +301,7 @@
         </div>
 
       </div>
+
       <div class="col-lg-4">
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
           <div class="bgc-red pd5 fc-white fs20">Recent Comments</div>
@@ -279,6 +310,7 @@
           </div>
         </div> 
       </div>
+      
     </div>
   </div>
 @stop
@@ -294,7 +326,7 @@
         prevButton: '.swiper-button-prev',
         paginationClickable: true,
         spaceBetween: 30,
-        autoplay: 10000,
+        autoplay: 7000,
         loop: true,
         effect: 'fade',
         autoplayDisableOnInteraction: false,

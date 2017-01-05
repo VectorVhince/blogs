@@ -27,8 +27,8 @@
 							<li><a class="fc-black fs12" href=" {{ route('news.index') }} ">News</a></li>
 			                <li><a class="fc-black fs12" href=" {{ route('editorial.index') }} ">Editorial</a></li>
 			                <li><a class="fc-black fs12" href=" {{ route('opinion.index') }} ">Opinion</a></li>
-			                <li><a class="fc-black fs12" href=" {{ route('features.index') }} ">Feature</a></li>
-			                <li><a class="fc-black fs12" href=" {{ route('humors.index') }} ">Humor</a></li>
+			                <li><a class="fc-black fs12" href=" {{ route('feature.index') }} ">Feature</a></li>
+			                <li><a class="fc-black fs12" href=" {{ route('humor.index') }} ">Humor</a></li>
 			                <li><a class="fc-black fs12" href=" {{ route('sports.index') }} ">Sports</a></li>
 						</ul>
 					</div>

@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+
 use App\Features;
 use App\FeaturesComment;
-use App\Featured;
 use Auth;
+use Image;
 
 class FeaturesController extends Controller
 {
@@ -19,9 +20,29 @@ class FeaturesController extends Controller
      */
     public function index()
     {
-        $features = Features::orderBy('id', 'desc')->get();
+        $features = Features::orderBy('id', 'desc')->paginate(10);
 
-        return view('features.index')->with('features', $features);
+        return view('feature.index')->with('features', $features);
+    }
+
+    public function sortBy(Request $request)
+    {
+        switch ($request->key) {
+            case 'date':
+                $features = Features::orderBy('created_at', 'desc')->paginate(10);
+                return view('feature.index')->with('features', $features);
+                break;
+
+            case 'name':
+                $features = Features::orderBy('title', 'asc')->paginate(10);
+                return view('feature.index')->with('features', $features);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
     }
 
     /**
@@ -31,7 +52,7 @@ class FeaturesController extends Controller
      */
     public function create()
     {
-        return view('features.create');
+        //
     }
 
     /**
@@ -43,15 +64,17 @@ class FeaturesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
+            'title' => 'required|max:255|unique:features,title',
             'body' => 'required',
-            'image' => 'required|mimes:jpeg,png',
+            'image' => 'required|mimes:jpeg,png,gif',
         ]);
 
         $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
         if ($request->hasFile('image')) {
-            $request->file('image')->move(public_path('img/uploads'), $fileName);
+            Image::make($request->file('image'))->resize(863, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('img/uploads/' . $fileName));
         }
 
         $features = new features; 
@@ -64,7 +87,8 @@ class FeaturesController extends Controller
         $features->update = Auth::user()->name;
         $features->save();
 
-        return redirect()->route('features.show',$features->id);
+        $request->session()->flash('alert-success', 'Post was successfully created!');
+        return redirect()->route('feature.show',$features->id);
     }
 
     /**
@@ -77,7 +101,7 @@ class FeaturesController extends Controller
     {
         $features = Features::find($id);
         $comments = Features::find($id)->featuresComments;
-        return view('features.show')->with('features', $features)->with('comments', $comments);
+        return view('feature.show')->with('features', $features)->with('comments', $comments);
     }
 
     /**
@@ -90,7 +114,7 @@ class FeaturesController extends Controller
     {
         $features = features::find($id);
 
-        return view('features.edit')->with('features', $features);
+        return view('feature.edit')->with('features', $features);
     }
 
     /**
@@ -102,17 +126,19 @@ class FeaturesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'required|max:255',
-            'body' => 'required',
-            'image' => 'mimes:jpeg,png',
-        ]);
         $features = Features::find($id);
+        $this->validate($request, [
+            'title' => 'required|max:255|unique:features,title,'.$features->id,
+            'body' => 'required',
+            'image' => 'mimes:jpeg,png,gif',
+        ]);
 
-
+        $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+        
         if ($request->hasFile('image')) {
-            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path('image/uploads'), $fileName);
+            Image::make($request->file('image'))->resize(863, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('img/uploads/' . $fileName));
             $features->image = $fileName;
         }
 
@@ -121,7 +147,8 @@ class FeaturesController extends Controller
         $features->update = Auth::user()->name;
         $features->update();
         
-        return redirect()->route('features.show',$features->id);
+        $request->session()->flash('alert-success', 'Post was successfully edited!');
+        return redirect()->route('feature.show',$features->id);
     }
 
     /**
@@ -132,10 +159,10 @@ class FeaturesController extends Controller
      */
     public function destroy($id)
     {
-        Featured::where('category_id', Features::find($id)->id)->delete();
         Features::find($id)->delete();
 
-        return redirect()->route('features.index');    
+        $request->session()->flash('alert-danger', 'Post was successfully deleted!');
+        return redirect()->route('feature.index');    
     }
 
     public function featuresComment(Request $request, $id) {
@@ -156,6 +183,15 @@ class FeaturesController extends Controller
         $comment->comment_message = $request->comment_message;
         $comment->save();
 
-        return redirect()->route('features.show',$features->id);
+        return redirect()->route('feature.show',$features->id);
+    }
+
+    public function featured(Request $request, $id) {
+        $features = Features::find($id);
+        $features->featured = '1';
+        $features->update();
+
+        $request->session()->flash('alert-success', 'Post was successfully featured!');
+        return redirect()->route('home');        
     }
 }

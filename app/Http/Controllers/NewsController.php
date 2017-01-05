@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+
 use App\News;
 use App\NewsComment;
-use App\Featured;
 use Auth;
 use Image;
 
@@ -139,11 +139,11 @@ class NewsController extends Controller
             Image::make($request->file('image'))->resize(863, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path('img/uploads/' . $fileName));
+            $news->image = $fileName;
         }
 
         $news->title = $request->title;
         $news->body = $request->body;
-        $news->image = $fileName;
         $news->update = Auth::user()->name;
         $news->update();
         
@@ -159,8 +159,6 @@ class NewsController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        Featured::where('category_id', News::find($id)->id)->delete();
-        
         News::find($id)->delete();
 
         $request->session()->flash('alert-danger', 'Post was successfully deleted!');
@@ -173,7 +171,7 @@ class NewsController extends Controller
             'comment_email' => 'required',
             'comment_dept' => 'required',
             'comment_message' => 'required',
-            'g-recaptcha-response' => 'required|recaptcha'
+            // 'g-recaptcha-response' => 'required|recaptcha'
         ]);
 
         $news = News::find($id);
@@ -187,5 +185,14 @@ class NewsController extends Controller
         $comment->save();
 
         return redirect()->route('news.show',$news->id);
+    }
+
+    public function featured(Request $request, $id) {
+        $news = News::find($id);
+        $news->featured = '1';
+        $news->update();
+
+        $request->session()->flash('alert-success', 'Post was successfully featured!');
+        return redirect()->route('home');        
     }
 }

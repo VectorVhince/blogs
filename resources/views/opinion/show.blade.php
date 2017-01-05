@@ -158,7 +158,7 @@
 
       <span>Mark this featured?</span>
       <div class="row mgt20">
-          <a href="{{ route('featured',[$opinion->id,$opinion->category]) }}"><button type="button" class="btn btn-success btn-sm">Yes</button></a>
+          <a href="{{ route('opinion.featured',[$opinion->id]) }}"><button type="button" class="btn btn-success btn-sm">Yes</button></a>
           <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
       </div>
 

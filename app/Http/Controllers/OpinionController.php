@@ -8,8 +8,8 @@ use App\Http\Requests;
 
 use App\Opinion;
 use App\OpinionComment;
-use App\Featured;
 use Auth;
+use Image;
 
 class OpinionController extends Controller
 {
@@ -64,7 +64,7 @@ class OpinionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255|unique:opinion,title',
+            'title' => 'required|max:255|unique:opinions,title',
             'body' => 'required',
             'image' => 'required|mimes:jpeg,png,gif',
         ]);
@@ -139,11 +139,11 @@ class OpinionController extends Controller
             Image::make($request->file('image'))->resize(863, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path('img/uploads/' . $fileName));
+            $opinion->image = $fileName;
         }
 
         $opinion->title = $request->title;
         $opinion->body = $request->body;
-        $editorials->image = $fileName;
         $opinion->update = Auth::user()->name;
         $opinion->update();
         
@@ -159,9 +159,9 @@ class OpinionController extends Controller
      */
     public function destroy($id)
     {
-        Featured::where('category_id', News::find($id)->id)->delete();
         Opinion::find($id)->delete();
 
+        $request->session()->flash('alert-danger', 'Post was successfully deleted!');
         return redirect()->route('opinion.index');
     }
 
@@ -184,5 +184,14 @@ class OpinionController extends Controller
         $comment->save();
 
         return redirect()->route('opinion.show',$opinion->id);
+    }
+
+    public function featured(Request $request, $id) {
+        $opinion = Opinion::find($id);
+        $opinion->featured = '1';
+        $opinion->update();
+
+        $request->session()->flash('alert-success', 'Post was successfully featured!');
+        return redirect()->route('home');        
     }
 }

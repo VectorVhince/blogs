@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+
 use App\Humors;
 use App\HumorsComment;
-use App\Featured;
 use Auth;
+use Image;
 
 class HumorsController extends Controller
 {
@@ -19,9 +20,29 @@ class HumorsController extends Controller
      */
     public function index()
     {
-        $humors = Humors::orderBy('id', 'desc')->get();
+        $humors = Humors::orderBy('id', 'desc')->paginate(10);
 
-        return view('humors.index')->with('humors', $humors);
+        return view('humor.index')->with('humors', $humors);
+    }
+
+    public function sortBy(Request $request)
+    {
+        switch ($request->key) {
+            case 'date':
+                $humors = Humors::orderBy('created_at', 'desc')->paginate(10);
+                return view('humor.index')->with('humors', $humors);
+                break;
+
+            case 'name':
+                $humors = Humors::orderBy('title', 'asc')->paginate(10);
+                return view('humor.index')->with('humors', $humors);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
     }
 
     /**
@@ -43,15 +64,17 @@ class HumorsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
+            'title' => 'required|max:255|unique:humors,title',
             'body' => 'required',
-            'image' => 'required|mimes:jpeg,png',
+            'image' => 'required|mimes:jpeg,png,gif',
         ]);
 
         $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
         if ($request->hasFile('image')) {
-            $request->file('image')->move(public_path('img/uploads'), $fileName);
+            Image::make($request->file('image'))->resize(863, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('img/uploads/' . $fileName));
         }
 
         $humors = new Humors; 
@@ -64,7 +87,8 @@ class HumorsController extends Controller
         $humors->update = Auth::user()->name;
         $humors->save();
 
-        return redirect()->route('humors.show',$humors->id);
+        $request->session()->flash('alert-success', 'Post was successfully created!');
+        return redirect()->route('humor.show',$humors->id);
     }
 
     /**
@@ -77,7 +101,7 @@ class HumorsController extends Controller
     {
         $humors = Humors::find($id);
         $comments = Humors::find($id)->humorsComments;
-        return view('humors.show')->with('humors', $humors)->with('comments', $comments);
+        return view('humor.show')->with('humors', $humors)->with('comments', $comments);
     }
 
     /**
@@ -90,7 +114,7 @@ class HumorsController extends Controller
     {
         $humors = Humors::find($id);
 
-        return view('humors.edit')->with('humors', $humors);
+        return view('humor.edit')->with('humors', $humors);
     }
 
     /**
@@ -102,17 +126,19 @@ class HumorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'required|max:255',
-            'body' => 'required',
-            'image' => 'mimes:jpeg,png',
-        ]);
         $humors = Humors::find($id);
-
+        $this->validate($request, [
+            'title' => 'required|max:255|unique:humors,title,'.$humors->id,
+            'body' => 'required',
+            'image' => 'mimes:jpeg,png,gif',
+        ]);
+        
+        $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
         if ($request->hasFile('image')) {
-            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path('img/uploads'), $fileName);
+            Image::make($request->file('image'))->resize(863, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('img/uploads/' . $fileName));
             $humors->image = $fileName;
         }
 
@@ -121,7 +147,8 @@ class HumorsController extends Controller
         $humors->update = Auth::user()->name;
         $humors->update();
         
-        return redirect()->route('humors.show',$humors->id);
+        $request->session()->flash('alert-success', 'Post was successfully edited!');
+        return redirect()->route('humor.show',$humors->id);
     }
 
     /**
@@ -132,10 +159,10 @@ class HumorsController extends Controller
      */
     public function destroy($id)
     {
-        Featured::where('category_id', Humors::find($id)->id)->delete();
         Humors::find($id)->delete();
 
-        return redirect()->route('humors.index');    
+        $request->session()->flash('alert-danger', 'Post was successfully deleted!');
+        return redirect()->route('humor.index');    
     }
 
     public function humorsComment(Request $request, $id) {
@@ -156,6 +183,15 @@ class HumorsController extends Controller
         $comment->comment_message = $request->comment_message;
         $comment->save();
 
-        return redirect()->route('humors.show',$humors->id);
+        return redirect()->route('humor.show',$humors->id);
+    }
+
+    public function featured(Request $request, $id) {
+        $humors = Humors::find($id);
+        $humors->featured = '1';
+        $humors->update();
+
+        $request->session()->flash('alert-success', 'Post was successfully featured!');
+        return redirect()->route('home');        
     }
 }

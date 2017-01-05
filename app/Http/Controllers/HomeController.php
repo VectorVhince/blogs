@@ -11,7 +11,6 @@ use App\Features;
 use App\Humors;
 use App\Sports;
 use App\Editorials;
-use App\Featured;
 use App\Announcements;
 use Auth;
 use App\User;
@@ -25,16 +24,53 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $featured = Featured::orderBy('id', 'desc')->take(7)->get();
-        $news = News::orderBy('id', 'desc')->take(3)->get();
-        $opinions = Opinion::orderBy('id', 'desc')->take(3)->get();
-        $features = Features::orderBy('id', 'desc')->take(3)->get();
-        $humors = Humors::orderBy('id', 'desc')->take(3)->get();
-        $sports = Sports::orderBy('id', 'desc')->take(3)->get();
-        $editorials = Editorials::orderBy('id', 'desc')->take(3)->get();
+        $news_featured = News::where('featured', '=', '1');
+        $editorial_featured = Editorials::where('featured', '=', '1');
+        $opinion_featured = Opinion::where('featured', '=', '1');
+        $feature_featured = Features::where('featured', '=', '1');
+        $humor_featured = Humors::where('featured', '=', '1');
+        $sports_featured = Sports::where('featured', '=', '1');
+
+        $featured = $news_featured
+        ->union($editorial_featured)
+        ->union($opinion_featured)
+        ->union($feature_featured)
+        ->union($humor_featured)
+        ->union($sports_featured)
+        ->orderBy('updated_at', 'desc')
+        ->take(7)->get();
+
+        $news = News::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(5)->get();
+        $news_first = News::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
+        $opinions = Opinion::where('featured', '!=', '1')->orderBy('id', 'desc')->take(5)->get();
+        $opinions_first = Opinion::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
+        $features = Features::where('featured', '!=', '1')->orderBy('id', 'desc')->take(5)->get();
+        $features_first = Features::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
+        $humors = Humors::where('featured', '!=', '1')->orderBy('id', 'desc')->take(5)->get();
+        $humors_first = Humors::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
+        $sports = Sports::where('featured', '!=', '1')->orderBy('id', 'desc')->take(5)->get();
+        $sports_first = Sports::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
+        $editorials = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->take(5)->get();
+        $editorials_first = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
         $announcements = Announcements::orderBy('id', 'desc')->take(8)->get();
 
-        return view('welcome')->with('featured', $featured)->with('news', $news)->with('opinions', $opinions)->with('features', $features)->with('humors', $humors)->with('sports', $sports)->with('editorials', $editorials)->with('announcements', $announcements);
+        // dd($news_first);
+
+        return view('welcome')
+        ->with('featured', $featured)
+        ->with('news', $news)
+        ->with('opinions', $opinions)
+        ->with('features', $features)
+        ->with('humors', $humors)
+        ->with('sports', $sports)
+        ->with('news_first', $news_first)
+        ->with('editorials', $editorials)
+        ->with('opinions_first', $opinions_first)
+        ->with('features_first', $features_first)
+        ->with('humors_first', $humors_first)
+        ->with('sports_first', $sports_first)
+        ->with('editorials_first', $editorials_first)
+        ->with('announcements', $announcements);
     }
 
     public function create()
@@ -52,63 +88,6 @@ class HomeController extends Controller
         $announcements = new Announcements;
         $announcements->create($request->all());
         return redirect()->route('home');
-    }
-
-    public function featured(Request $request, $id,$category)
-    {
-        $news = News::find($id);
-        $opinion = Opinion::find($id);
-        $features = Features::find($id);
-        $humors = Humors::find($id);
-        $sports = Sports::find($id);
-        $editorials = Editorials::find($id);
-
-        switch ($category) {
-            case 'news':
-                $get_featured = $news;
-                break;
-
-            case 'opinion':
-                $get_featured = $opinion;
-                break;
-
-            case 'features':
-                $get_featured = $features;
-                break;
-
-            case 'humors':
-                $get_featured = $humors;
-                break;
-
-            case 'sports':
-                $get_featured = $sports;
-                break;
-
-            case 'editorial':
-                $get_featured = $editorials;
-                break;
-        }
-
-        if (!Featured::where('title', '=', $get_featured->title)->exists()) {
-
-            $featured = new Featured;
-
-            $featured->category_id = $get_featured->id;
-            $featured->category = $get_featured->category;
-            $featured->title = $get_featured->title;
-            $featured->body = $get_featured->body;
-            $featured->image = $get_featured->image;
-            $featured->user = $get_featured->user;
-            $featured->update = $get_featured->update;
-            $featured->save();
-
-            $request->session()->flash('alert-success', 'Post was successfully featured!');
-            return redirect()->route('home');
-        }
-        else {
-            $request->session()->flash('alert-danger', 'Post is already featured!');
-            return redirect()->route($get_featured->category . '.show', $get_featured->id);
-        }
     }
 
     public function search(Request $request)
@@ -167,7 +146,13 @@ class HomeController extends Controller
             }
         });
 
-        $items = $news->union($editorials)->union($features)->union($humors)->union($opinion)->union($sports)->get();
+        $items = $news
+        ->union($editorials)
+        ->union($features)
+        ->union($humors)
+        ->union($opinion)
+        ->union($sports)
+        ->get();
 
         // dd($items);
 
@@ -175,7 +160,10 @@ class HomeController extends Controller
 
         $count = $items->count();
 
-        return view('search')->with('items',$items)->with('search',$search)->with('count',$count);
+        return view('search')
+        ->with('items',$items)
+        ->with('search',$search)
+        ->with('count',$count);
     }
 
     public function settings()

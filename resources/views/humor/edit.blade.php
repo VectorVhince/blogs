@@ -7,7 +7,7 @@
             <div class="panel panel-default bd-rad0 box-shadow">
                 <div style="height: 20px;" class="bgc-red mg0"></div>
                 <div class="panel-body pdh45">
-                    <form action="{{ route('sports.update',$sports->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('humor.update',$humors->id) }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('patch') }}
                         <div class="mgb20 text-center">
@@ -15,13 +15,13 @@
                             <div style="height: 2px;" class="bgc-red mg0"></div>
                         </div>
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                            <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ $sports->title }}">
+                            <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ $humors->title }}">
                             @if ($errors->has('title'))
                                 <span class="help-block"><strong>{{ $errors->first('title') }}</strong></span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                            <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ $sports->body }}</textarea>
+                            <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ $humors->body }}</textarea>
                             @if ($errors->has('body'))
                                 <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
                             @endif
@@ -29,7 +29,7 @@
                         <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                             <label>Cover photo</label> (Minimum size: 863 x 400 px resolution)
                             <input type="file" name="image" class="form-control mgb20 bd-rad0 box-shadow" id="imgInp" accept="image">
-                            <img class="img-responsive" id="blah" src="{{ asset('img/uploads/'.$sports->image) }}" alt="{{ $sports->image }}">
+                            <img class="img-responsive" id="blah" src="{{ asset('img/uploads/'.$humors->image) }}" alt="{{ $humors->image }}">
                             @if ($errors->has('image'))
                                 <span class="help-block"><strong>{{ $errors->first('image') }}</strong></span>
                             @endif

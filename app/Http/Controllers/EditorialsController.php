@@ -139,11 +139,11 @@ class EditorialsController extends Controller
             Image::make($request->file('image'))->resize(863, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path('img/uploads/' . $fileName));
+            $editorials->image = $fileName;
         }
 
         $editorials->title = $request->title;
         $editorials->body = $request->body;
-        $editorials->image = $fileName;
         $editorials->update = Auth::user()->name;
         $editorials->update();
         
@@ -187,5 +187,14 @@ class EditorialsController extends Controller
         $comment->save();
 
         return redirect()->route('editorial.show',$editorials->id);
+    }
+
+    public function featured(Request $request, $id) {
+        $editorials = Editorials::find($id);
+        $editorials->featured = '1';
+        $editorials->update();
+
+        $request->session()->flash('alert-success', 'Post was successfully featured!');
+        return redirect()->route('home');        
     }
 }

@@ -9,14 +9,14 @@
                 <div class="panel-body pdh45">
                     <div class="row mgb40">
                         <div class="col-md-10">
-                            <span class="fs40">{{ $news->title }}</span>
+                            <span class="fs40">{{ $features->title }}</span>
                             <div class="dp-bl">
-                                <span class="text-muted">Author: </span>{{ $news->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($news->created_at, 'F d, Y') }}
+                                <span class="text-muted">Author: </span>{{ $features->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($features->created_at, 'F d, Y') }}
                             </div>
                         </div>
                         <div class="col-md-2">
                         @if (Auth::user())
-                            @if (Auth::user()->id == $news->user_id)                                
+                            @if (Auth::user()->id == $features->user_id)                                
                                 <div class="dropdown" style="float: right;">
                                     <a class="dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1">
                                         <div class="icon-circle text-center pdt10 mgt5">
@@ -26,7 +26,7 @@
                                     <ul class="dropdown-menu dropdown-menu2" aria-labelledby="dropdownMenu1">
                                         <div class="box-arrow1"></div>
                                         <li><a href="#!" data-toggle="modal" data-target="#modal2"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Mark featured</a></li>
-                                        <li><a href="{{ route('news.edit',$news->id) }}"><img src="{{ asset('/img/edit.png') }}" class="ht20"> Edit</a></li>
+                                        <li><a href="{{ route('feature.edit',$features->id) }}"><img src="{{ asset('/img/edit.png') }}" class="ht20"> Edit</a></li>
                                         <li><a href="#!" data-toggle="modal" data-target="#modal1"><img src="{{ asset('/img/delete.png') }}" class="ht20"> Delete</a></li>
                                     </ul>
                                 </div>
@@ -36,12 +36,12 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12 text-center">
-                            <img src="{{ asset('/img/uploads/' . $news->image) }}" class="img-responsive mgb40">
+                            <img src="{{ asset('/img/uploads/' . $features->image) }}" class="img-responsive mgb40">
                         </div>
                     </div>
                     <div class="row mgb20">
                         <div class="col-lg-12">
-                            {!! $news->body !!}
+                            {!! $features->body !!}
                         </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
             <div class="panel panel-default bd-rad0 box-shadow mgt40">
             <div style="height: 20px;" class="bgc-red mg0"></div>
                 <div class="panel-body pd15">
-                    <form action="{{ route('news.comment',$news->id) }}" method="post" enctype="multipart/form-data" id="formSubmit">
+                    <form action="{{ route('feature.comment',$features->id) }}" method="post" enctype="multipart/form-data" id="formSubmit">
                         {{ csrf_field() }}
                         <div class="mgb20">
                             <span class="fs25">Leave a comment</span>
@@ -138,7 +138,7 @@
 <div id="modal1" class="modal fade bs-example-modal-sm pdt200" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content text-center pd15">
-    <form action="{{ route('news.destroy',$news->id) }}" method="post">
+    <form action="{{ route('feature.destroy',$features->id) }}" method="post">
     {{ csrf_field() }}
     {{ method_field('delete') }}
 
@@ -159,7 +159,7 @@
 
       <span>Mark this featured?</span>
       <div class="row mgt20">
-          <a href="{{ route('news.featured',[$news->id]) }}"><button type="button" class="btn btn-success btn-sm">Yes</button></a>
+          <a href="{{ route('feature.featured',[$features->id]) }}"><button type="button" class="btn btn-success btn-sm">Yes</button></a>
           <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
       </div>
 

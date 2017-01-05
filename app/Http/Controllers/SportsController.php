@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+
 use App\Sports;
 use App\SportsComment;
-use App\Featured;
 use Auth;
+use Image;
 
 class SportsController extends Controller
 {
@@ -19,9 +20,29 @@ class SportsController extends Controller
      */
     public function index()
     {
-        $sports = Sports::orderBy('id', 'desc')->get();
+        $sports = Sports::orderBy('id', 'desc')->paginate(10);
 
         return view('sports.index')->with('sports', $sports);
+    }
+
+    public function sortBy(Request $request)
+    {
+        switch ($request->key) {
+            case 'date':
+                $sports = Sports::orderBy('created_at', 'desc')->paginate(10);
+                return view('sports.index')->with('sports', $sports);
+                break;
+
+            case 'name':
+                $sports = Sports::orderBy('title', 'asc')->paginate(10);
+                return view('sports.index')->with('sports', $sports);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
     }
 
     /**
@@ -43,15 +64,17 @@ class SportsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
+            'title' => 'required|max:255|unique:sports,title',
             'body' => 'required',
-            'image' => 'required|mimes:jpeg,png',
+            'image' => 'required|mimes:jpeg,png,gif',
         ]);
 
         $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
         if ($request->hasFile('image')) {
-            $request->file('image')->move(public_path('img/uploads'), $fileName);
+            Image::make($request->file('image'))->resize(863, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('img/uploads/' . $fileName));
         }
 
         $sports = new Sports; 
@@ -64,6 +87,7 @@ class SportsController extends Controller
         $sports->update = Auth::user()->name;
         $sports->save();
 
+        $request->session()->flash('alert-success', 'Post was successfully created!');
         return redirect()->route('sports.show',$sports->id);
     }
 
@@ -102,17 +126,19 @@ class SportsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'required|max:255',
-            'body' => 'required',
-            'image' => 'mimes:jpeg,png',
-        ]);
         $sports = Sports::find($id);
+        $this->validate($request, [
+            'title' => 'required|max:255|unique:sports,title,'.$sports->id,
+            'body' => 'required',
+            'image' => 'mimes:jpeg,png,gif',
+        ]);
 
+        $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
         if ($request->hasFile('image')) {
-            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path('img/uploads'), $fileName);
+            Image::make($request->file('image'))->resize(863, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('img/uploads/' . $fileName));
             $sports->image = $fileName;
         }
 
@@ -121,6 +147,7 @@ class SportsController extends Controller
         $sports->update = Auth::user()->name;
         $sports->update();
         
+        $request->session()->flash('alert-success', 'Post was successfully edited!');
         return redirect()->route('sports.show',$sports->id);
     }
 
@@ -132,9 +159,9 @@ class SportsController extends Controller
      */
     public function destroy($id)
     {
-        Featured::where('category_id', News::find($id)->id)->delete();
         Sports::find($id)->delete();
 
+        $request->session()->flash('alert-danger', 'Post was successfully deleted!');
         return redirect()->route('sports.index');    
     }
 
@@ -157,5 +184,14 @@ class SportsController extends Controller
         $comment->save();
 
         return redirect()->route('sports.show',$sports->id);
+    }
+
+    public function featured(Request $request, $id) {
+        $sports = Sports::find($id);
+        $sports->featured = '1';
+        $sports->update();
+
+        $request->session()->flash('alert-success', 'Post was successfully featured!');
+        return redirect()->route('home');        
     }
 }

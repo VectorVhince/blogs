@@ -10,10 +10,10 @@
                     <div class="mgb20">
                         <div class="row">
                             <div class="col-sm-6">
-                                <span class="fs40">Sports</span>
+                                <span class="fs40">Feature</span>
                             </div>
                             <div class="col-sm-4 col-sm-offset-2 mgt10">
-                            <form action="{{ route('sports.sortBy') }}" method="get">
+                            <form action="{{ route('feature.sortBy') }}" method="get">
                                 <select class="form-control input-sm" name="key" onchange="this.form.submit()">
                                     <option disabled selected>Sort By</option>
                                     <option value="date">Date</option>
@@ -25,20 +25,20 @@
                         </div>
                         <div style="height: 2px;" class="bgc-red mg0"></div>
                     </div>
-                    @if(!$sports->isEmpty())
-                    @foreach($sports as $sport)
+                    @if(!$features->isEmpty())
+                    @foreach($features as $feature)
                     <div class="row mgb20">
                         <div class="col-md-12">
-                            <a href="{{ route('sports.show', $sport->id) }}"><span class="dp-bl fs25 fc-red">{{ $sport->title }}</span></a>
-                            <span class="text-muted">Author: </span>{{ $sport->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($sport->created_at, 'F d, Y') }}
+                            <a href="{{ route('feature.show', $feature->id) }}"><span class="dp-bl fs25 fc-red">{{ $feature->title }}</span></a>
+                            <span class="text-muted">Author: </span>{{ $feature->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($feature->created_at, 'F d, Y') }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{ asset('/img/uploads/' . $sport->image) }}" class="img-responsive img-thumbnail">
+                            <img src="{{ asset('/img/uploads/' . $feature->image) }}" class="img-responsive img-thumbnail">
                         </div>
                         <div class="col-md-8">
-                            {{ strip_tags(substr($sport->body,0,400)) }}...
+                            {{ strip_tags(substr($feature->body,0,400)) }}...
                         </div>
                     </div>
                     <div style="height: 1px;" class="bgc-gray mgv20"></div>
@@ -46,7 +46,7 @@
                     @else
                     Nothing posted.
                     @endif
-                    {{ $sports->links() }}
+                    {{ $features->links() }}
                 </div>
             </div>        
         </div>

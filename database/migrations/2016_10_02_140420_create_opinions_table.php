@@ -22,6 +22,7 @@ class CreateOpinionsTable extends Migration
             $table->string('image')->default('default.jpg');
             $table->string('user');
             $table->string('update');
+            $table->string('featured')->default('0');
             $table->timestamps();
         });
     }
