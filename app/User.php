@@ -27,31 +27,31 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function editorials(){
+    public function editorialsIndex(){
         return $this->hasMany('\App\Editorials', 'user_id')->orderBy('id', 'desc');
     }
 
-    public function features(){
+    public function featuresIndex(){
         return $this->hasMany('\App\Features', 'user_id')->orderBy('id', 'desc');
     }
 
-    public function humors(){
+    public function humorsIndex(){
         return $this->hasMany('\App\Humors', 'user_id')->orderBy('id', 'desc');
     }
 
-    public function news(){
+    public function newsIndex(){
         return $this->hasMany('\App\News', 'user_id')->orderBy('id', 'desc');
     }
 
-    public function opinions(){
+    public function opinionsIndex(){
         return $this->hasMany('\App\Opinion', 'user_id')->orderBy('id', 'desc');
     }
 
-    public function sports(){
+    public function sportsIndex(){
         return $this->hasMany('\App\Sports', 'user_id')->orderBy('id', 'desc');
     }
 
-    public function announcements(){
+    public function announcementsIndex(){
         return $this->hasMany('\App\Announcements', 'user_id')->orderBy('id', 'desc');
     }
 

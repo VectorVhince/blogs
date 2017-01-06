@@ -59,7 +59,7 @@ class HomeController extends Controller
         $sports_first = Sports::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
         $editorials = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->take(2)->get();
         $editorials_first = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $announcements = Announcements::orderBy('id', 'desc')->take(8)->get();
+        $announcements = Announcements::orderBy('id', 'desc')->take(7)->get();
 
         // dd($news_first);
 
@@ -198,6 +198,21 @@ class HomeController extends Controller
 
     public function myPosts()
     {
-        return view('my_posts');
+        $news = Auth::user()->newsIndex;
+        $editorials = Auth::user()->editorialsIndex;
+        $opinions = Auth::user()->opinionsIndex;
+        $features = Auth::user()->featuresIndex;
+        $humors = Auth::user()->humorsIndex;
+        $sports = Auth::user()->sportsIndex;
+
+        $users = $news
+        ->union($editorials)
+        ->union($opinions)
+        ->union($features)
+        ->union($humors)
+        ->union($sports)
+        ->get();
+
+        return view('my_posts')->with('users', $users);
     }
 }
