@@ -95,7 +95,7 @@
     <ul class="dropdown-menu dropdown-menu1" role="menu">
         <div class="box-arrow"></div>
         <li><a href="{{ url('settings') }}" style="font-weight: bold; color: #9e1e1c;">{{ Auth::user()->name }}</a></li>
-        <li><a href="{{ url('myposts') }}">My Posts</a></li>
+        <li><a href="{{ route('myposts',Auth::user()->id) }}">My Posts</a></li>
         <li><a href="{{ url('create') }}">Add New Post</a></li>
         <li><a href="{{ url('create/announcement') }}">Make Announcement</a></li>
         <li>

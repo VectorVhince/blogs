@@ -158,7 +158,7 @@
 
       <span>Mark this featured?</span>
       <div class="row mgt20">
-          <a href="{{ route('featured',[$editorials->id,$editorials->category]) }}"><button type="button" class="btn btn-success btn-sm">Yes</button></a>
+          <a href="{{ route('editorial.featured',[$editorials->id,$editorials->category]) }}"><button type="button" class="btn btn-success btn-sm">Yes</button></a>
           <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
       </div>
 

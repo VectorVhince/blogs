@@ -19,6 +19,7 @@ use App\HumorsComment;
 use App\SportsComment;
 use App\EditorialsComment;
 
+use App\User;
 use Auth;
 
 class HomeController extends Controller
@@ -196,23 +197,57 @@ class HomeController extends Controller
         return view('settings');
     }
 
-    public function myPosts()
+    public function myPosts($id)
     {
-        $news = Auth::user()->newsIndex;
-        $editorials = Auth::user()->editorialsIndex;
-        $opinions = Auth::user()->opinionsIndex;
-        $features = Auth::user()->featuresIndex;
-        $humors = Auth::user()->humorsIndex;
-        $sports = Auth::user()->sportsIndex;
-
-        $users = $news
-        ->union($editorials)
-        ->union($opinions)
-        ->union($features)
-        ->union($humors)
-        ->union($sports)
-        ->get();
+        $users = User::find($id)->userPosts;
+        dd($users);
 
         return view('my_posts')->with('users', $users);
+    }
+
+    public function myPostsSortBy(Request $request, $id)
+    {
+        switch ($request->key) {
+            case 'date':
+                $news = User::find($id)->newsDate;
+                $editorials = User::find($id)->editorialsDate;
+                $opinions = User::find($id)->opinionsDate;
+                $features = User::find($id)->featuresDate;
+                $humors = User::find($id)->humorsDate;
+                $sports = User::find($id)->sportsDate;
+
+                $users = $news
+                ->union($editorials)
+                ->union($opinions)
+                ->union($features)
+                ->union($humors)
+                ->union($sports);
+
+                return view('my_posts')->with('users', $users);
+                break;
+
+            case 'name':
+                $news = User::find($id)->newsName;
+                $editorials = User::find($id)->editorialsName;
+                $opinions = User::find($id)->opinionsName;
+                $features = User::find($id)->featuresName;
+                $humors = User::find($id)->humorsName;
+                $sports = User::find($id)->sportsName;
+
+                $users = $news
+                ->union($editorials)
+                ->union($opinions)
+                ->union($features)
+                ->union($humors)
+                ->union($sports);
+
+                return view('my_posts')->with('users', $users);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
     }
 }

@@ -16,7 +16,8 @@ Auth::routes();
 // Home Controllers
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('settings', 'HomeController@settings');
-Route::get('myposts', 'HomeController@myPosts');
+Route::get('myposts/{id}', 'HomeController@myPosts')->name('myposts');
+Route::get('myposts/sortby/{id}', 'HomeController@myPostsSortBy')->name('myposts.sortBy');
 
 // Create Post
 Route::get('create', 'HomeController@create');

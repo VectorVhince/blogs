@@ -61,7 +61,7 @@
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
           <div class="bgc-red pd5 fc-white fs20">News</div>
           <div class="panel-body">
-            @if(!$news->isEmpty())
+            @if(isset($news_first))
             <div class="row">
               <div class="col-md-6 text-center">
                 <a href="{{ route('news.show', $news_first->id) }}" class="fc-black">
