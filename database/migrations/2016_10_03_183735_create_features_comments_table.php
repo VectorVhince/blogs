@@ -17,6 +17,7 @@ class CreateFeaturesCommentsTable extends Migration
             $table->increments('id');
             $table->integer('features_id')->unsigned();
             $table->foreign('features_id')->references('id')->on('features')->onDelete('cascade');
+            $table->string('category')->default('feature');
             $table->string('comment_name')->nullable();
             $table->string('comment_email')->nullable();
             $table->string('comment_dept')->nullable();

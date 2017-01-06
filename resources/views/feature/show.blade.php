@@ -73,8 +73,8 @@
                     @foreach($comments as $comment)
                         <div class="mgv20 pdh15 bdrl1-gray">
                             <span class="dp-bl fs20 mgb5">{{ $comment->comment_name }}, {{ $comment->comment_dept }}</span>
-                            <span class="dp-bl fs12 text-muted mgb20">{{ date_format($comment->created_at, 'F d, Y') }}</span>
                             <p class="mgl20">{{ $comment->comment_message }}</p>
+                  <span class="pointer" data-toggle="tooltip" title="{{ date_format($comment->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}</span> 
                         </div>
                     @endforeach
                     @else

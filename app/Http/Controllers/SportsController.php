@@ -85,6 +85,7 @@ class SportsController extends Controller
         $sports->image = $fileName;
         $sports->user = Auth::user()->name;
         $sports->update = Auth::user()->name;
+        $sports->featured = $request->featured;
         $sports->save();
 
         $request->session()->flash('alert-success', 'Post was successfully created!');
@@ -133,9 +134,9 @@ class SportsController extends Controller
             'image' => 'mimes:jpeg,png,gif',
         ]);
 
-        $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
         if ($request->hasFile('image')) {
+            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
             Image::make($request->file('image'))->resize(863, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path('img/uploads/' . $fileName));

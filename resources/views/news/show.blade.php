@@ -25,7 +25,11 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu2" aria-labelledby="dropdownMenu1">
                                         <div class="box-arrow1"></div>
+                                        @if(!$news->featured == '1')
                                         <li><a href="#!" data-toggle="modal" data-target="#modal2"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Mark featured</a></li>
+                                        @else
+                                        <li><a href="#!" data-toggle="modal" data-target="#modal3"><img src="{{ asset('/img/unfeatured.png') }}" class="ht20"> Unmark featured</a></li>
+                                        @endif
                                         <li><a href="{{ route('news.edit',$news->id) }}"><img src="{{ asset('/img/edit.png') }}" class="ht20"> Edit</a></li>
                                         <li><a href="#!" data-toggle="modal" data-target="#modal1"><img src="{{ asset('/img/delete.png') }}" class="ht20"> Delete</a></li>
                                     </ul>
@@ -73,8 +77,8 @@
                     @foreach($comments as $comment)
                         <div class="mgv20 pdh15 bdrl1-gray">
                             <span class="dp-bl fs20 mgb5">{{ $comment->comment_name }}, {{ $comment->comment_dept }}</span>
-                            <span class="dp-bl fs12 text-muted mgb20">{{ date_format($comment->created_at, 'F d, Y') }}</span>
                             <p class="mgl20">{{ $comment->comment_message }}</p>
+                            <span class="pointer" data-toggle="tooltip" title="{{ date_format($comment->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}</span> 
                         </div>
                     @endforeach
                     @else
@@ -160,6 +164,20 @@
       <span>Mark this featured?</span>
       <div class="row mgt20">
           <a href="{{ route('news.featured',[$news->id]) }}"><button type="button" class="btn btn-success btn-sm">Yes</button></a>
+          <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="modal3" class="modal fade bs-example-modal-sm pdt200" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content text-center pd15">
+
+      <span>Unmark this featured?</span>
+      <div class="row mgt20">
+          <a href="{{ route('news.unfeatured',[$news->id]) }}"><button type="button" class="btn btn-danger btn-sm">Yes</button></a>
           <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
       </div>
 

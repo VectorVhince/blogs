@@ -16,7 +16,7 @@ class CreateFeaturesTable extends Migration
         Schema::create('features', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('category')->default('features');
+            $table->string('category')->default('feature');
             $table->string('title');
             $table->longText('body');
             $table->string('image')->default('default.jpg');

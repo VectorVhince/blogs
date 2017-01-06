@@ -17,6 +17,7 @@ class CreateNewsCommentsTable extends Migration
             $table->increments('id');
             $table->integer('news_id')->unsigned();
             $table->foreign('news_id')->references('id')->on('news')->onDelete('cascade');
+            $table->string('category')->default('news');
             $table->string('comment_name')->nullable();
             $table->string('comment_email')->nullable();
             $table->string('comment_dept')->nullable();

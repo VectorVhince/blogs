@@ -17,6 +17,7 @@ class CreateOpinionCommentsTable extends Migration
             $table->increments('id');
             $table->integer('opinion_id')->unsigned();
             $table->foreign('opinion_id')->references('id')->on('opinions')->onDelete('cascade');
+            $table->string('category')->default('opinion');
             $table->string('comment_name')->nullable();
             $table->string('comment_email')->nullable();
             $table->string('comment_dept')->nullable();

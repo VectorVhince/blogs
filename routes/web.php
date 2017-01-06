@@ -37,6 +37,14 @@ Route::get('feature/featured/{id}', 'FeaturesController@featured')->name('featur
 Route::get('humor/featured/{id}', 'HumorsController@featured')->name('humor.featured');
 Route::get('sports/featured/{id}', 'SportsController@featured')->name('sports.featured');
 
+// Home Unfeatured
+Route::get('news/unfeatured/{id}', 'NewsController@unfeatured')->name('news.unfeatured');
+Route::get('editorial/unfeatured/{id}', 'EditorialsController@unfeatured')->name('editorial.unfeatured');
+Route::get('opinion/unfeatured/{id}', 'OpinionController@unfeatured')->name('opinion.unfeatured');
+Route::get('feature/unfeatured/{id}', 'FeaturesController@unfeatured')->name('feature.unfeatured');
+Route::get('humor/unfeatured/{id}', 'HumorsController@unfeatured')->name('humor.unfeatured');
+Route::get('sports/unfeatured/{id}', 'SportsController@unfeatured')->name('sports.unfeatured');
+
 // Sort By
 Route::get('news/sortby', 'NewsController@sortBy')->name('news.sortBy');
 Route::get('editorial/sortby', 'EditorialsController@sortBy')->name('editorial.sortBy');

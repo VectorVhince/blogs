@@ -17,6 +17,7 @@ class CreateHumorsCommentsTable extends Migration
             $table->increments('id');
             $table->integer('humors_id')->unsigned();
             $table->foreign('humors_id')->references('id')->on('humors')->onDelete('cascade');
+            $table->string('category')->default('humor');
             $table->string('comment_name')->nullable();
             $table->string('comment_email')->nullable();
             $table->string('comment_dept')->nullable();

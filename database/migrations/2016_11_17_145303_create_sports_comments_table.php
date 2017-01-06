@@ -17,6 +17,7 @@ class CreateSportsCommentsTable extends Migration
             $table->increments('id');
             $table->integer('sports_id')->unsigned();
             $table->foreign('sports_id')->references('id')->on('sports')->onDelete('cascade');
+            $table->string('category')->default('sports');
             $table->string('comment_name')->nullable();
             $table->string('comment_email')->nullable();
             $table->string('comment_dept')->nullable();

@@ -5,15 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Opinion;
-use App\Post;
 use App\News;
 use App\Features;
 use App\Humors;
 use App\Sports;
 use App\Editorials;
 use App\Announcements;
+
+use App\OpinionComment;
+use App\NewsComment;
+use App\FeaturesComment;
+use App\HumorsComment;
+use App\SportsComment;
+use App\EditorialsComment;
+
 use Auth;
-use App\User;
 
 class HomeController extends Controller
 {
@@ -38,23 +44,41 @@ class HomeController extends Controller
         ->union($humor_featured)
         ->union($sports_featured)
         ->orderBy('updated_at', 'desc')
-        ->take(7)->get();
+        ->take(7)
+        ->get();
 
-        $news = News::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(5)->get();
+        $news = News::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(2)->get();
         $news_first = News::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $opinions = Opinion::where('featured', '!=', '1')->orderBy('id', 'desc')->take(5)->get();
+        $opinions = Opinion::where('featured', '!=', '1')->orderBy('id', 'desc')->take(2)->get();
         $opinions_first = Opinion::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $features = Features::where('featured', '!=', '1')->orderBy('id', 'desc')->take(5)->get();
+        $features = Features::where('featured', '!=', '1')->orderBy('id', 'desc')->take(2)->get();
         $features_first = Features::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $humors = Humors::where('featured', '!=', '1')->orderBy('id', 'desc')->take(5)->get();
+        $humors = Humors::where('featured', '!=', '1')->orderBy('id', 'desc')->take(2)->get();
         $humors_first = Humors::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $sports = Sports::where('featured', '!=', '1')->orderBy('id', 'desc')->take(5)->get();
+        $sports = Sports::where('featured', '!=', '1')->orderBy('id', 'desc')->take(2)->get();
         $sports_first = Sports::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $editorials = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->take(5)->get();
+        $editorials = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->take(2)->get();
         $editorials_first = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
         $announcements = Announcements::orderBy('id', 'desc')->take(8)->get();
 
         // dd($news_first);
+
+        $news_comments = NewsComment::orderBy('id', 'asc');
+        $editorial_comments = EditorialsComment::orderBy('id', 'asc');
+        $opinion_comments = OpinionComment::orderBy('id', 'asc');
+        $feature_comments = FeaturesComment::orderBy('id', 'asc');
+        $humor_comments = HumorsComment::orderBy('id', 'asc');
+        $sports_comments = SportsComment::orderBy('id', 'asc');
+
+        $recent_comments = $news_comments
+        ->union($editorial_comments)
+        ->union($opinion_comments)
+        ->union($feature_comments)
+        ->union($humor_comments)
+        ->union($sports_comments)
+        ->orderBy('created_at', 'desc')
+        ->take(7)
+        ->get();
 
         return view('welcome')
         ->with('featured', $featured)
@@ -70,7 +94,8 @@ class HomeController extends Controller
         ->with('humors_first', $humors_first)
         ->with('sports_first', $sports_first)
         ->with('editorials_first', $editorials_first)
-        ->with('announcements', $announcements);
+        ->with('announcements', $announcements)
+        ->with('recent_comments', $recent_comments);
     }
 
     public function create()

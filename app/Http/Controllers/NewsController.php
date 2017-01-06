@@ -85,6 +85,7 @@ class NewsController extends Controller
         $news->image = $fileName;
         $news->user = Auth::user()->name;
         $news->update = Auth::user()->name;
+        $news->featured = $request->featured;
         $news->save();
 
         $request->session()->flash('alert-success', 'Post was successfully created!');
@@ -133,9 +134,9 @@ class NewsController extends Controller
             'image' => 'mimes:jpeg,png,gif',
         ]);
 
-        $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
 
         if ($request->hasFile('image')) {
+            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
             Image::make($request->file('image'))->resize(863, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path('img/uploads/' . $fileName));
@@ -193,6 +194,15 @@ class NewsController extends Controller
         $news->update();
 
         $request->session()->flash('alert-success', 'Post was successfully featured!');
+        return redirect()->route('home');        
+    }
+
+    public function unfeatured(Request $request, $id) {
+        $news = News::find($id);
+        $news->featured = '0';
+        $news->update();
+
+        $request->session()->flash('alert-danger', 'Post was successfully unfeatured!');
         return redirect()->route('home');        
     }
 }

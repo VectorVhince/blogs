@@ -84,6 +84,7 @@ class OpinionController extends Controller
         $opinion->image = $fileName;
         $opinion->user = Auth::user()->name;
         $opinion->update = Auth::user()->name;
+        $opinion->featured = $request->featured;
         $opinion->save();
         
         $request->session()->flash('alert-success', 'Post was successfully created!');
@@ -133,9 +134,9 @@ class OpinionController extends Controller
             'image' => 'mimes:jpeg,png,gif',
         ]);
 
-        $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
         
         if ($request->hasFile('image')) {
+            $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
             Image::make($request->file('image'))->resize(863, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path('img/uploads/' . $fileName));

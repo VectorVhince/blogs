@@ -16,7 +16,7 @@ class CreateHumorsTable extends Migration
         Schema::create('humors', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('category')->default('humors');
+            $table->string('category')->default('humor');
             $table->string('title');
             $table->longText('body');
             $table->string('image')->default('default.jpg');

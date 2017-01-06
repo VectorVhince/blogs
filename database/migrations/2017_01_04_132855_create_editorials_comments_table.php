@@ -17,6 +17,7 @@ class CreateEditorialsCommentsTable extends Migration
             $table->increments('id');
             $table->integer('editorials_id')->unsigned();
             $table->foreign('editorials_id')->references('id')->on('editorials')->onDelete('cascade');
+            $table->string('category')->default('editorial');
             $table->string('comment_name')->nullable();
             $table->string('comment_email')->nullable();
             $table->string('comment_dept')->nullable();

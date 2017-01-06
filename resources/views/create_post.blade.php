@@ -41,6 +41,8 @@
                         </div>
                         <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                             <label>Cover photo</label> (Minimum size: 863 x 400 px resolution)
+                            <label class="checkbox-inline pull-right"><input type="checkbox" value="1" name="" id="featured">Mark featured</label>
+                            <label class="checkbox-inline pull-right hidden"><input type="checkbox" value="0" name="featured" id="unfeatured" checked="checked">Unmark featured</label>
                             <input type="file" name="image" class="form-control mgb20 bd-rad0 box-shadow" id="imgInp" accept="image">
                             <img class="img-responsive hidden" id="blah" src="#" alt="your image" />
                             @if ($errors->has('image'))
@@ -73,10 +75,10 @@
                         $('#formSubmit').attr('action','{{ route('opinion.store') }}');
                         break;
                     case '3':
-                        $('#formSubmit').attr('action','{{ route('features.store') }}');
+                        $('#formSubmit').attr('action','{{ route('feature.store') }}');
                         break;
                     case '4':
-                        $('#formSubmit').attr('action','{{ route('humors.store') }}');
+                        $('#formSubmit').attr('action','{{ route('humor.store') }}');
                         break;
                     case '5':
                         $('#formSubmit').attr('action','{{ route('sports.store') }}');
@@ -156,5 +158,18 @@
                 });
             }
         });
+
+        $('#featured').on('change', function(){
+            if (this.checked) {
+                $('#unfeatured').prop('checked', false);
+                $('#unfeatured').attr('name', '');
+                $(this).attr('name', 'featured');
+            }
+            else{
+                $('#unfeatured').prop('checked', true);
+                $('#unfeatured').attr('name', 'featured');
+                $(this).attr('name', '');
+            };            
+        })
     </script>
 @stop
