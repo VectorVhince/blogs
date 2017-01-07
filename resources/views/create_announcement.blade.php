@@ -17,7 +17,9 @@
                         <input type="hidden" name="update" value="{{ Auth::user()->name }}">
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                            <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ old('body') }}</textarea>
+                            <div class="box-shadow">
+                                <textarea name="body" class="form-control mgb20 bd-rad0 ht500" placeholder="Content">{{ old('body') }}</textarea>
+                            </div>
                             @if ($errors->has('body'))
                                 <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
                             @endif
@@ -61,7 +63,7 @@
         tinymce.init({ 
             selector:'textarea',
             plugins: "autoresize paste",
-            toolbar: "bold italic numlist bullist indent outdent",
+            toolbar: "bold italic underline",
             oninit : "setPlainText",
             menubar: false,
             statusbar: false,

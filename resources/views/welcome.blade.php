@@ -356,7 +356,7 @@
             @if(!$announcements->isEmpty())
             <ul class="list-unstyled">
             @foreach($announcements as $announcement)
-              <li class="mgv10"><span class="dp-bl fs15 break-word"><i class="glyphicon glyphicon-share-alt"></i> {{ $announcement->body }}</span></li>
+              <li class="mgv10"><span class="dp-bl fs15 break-word"><i class="glyphicon glyphicon-share-alt"></i> {!! $announcement->body !!}</span></li>
             @endforeach
             </ul>
             @else

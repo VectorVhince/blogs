@@ -14,12 +14,14 @@
                             </div>
                             <div class="col-sm-4 col-sm-offset-2 mgt10">
                             <form action="{{ route('opinion.sortBy') }}" method="get">
-                                <select class="form-control input-sm" name="key" onchange="this.form.submit()">
-                                    <option disabled selected>Sort By</option>
-                                    <option value="date">Date</option>
-                                    <option value="name">Name</option>
-                                    <!-- <option value="3">Popularity</option> -->
-                                </select>
+                                <div class="box-shadow">
+                                    <select class="form-control input-sm bd-rad0" name="key" onchange="this.form.submit()">
+                                        <option disabled selected>Sort By</option>
+                                        <option value="date">Date</option>
+                                        <option value="name">Name</option>
+                                        <!-- <option value="3">Popularity</option> -->
+                                    </select>
+                                </div>
                             </form>
                             </div>
                         </div>

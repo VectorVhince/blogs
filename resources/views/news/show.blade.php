@@ -161,25 +161,33 @@
                             <div style="height: 2px;" class="bgc-red mg0"></div>
                         </div>
                         <div class="form-group{{ $errors->has('comment_name') ? ' has-error' : '' }}">
-                            <input type="text" name="comment_name" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Name" value="{{ old('comment_name') }}">
+                            <div class="box-shadow">
+                              <input type="text" name="comment_name" class="form-control mgb20 bd-rad0" placeholder="Name" value="{{ old('comment_name') }}">
+                            </div>
                             @if ($errors->has('comment_name'))
                                 <span class="help-block"><strong>{{ $errors->first('comment_name') }}</strong></span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('comment_email') ? ' has-error' : '' }}">
-                            <input type="email" name="comment_email" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Email Address" value="{{ old('comment_email') }}">
+                            <div class="box-shadow">
+                              <input type="email" name="comment_email" class="form-control mgb20 bd-rad0" placeholder="Email Address" value="{{ old('comment_email') }}">
+                            </div>
                             @if ($errors->has('comment_email'))
                                 <span class="help-block"><strong>{{ $errors->first('comment_email') }}</strong></span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('comment_dept') ? ' has-error' : '' }}">
-                            <input type="text" name="comment_dept" class="form-control mgb20 bd-rad0 box-shadow" placeholder="College Department" value="{{ old('comment_dept') }}">
+                            <div class="box-shadow">
+                              <input type="text" name="comment_dept" class="form-control mgb20 bd-rad0" placeholder="College Department" value="{{ old('comment_dept') }}">
+                            </div>
                             @if ($errors->has('comment_dept'))
                                 <span class="help-block"><strong>{{ $errors->first('comment_dept') }}</strong></span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('comment_message') ? ' has-error' : '' }}">
-                            <textarea name="comment_message" class="form-control mgb20 bd-rad0 box-shadow" rows="8" placeholder="Message">{{ old('comment_message') }}</textarea>
+                            <div class="box-shadow">
+                              <textarea name="comment_message" class="form-control mgb20 bd-rad0" rows="8" placeholder="Message">{{ old('comment_message') }}</textarea>
+                            </div>
                             @if ($errors->has('comment_message'))
                                 <span class="help-block"><strong>{{ $errors->first('comment_message') }}</strong></span>
                             @endif

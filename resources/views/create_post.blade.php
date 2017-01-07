@@ -14,27 +14,33 @@
                             <div style="height: 2px;" class="bgc-red mg0"></div>
                         </div>
                         <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
-                            <select id="category" name="category" class="form-control mgb20 bd-rad0 box-shadow">
-                                <option disabled selected>Select Category</option>
-                                <option value="1">News</option>
-                                <option value="6">Editorial</option>
-                                <option value="2">Opinion</option>
-                                <option value="3">Feature</option>
-                                <option value="4">Humor</option>
-                                <option value="5">Sports</option>
-                            </select>
+                            <div class="box-shadow">
+                                <select id="category" name="category" class="form-control mgb20 bd-rad0">
+                                    <option disabled selected>Select Category</option>
+                                    <option value="1">News</option>
+                                    <option value="6">Editorial</option>
+                                    <option value="2">Opinion</option>
+                                    <option value="3">Feature</option>
+                                    <option value="4">Humor</option>
+                                    <option value="5">Sports</option>
+                                </select>
+                            </div>
                             @if ($errors->has('category'))
                                 <span class="help-block"><strong>{{ $errors->first('category') }}</strong></span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                            <input type="text" name="title" class="form-control mgb20 bd-rad0 box-shadow" placeholder="Title" value="{{ old('title') }}">
+                            <div class="box-shadow">
+                                <input type="text" name="title" class="form-control mgb20 bd-rad0" placeholder="Title" value="{{ old('title') }}">
+                            </div>
                             @if ($errors->has('title'))
                                 <span class="help-block"><strong>{{ $errors->first('title') }}</strong></span>
                             @endif
                         </div>
                         <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                            <textarea name="body" class="form-control mgb20 bd-rad0 box-shadow ht500" placeholder="Content">{{ old('body') }}</textarea>
+                            <div class="box-shadow">
+                                <textarea name="body" class="form-control mgb20 bd-rad0 ht500" placeholder="Content">{{ old('body') }}</textarea>
+                            </div>
                             @if ($errors->has('body'))
                                 <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
                             @endif
@@ -43,7 +49,9 @@
                             <label>Cover photo</label> (Minimum size: 863 x 400 px resolution)
                             <label class="checkbox-inline pull-right"><input type="checkbox" value="1" name="" id="featured">Mark featured</label>
                             <label class="checkbox-inline pull-right hidden"><input type="checkbox" value="0" name="featured" id="unfeatured" checked="checked">Unmark featured</label>
-                            <input type="file" name="image" class="form-control mgb20 bd-rad0 box-shadow" id="imgInp" accept="image">
+                            <div class="box-shadow">
+                                <input type="file" name="image" class="form-control mgb20 bd-rad0" id="imgInp" accept="image">
+                            </div>
                             <img class="img-responsive hidden" id="blah" src="#" alt="your image" />
                             @if ($errors->has('image'))
                                 <span class="help-block"><strong>{{ $errors->first('image') }}</strong></span>
