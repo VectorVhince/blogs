@@ -15,7 +15,8 @@ class UsersTableSeeder extends Seeder
         	'id' => 1,
             'name' => 'admin',
             'username' => 'admin',
-           	'role' => 'superadmin',
+            'role' => 'superadmin',
+           	'position' => 'President',
            	'email' => 'admin@admin.com',
            	'password' => bcrypt('adminadmin')
     	]);
@@ -25,6 +26,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'nica',
             'username' => 'nica',
             'role' => 'admin',
+            'position' => 'Vice President',
            	'email' => 'nica@nica.com',
            	'password' => bcrypt('nicanica')
     	]);
