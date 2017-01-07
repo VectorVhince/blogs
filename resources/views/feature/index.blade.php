@@ -27,20 +27,24 @@
                     </div>
                     @if(!$features->isEmpty())
                     @foreach($features as $feature)
-                    <div class="row mgb20">
-                        <div class="col-md-12">
-                            <a href="{{ route('feature.show', $feature->id) }}"><span class="dp-bl fs25 fc-red">{{ $feature->title }}</span></a>
-                            <span class="text-muted">Author: </span>{{ $feature->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($feature->created_at, 'F d, Y') }}
+                    <a href="{{ route('feature.show', $feature->id) }}" class="fc-black">
+                        <div class="bg-blue-hover pdb10">
+                            <div class="row mgb20">
+                                <div class="col-md-12">
+                                    <span class="dp-bl fs25 fc-red">{{ $feature->title }}</span>
+                                    <span class="text-muted">Author: </span>{{ $feature->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($feature->created_at, 'F d, Y') }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{{ asset('/img/uploads/' . $feature->image) }}" class="img-responsive img-thumbnail">
+                                </div>
+                                <div class="col-md-8">
+                                    {{ strip_tags(substr($feature->body,0,400)) }}...
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="{{ asset('/img/uploads/' . $feature->image) }}" class="img-responsive img-thumbnail">
-                        </div>
-                        <div class="col-md-8">
-                            {{ strip_tags(substr($feature->body,0,400)) }}...
-                        </div>
-                    </div>
+                    </a>
                     <div style="height: 1px;" class="bgc-gray mgv20"></div>
                     @endforeach
                     @else

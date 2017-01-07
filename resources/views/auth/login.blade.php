@@ -39,8 +39,8 @@
         </div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <div class="panel panel-default bd-rad10 bd0 box-shadow">
-                    <div class="panel-heading bdtlr-rad10 bgc-maroon text-center fs25 fc-white">LOG IN TO YOUR ACCOUNT</div>
+                <div class="panel panel-default bd-rad0 box-shadow panel-bg">
+                    <div class="panel-heading bgc-maroon text-center fs25 fc-white bd-rad0">LOG IN TO YOUR ACCOUNT</div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                             {{ csrf_field() }}

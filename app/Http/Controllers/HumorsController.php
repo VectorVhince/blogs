@@ -13,6 +13,11 @@ use Image;
 
 class HumorsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['update','store','destroy','edit','featured','unfeatured']]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -171,7 +176,8 @@ class HumorsController extends Controller
             'comment_name' => 'required',
             'comment_email' => 'required',
             'comment_dept' => 'required',
-            'comment_message' => 'required'
+            'comment_message' => 'required',
+            'g-recaptcha-response' => 'required|recaptcha'
         ]);
 
         $humors = Humors::find($id);
@@ -193,6 +199,15 @@ class HumorsController extends Controller
         $humors->update();
 
         $request->session()->flash('alert-success', 'Post was successfully featured!');
+        return redirect()->route('home');        
+    }
+
+    public function unfeatured(Request $request, $id) {
+        $humors = Humors::find($id);
+        $humors->featured = '0';
+        $humors->update();
+
+        $request->session()->flash('alert-danger', 'Post was successfully unfeatured!');
         return redirect()->route('home');        
     }
 }

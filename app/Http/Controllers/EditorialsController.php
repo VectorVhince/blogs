@@ -13,6 +13,11 @@ use Image;
 
 class EditorialsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['update','store','destroy','edit','featured','unfeatured']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -174,7 +179,7 @@ class EditorialsController extends Controller
             'comment_email' => 'required',
             'comment_dept' => 'required',
             'comment_message' => 'required',
-            // 'g-recaptcha-response' => 'required|recaptcha'
+            'g-recaptcha-response' => 'required|recaptcha'
         ]);
 
         $editorials = Editorials::find($id);
@@ -196,6 +201,15 @@ class EditorialsController extends Controller
         $editorials->update();
 
         $request->session()->flash('alert-success', 'Post was successfully featured!');
+        return redirect()->route('home');        
+    }
+
+    public function unfeatured(Request $request, $id) {
+        $editorial = Editorials::find($id);
+        $editorial->featured = '0';
+        $editorial->update();
+
+        $request->session()->flash('alert-danger', 'Post was successfully unfeatured!');
         return redirect()->route('home');        
     }
 }

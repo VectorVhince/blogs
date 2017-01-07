@@ -1,6 +1,49 @@
 @extends('layouts.app')
 
+@section('meta')
+    <meta property="og:url"           content="{{ Request::url() }}" />
+    <meta property="og:type"          content="article" />
+    <meta property="og:title"         content="{{ $news->title }}" />
+    <meta property="og:description"   content="{{ $news->body }}" />
+    <meta property="og:image"         content="{{ asset('/img/uploads/' . $news->image) }}" />
+@stop
+
 @section('content')
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '273815756367661',
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-8">
@@ -47,6 +90,24 @@
                         <div class="col-lg-12">
                             {!! $news->body !!}
                         </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-3 col-sm-offset-9 pdh0">
+                        <div class="social-container">
+                          <div class="fb-container">
+                            <div class="fb-share-button" 
+                                data-href="{{ Request::url() }}" 
+                                data-layout="button" data-size="large">
+                            </div>
+                          </div>
+                          <div class="tw-container">
+                            <a class="twitter-share-button"
+                              href="https://twitter.com/intent/tweet?text=Check%20this%20article%20on%20The%20Angelite%20"
+                              data-size="large">
+                            Tweet</a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,49 @@
 @extends('layouts.app')
 
+@section('meta')
+    <meta property="og:url"           content="{{ Request::url() }}" />
+    <meta property="og:type"          content="article" />
+    <meta property="og:title"         content="{{ $sports->title }}" />
+    <meta property="og:description"   content="{{ $sports->body }}" />
+    <meta property="og:image"         content="{{ asset('/img/uploads/' . $sports->image) }}" />
+@stop
+
 @section('content')
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '273815756367661',
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-8">
@@ -25,7 +68,11 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu2" aria-labelledby="dropdownMenu1">
                                         <div class="box-arrow1"></div>
+                                        @if(!$sports->featured == '1')
                                         <li><a href="#!" data-toggle="modal" data-target="#modal2"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Mark featured</a></li>
+                                        @else
+                                        <li><a href="#!" data-toggle="modal" data-target="#modal3"><img src="{{ asset('/img/unfeatured.png') }}" class="ht20"> Unmark featured</a></li>
+                                        @endif
                                         <li><a href="{{ route('sports.edit',$sports->id) }}"><img src="{{ asset('/img/edit.png') }}" class="ht20"> Edit</a></li>
                                         <li><a href="#!" data-toggle="modal" data-target="#modal1"><img src="{{ asset('/img/delete.png') }}" class="ht20"> Delete</a></li>
                                     </ul>
@@ -43,6 +90,24 @@
                         <div class="col-lg-12">
                             {!! $sports->body !!}
                         </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-3 col-sm-offset-9 pdh0">
+                        <div class="social-container">
+                          <div class="fb-container">
+                            <div class="fb-share-button" 
+                                data-href="{{ Request::url() }}" 
+                                data-layout="button" data-size="large">
+                            </div>
+                          </div>
+                          <div class="tw-container">
+                            <a class="twitter-share-button"
+                              href="https://twitter.com/intent/tweet?text=Check%20this%20article%20on%20The%20Angelite%20"
+                              data-size="large">
+                            Tweet</a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -160,6 +225,20 @@
       <span>Mark this featured?</span>
       <div class="row mgt20">
           <a href="{{ route('sports.featured',[$sports->id]) }}"><button type="button" class="btn btn-success btn-sm">Yes</button></a>
+          <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="modal3" class="modal fade bs-example-modal-sm pdt200" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content text-center pd15">
+
+      <span>Unmark this featured?</span>
+      <div class="row mgt20">
+          <a href="{{ route('sports.unfeatured',[$sports->id]) }}"><button type="button" class="btn btn-danger btn-sm">Yes</button></a>
           <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
       </div>
 

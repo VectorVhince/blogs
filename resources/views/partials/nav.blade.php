@@ -97,7 +97,11 @@
         <li><a href="{{ url('settings') }}" style="font-weight: bold; color: #9e1e1c;">{{ Auth::user()->name }}</a></li>
         <li><a href="{{ route('myposts',Auth::user()->id) }}">My Posts</a></li>
         <li><a href="{{ url('create') }}">Add New Post</a></li>
+        @if(Auth::user()->role == 'superadmin')
         <li><a href="{{ url('create/announcement') }}">Make Announcement</a></li>
+        <li><a href="{{ url('accounts') }}">Manage Members</a></li>
+        <li><a href="{{ url('register') }}">Register an Account</a></li>
+        @endif
         <li>
             <a href="{{ url('/logout') }}"
                 onclick="event.preventDefault();

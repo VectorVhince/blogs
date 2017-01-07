@@ -24,6 +24,11 @@ use Auth;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['create','createAnnouncement','storeAnnouncement','settings','myPosts','myPostsSortBy']]);
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -48,17 +53,17 @@ class HomeController extends Controller
         ->take(7)
         ->get();
 
-        $news = News::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(2)->get();
+        $news = News::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
         $news_first = News::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $opinions = Opinion::where('featured', '!=', '1')->orderBy('id', 'desc')->take(2)->get();
+        $opinions = Opinion::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
         $opinions_first = Opinion::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $features = Features::where('featured', '!=', '1')->orderBy('id', 'desc')->take(2)->get();
+        $features = Features::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
         $features_first = Features::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $humors = Humors::where('featured', '!=', '1')->orderBy('id', 'desc')->take(2)->get();
+        $humors = Humors::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
         $humors_first = Humors::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $sports = Sports::where('featured', '!=', '1')->orderBy('id', 'desc')->take(2)->get();
+        $sports = Sports::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
         $sports_first = Sports::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $editorials = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->take(2)->get();
+        $editorials = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
         $editorials_first = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
         $announcements = Announcements::orderBy('id', 'desc')->take(7)->get();
 
@@ -199,8 +204,15 @@ class HomeController extends Controller
 
     public function myPosts($id)
     {
-        $users = User::find($id)->userPosts;
-        dd($users);
+        $news = User::find($id)->newsDate();
+        $editorial = User::find($id)->editorialDate();
+        $opinion = User::find($id)->opinionDate();
+        $feature = User::find($id)->featureDate();
+        $humor = User::find($id)->humorDate();
+        $sports = User::find($id)->sportsDate();
+
+        $users = $news->union($editorial)->union($feature)->union($opinion)->union($humor)->union($sports)->latest()->get();
+        // dd($users);
 
         return view('my_posts')->with('users', $users);
     }
@@ -209,37 +221,27 @@ class HomeController extends Controller
     {
         switch ($request->key) {
             case 'date':
-                $news = User::find($id)->newsDate;
-                $editorials = User::find($id)->editorialsDate;
-                $opinions = User::find($id)->opinionsDate;
-                $features = User::find($id)->featuresDate;
-                $humors = User::find($id)->humorsDate;
-                $sports = User::find($id)->sportsDate;
+                $news = User::find($id)->newsDate();
+                $editorial = User::find($id)->editorialDate();
+                $opinion = User::find($id)->opinionDate();
+                $feature = User::find($id)->featureDate();
+                $humor = User::find($id)->humorDate();
+                $sports = User::find($id)->sportsDate();
 
-                $users = $news
-                ->union($editorials)
-                ->union($opinions)
-                ->union($features)
-                ->union($humors)
-                ->union($sports);
+                $users = $news->union($editorial)->union($feature)->union($opinion)->union($humor)->union($sports)->latest()->get();
 
                 return view('my_posts')->with('users', $users);
                 break;
 
             case 'name':
-                $news = User::find($id)->newsName;
-                $editorials = User::find($id)->editorialsName;
-                $opinions = User::find($id)->opinionsName;
-                $features = User::find($id)->featuresName;
-                $humors = User::find($id)->humorsName;
-                $sports = User::find($id)->sportsName;
+                $news = User::find($id)->newsName();
+                $editorial = User::find($id)->editorialName();
+                $opinion = User::find($id)->opinionName();
+                $feature = User::find($id)->featureName();
+                $humor = User::find($id)->humorName();
+                $sports = User::find($id)->sportsName();
 
-                $users = $news
-                ->union($editorials)
-                ->union($opinions)
-                ->union($features)
-                ->union($humors)
-                ->union($sports);
+                $users = $news->union($editorial)->union($feature)->union($opinion)->union($humor)->union($sports)->orderBy('title', 'asc')->get();
 
                 return view('my_posts')->with('users', $users);
                 break;
@@ -249,5 +251,15 @@ class HomeController extends Controller
                 break;
         }
         
+    }
+
+    public function error() {
+        return view('errors.503');
+    }
+
+    public function accounts() {
+        $users = User::all();
+
+        return view('accounts')->with('users',$users);
     }
 }

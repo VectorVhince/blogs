@@ -13,6 +13,11 @@ use Image;
 
 class NewsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['update','store','destroy','edit','featured','unfeatured']]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -172,7 +177,7 @@ class NewsController extends Controller
             'comment_email' => 'required',
             'comment_dept' => 'required',
             'comment_message' => 'required',
-            // 'g-recaptcha-response' => 'required|recaptcha'
+            'g-recaptcha-response' => 'required|recaptcha'
         ]);
 
         $news = News::find($id);

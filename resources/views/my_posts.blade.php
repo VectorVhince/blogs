@@ -25,9 +25,28 @@
                         </div>
                         <div style="height: 2px;" class="bgc-red mg0"></div>
                     </div>
+                    @if(!$users->isEmpty())
                     @foreach($users as $user)
-                        {{$user->title}}
+                    <div class="row mgb20">
+                        <div class="col-md-12">
+                            <a href="{{ route($user->category.'.show', $user->id) }}"><span class="dp-bl fs25 fc-red">{{ $user->title }}</span></a>
+                            <span class="text-muted">Author: </span>{{ $user->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($user->created_at, 'F d, Y') }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ asset('/img/uploads/' . $user->image) }}" class="img-responsive img-thumbnail">
+                        </div>
+                        <div class="col-md-8">
+                            {{ strip_tags(substr($user->body,0,400)) }}...
+                        </div>
+                    </div>
+                    <div style="height: 1px;" class="bgc-gray mgv20"></div>
                     @endforeach
+                    @else
+                    Nothing posted.
+                    @endif
+                    
                 </div>
             </div>        
         </div>

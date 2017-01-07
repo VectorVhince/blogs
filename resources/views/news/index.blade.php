@@ -27,20 +27,24 @@
                     </div>
                     @if(!$news->isEmpty())
                     @foreach($news as $new)
-                    <div class="row mgb20">
-                        <div class="col-md-12">
-                            <a href="{{ route('news.show', $new->id) }}"><span class="dp-bl fs25 fc-red">{{ $new->title }}</span></a>
-                            <span class="text-muted">Author: </span>{{ $new->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($new->created_at, 'F d, Y') }}
+                    <a href="{{ route('news.show', $new->id) }}" class="fc-black">
+                        <div class="bg-blue-hover pdb10">
+                            <div class="row mgb20">
+                                <div class="col-md-12">
+                                    <span class="dp-bl fs25 fc-red">{{ $new->title }}</span>
+                                    <span class="text-muted">Author: </span>{{ $new->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($new->created_at, 'F d, Y') }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{{ asset('/img/uploads/' . $new->image) }}" class="img-responsive img-thumbnail">
+                                </div>
+                                <div class="col-md-8">
+                                    {{ strip_tags(substr($new->body,0,400)) }}...
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="{{ asset('/img/uploads/' . $new->image) }}" class="img-responsive img-thumbnail">
-                        </div>
-                        <div class="col-md-8">
-                            {{ strip_tags(substr($new->body,0,400)) }}...
-                        </div>
-                    </div>
+                    </a>
                     <div style="height: 1px;" class="bgc-gray mgv20"></div>
                     @endforeach
                     @else

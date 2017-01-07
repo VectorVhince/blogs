@@ -17,15 +17,17 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('settings', 'HomeController@settings');
 Route::get('myposts/{id}', 'HomeController@myPosts')->name('myposts');
+Route::get('accounts', 'HomeController@accounts')->name('accounts');
 Route::get('myposts/sortby/{id}', 'HomeController@myPostsSortBy')->name('myposts.sortBy');
+Route::get('error', 'HomeController@error')->name('errors.503');
 
 // Create Post
 Route::get('create', 'HomeController@create');
 Route::post('create', 'HomeController@create')->name('create');
 
 // Create Announcement
-Route::get('create/announcement', 'HomeController@createAnnouncement');
-Route::post('store/announcement', 'HomeController@storeAnnouncement')->name('store.announcement');
+Route::get('create/announcement', 'HomeController@createAnnouncement')->middleware('superadmin');
+Route::post('store/announcement', 'HomeController@storeAnnouncement')->name('store.announcement')->middleware('superadmin');
 
 // Search
 Route::get('search', 'HomeController@search')->name('search');
