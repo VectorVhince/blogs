@@ -75,7 +75,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
-                                <label for="role" class="col-md-4 control-label">Administration</label>
+                                <label for="role" class="col-md-4 control-label">Role</label>
 
                                 <div class="col-md-6">
                                     <div class="box-shadow">

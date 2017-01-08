@@ -9,60 +9,64 @@
                 <div class="panel-body pdh45">
                     <div class="mgb20">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <span class="fs40">News</span>
+                            <div class="col-sm-10">
+                                <span class="fs40">The Angelite</span>
                             </div>
-                            <div class="col-sm-4 col-sm-offset-2 mgt10">
-                            <form action="{{ route('news.sortBy') }}" method="get">
-                                <div class="box-shadow">
-                                    <select class="form-control input-sm bd-rad0" name="key" onchange="this.form.submit()">
-                                        <option disabled selected>Sort By</option>
-                                        <option value="date">Date</option>
-                                        <option value="name">Name</option>
-                                        <!-- <option value="3">Popularity</option> -->
-                                    </select>
-                                </div>
-                            </form>
+                            <div class="col-sm-2">
+                                @if(Auth::user())
+                                    @if(Auth::user()->role == 'superadmin')
+                                    <div class="pointer" data-toggle="modal" data-target='#editor'><img src="{{ asset('img/edit.png') }}" class="img-circle ht50 pull-right" data-toggle="tooltip" data-placement="bottom" title="Edit"></div>
+                                    @endif
+                                @endif
                             </div>
                         </div>
                         <div style="height: 2px;" class="bgc-red mg0"></div>
-                    </div>
-                    @if(!$news->isEmpty())
-                    @foreach($news as $new)
-                    <a href="{{ route('news.show', $new->id) }}" class="fc-black">
-                        <div class="bg-blue-hover pdb10">
-                            <div class="row mgb20">
-                                <div class="col-md-12">
-                                    <span class="dp-bl fs25 fc-red">{{ $new->title }}</span>
-                                    <span class="text-muted">Author: </span>{{ $new->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($new->created_at, 'F d, Y') }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="{{ asset('/img/uploads/' . $new->image) }}" class="img-responsive img-thumbnail">
-                                </div>
-                                <div class="col-md-8">
-                                    {{ strip_tags(substr($new->body,0,400)) }}...
-                                </div>
-                            </div>
+                    </div>                                       
+                    <div class="row">
+                        <div class="col-md-12">
+                            {!! $category->content !!}
                         </div>
-                    </a>
-                    <div style="height: 1px;" class="bgc-gray mgv20"></div>
-                    @endforeach
-                    @else
-                    Nothing posted.
-                    @endif
-                    {{ $news->links() }}
+                    </div>
                 </div>
             </div>        
         </div>
         <div class="col-lg-4">
-            @include('partials.weather')
-            @include('partials.archive')
+            <div class="panel panel-default bd-rad0 box-shadow">
+                <div style="height: 20px;" class="bgc-red mg0"></div>
+                <div class="panel-body pd15">
+                    <div class="mgb20">
+                        <span class="fs25">Members</span>
+                        <div style="height: 2px;" class="bgc-red mg0"></div>
+                    </div>
+                    @if(!$users->isEmpty())
+                    @foreach($users as $user)
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-md-9">
+                            {{ $user->name }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Position</label>
+                        </div>
+                        <div class="col-md-9">
+                            {{ $user->position }}
+                        </div>
+                    </div>
+                    <div style="height: 1px;" class="bgc-gray mgv20"></div>
+                    @endforeach
+                    @else
+                    No members.
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
 </div>
-@include('editor_sm')
+@include('editor')
 @endsection
 
 @section('script')
@@ -73,7 +77,7 @@
                 e.stopImmediatePropagation();
             }
         });
-
+        
         function setPlainText() {
             var ed = tinyMCE.get('textarea');
 
@@ -94,7 +98,6 @@
 
         tinymce.init({ 
             selector:'textarea',
-            height: '100',
             plugins: [
             'advlist autolink lists link image charmap print preview hr anchor pagebreak',
             'searchreplace wordcount visualblocks visualchars code fullscreen',

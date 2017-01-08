@@ -18,19 +18,33 @@
                     @if(!$users->isEmpty())
                     @foreach($users as $user)
                     <div class="row">
-                        <div class="col-md-4">
-
+                        <div class="col-md-3">
+                            <label>Name</label>
                         </div>
-                        <div class="col-md-8">
-                            {{ $user->name }}<br>
-                            {{ $user->role }}<br>
+                        <div class="col-md-9">
+                            {{ $user->name }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Role</label>
+                        </div>
+                        <div class="col-md-9">
+                            {{ ucfirst($user->role) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Position</label>
+                        </div>
+                        <div class="col-md-9">
                             {{ $user->position }}
                         </div>
                     </div>
                     <div style="height: 1px;" class="bgc-gray mgv20"></div>
                     @endforeach
                     @else
-                    Nothing posted.
+                    No members.
                     @endif
                     
                 </div>

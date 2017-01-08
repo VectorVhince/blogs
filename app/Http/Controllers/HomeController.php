@@ -21,12 +21,25 @@ use App\EditorialsComment;
 
 use App\User;
 use Auth;
+use App\Page;
 
 class HomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create','createAnnouncement','storeAnnouncement','settings','myPosts','myPostsSortBy']]);
+        $this->middleware('auth', [
+        'only' => [
+        'create',
+        'createAnnouncement',
+        'storeAnnouncement',
+        'settings',
+        'changePassword',
+        'changeName',
+        'changeUsername',
+        'changeEmail',
+        'myPosts',
+        'myPostsSortBy'
+        ]]);
     }
 
     /**
@@ -202,6 +215,77 @@ class HomeController extends Controller
         return view('settings');
     }
 
+    public function changePassword(Request $request, $id) {
+        $user = User::find($id);
+
+        $this->validate($request, [
+            'old_password' => 'required|min:6',
+            'new_password' => 'required|min:6',
+            'confirm_password' => 'required|min:6',
+            ]);
+
+        $old_password = $request->old_password;
+        $new_password = $request->new_password;
+        $confirm_password = $request->confirm_password;
+        $current_password = $user->password;
+
+        if ($new_password == $confirm_password) {
+            if (\Hash::check($old_password,$current_password)) {
+                $user->password = bcrypt($new_password);
+                $user->update();
+
+                $request->session()->flash('alert-success', "Password successfully updated!");
+                return back();
+            }
+        }
+        else {
+            $request->session()->flash('alert-danger', "New password and confirm password don't match!");
+            return back();
+        }
+    }
+
+    public function changeName(Request $request, $id) {
+        $user = User::find($id);
+
+        $this->validate($request, [
+            'name' => 'required',
+            ]);
+
+        $user->name = $request->name;
+        $user->update();
+
+        $request->session()->flash('alert-success', "Name successfully updated!");
+        return back();
+    }
+
+    public function changeUsername(Request $request, $id) {
+        $user = User::find($id);
+
+        $this->validate($request, [
+            'username' => 'required',
+            ]);
+
+        $user->username = $request->username;
+        $user->update();
+
+        $request->session()->flash('alert-success', "Username successfully updated!");
+        return back();
+    }
+
+    public function changeEmail(Request $request, $id) {
+        $user = User::find($id);
+
+        $this->validate($request, [
+            'email' => 'required',
+            ]);
+
+        $user->email = $request->email;
+        $user->update();
+
+        $request->session()->flash('alert-success', "Username successfully updated!");
+        return back();
+    }
+
     public function myPosts($id)
     {
         $news = User::find($id)->newsDate();
@@ -261,5 +345,57 @@ class HomeController extends Controller
         $users = User::all();
 
         return view('accounts')->with('users',$users);
+    }
+
+    public function about() {
+        $users = User::all();
+        $category = Page::where('category','about')->first();
+        return view('about')->with('category',$category)->with('users',$users);
+    }
+
+    public function aboutUpdate(Request $request, $id) {
+        $category = Page::find($id);
+
+        $category->content = $request->content;
+        $category->update();
+
+        return back();
+    }
+
+    public function terms() {
+        $category = Page::where('category','terms')->first();
+        return view('terms')->with('category',$category);
+    }
+
+    public function termsUpdate(Request $request, $id) {
+        $category = Page::find($id);
+
+        $category->content = $request->content;
+        $category->update();
+
+        return back();
+    }
+
+    public function privacy() {
+        $category = Page::where('category','privacy')->first();
+        return view('privacy')->with('category',$category);
+    }
+
+    public function privacyUpdate(Request $request, $id) {
+        $category = Page::find($id);
+
+        $category->content = $request->content;
+        $category->update();
+
+        return back();
+    }
+
+    public function weatherUpdate(Request $request, $id) {
+        $category = Page::find($id);
+
+        $category->content = $request->content;
+        $category->update();
+
+        return back();
     }
 }

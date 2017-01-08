@@ -76,13 +76,14 @@
 .wd-auto { width: auto; }
 
 .ht20 { height: 20px; }
+.ht30 { height: 30px; }
 .ht34 { height: 34px; }
 .ht35 { height: 35px; }
 .ht50 { height: 50px; }
 .ht60 { height: 60px; }
 .ht70 { height: 70px; }
 .ht80 { height: 80px; }
-.ht100 { height: 100px; }
+.ht100 { height: 100px !important; }
 .ht120 { height: 120px; }
 .ht150 { height: 150px !important; }
 .ht151 { height: 151px !important; }
@@ -424,7 +425,15 @@ a:hover, a:focus, a:active { text-decoration: none; }
 }
 
 .dropdown-menu1 {
-    top: -260% !important;
+    top: -220% !important;
+    left: -95px !important;
+    z-index: 999999999999999999999999 !important;
+    border-radius: 20px !important;
+    padding: 10px;
+}
+
+.dropdown-menu3 {
+    top: -350% !important;
     left: -100px !important;
     z-index: 999999999999999999999999 !important;
     border-radius: 20px !important;

@@ -92,7 +92,7 @@
     <a href="#" class="dropdown-toggle fc-black" data-toggle="dropdown" role="button" aria-expanded="false">
         <i class="glyphicon glyphicon-user fc-white"></i>
     </a>
-    <ul class="dropdown-menu dropdown-menu1" role="menu">
+    <ul class="dropdown-menu @if(Auth::user()->role == 'superadmin') dropdown-menu3 @else dropdown-menu1 @endif" role="menu">
         <div class="box-arrow"></div>
         <li><a href="{{ url('settings') }}" style="font-weight: bold; color: #9e1e1c;">{{ Auth::user()->name }}</a></li>
         <li><a href="{{ route('myposts',Auth::user()->id) }}">My Posts</a></li>

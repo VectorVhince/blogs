@@ -21,14 +21,28 @@ class UsersTableSeeder extends Seeder
            	'password' => bcrypt('adminadmin')
     	]);
 
-    	DB::table('users')->insert([
-        	'id' => 2,
-            'name' => 'nica',
-            'username' => 'nica',
-            'role' => 'admin',
-            'position' => 'Vice President',
-           	'email' => 'nica@nica.com',
-           	'password' => bcrypt('nicanica')
-    	]);
+        DB::table('pages')->insert([
+            'id' => 1,
+            'category' => 'about',
+            'content' => 'Nothing posted.'
+        ]);
+
+        DB::table('pages')->insert([
+            'id' => 2,
+            'category' => 'terms',
+            'content' => 'Nothing posted.'
+        ]);
+
+        DB::table('pages')->insert([
+            'id' => 3,
+            'category' => 'privacy',
+            'content' => 'Nothing posted.'
+        ]);
+
+        DB::table('pages')->insert([
+            'id' => 4,
+            'category' => 'weather',
+            'content' => 'Nothing posted.'
+        ]);
     }
 }

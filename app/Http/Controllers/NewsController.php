@@ -10,6 +10,7 @@ use App\News;
 use App\NewsComment;
 use Auth;
 use Image;
+use App\Page;
 
 class NewsController extends Controller
 {
@@ -26,8 +27,9 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::orderBy('id', 'desc')->paginate(10);
+        $category = Page::where('category','weather')->first();
 
-        return view('news.index')->with('news', $news);
+        return view('news.index')->with('news', $news)->with('category',$category);
     }
 
     public function sortBy(Request $request)
