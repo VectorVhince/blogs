@@ -10,6 +10,7 @@ use App\Sports;
 use App\SportsComment;
 use Auth;
 use Image;
+use App\Page;
 
 class SportsController extends Controller
 {
@@ -26,8 +27,9 @@ class SportsController extends Controller
     public function index()
     {
         $sports = Sports::orderBy('id', 'desc')->paginate(10);
+        $category = Page::where('category','outsidesports')->first();
 
-        return view('sports.index')->with('sports', $sports);
+        return view('sports.index')->with('sports', $sports)->with('category',$category);
     }
 
     public function sortBy(Request $request)
@@ -107,7 +109,9 @@ class SportsController extends Controller
     {
         $sports = Sports::find($id);
         $comments = Sports::find($id)->sportsComments;
-        return view('sports.show')->with('sports', $sports)->with('comments', $comments);
+        $stories = Sports::where('id', '!=', $news->id)->get()->random(2);
+
+        return view('sports.show')->with('sports', $sports)->with('comments', $comments)->with('stories', $stories);
     }
 
     /**

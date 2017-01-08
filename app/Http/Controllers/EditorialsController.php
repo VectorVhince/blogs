@@ -10,6 +10,7 @@ use App\EditorialsComment;
 use App\Featured;
 use Auth;
 use Image;
+use App\Page;
 
 class EditorialsController extends Controller
 {
@@ -26,8 +27,9 @@ class EditorialsController extends Controller
     public function index()
     {
         $editorials = Editorials::orderBy('id', 'desc')->paginate(10);
+        $category = Page::where('category','calendar')->first();
 
-        return view('editorial.index')->with('editorials', $editorials);
+        return view('editorial.index')->with('editorials', $editorials)->with('category',$category);
     }
 
     public function sortBy(Request $request)
@@ -107,7 +109,9 @@ class EditorialsController extends Controller
     {
         $editorials = Editorials::find($id);
         $comments = Editorials::find($id)->editorialsComments;
-        return view('editorial.show')->with('editorials', $editorials)->with('comments', $comments);
+        $stories = Editorials::where('id', '!=', $news->id)->get()->random(2);
+        
+        return view('editorial.show')->with('editorials', $editorials)->with('comments', $comments)->with('stories', $stories);
     }
 
     /**

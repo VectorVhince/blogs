@@ -30,7 +30,7 @@
                     @if(!$news->isEmpty())
                     @foreach($news as $new)
                     <a href="{{ route('news.show', $new->id) }}" class="fc-black">
-                        <div class="bg-blue-hover pdb10">
+                        <div class="bg-blue-hover pd10">
                             <div class="row mgb20">
                                 <div class="col-md-12">
                                     <span class="dp-bl fs25 fc-red">{{ $new->title }}</span>

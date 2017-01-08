@@ -398,4 +398,49 @@ class HomeController extends Controller
 
         return back();
     }
+
+    public function calendarUpdate(Request $request, $id) {
+        $category = Page::find($id);
+
+        $category->content = $request->content;
+        $category->update();
+
+        return back();
+    }
+
+    public function selfopinionUpdate(Request $request, $id) {
+        $category = Page::find($id);
+
+        $category->content = $request->content;
+        $category->update();
+
+        return back();
+    }
+
+    public function readalsoUpdate(Request $request, $id) {
+        $category = Page::find($id);
+
+        $category->content = $request->content;
+        $category->update();
+
+        return back();
+    }
+
+    public function fromwebUpdate(Request $request, $id) {
+        $category = Page::find($id);
+
+        $category->content = $request->content;
+        $category->update();
+
+        return back();
+    }
+
+    public function outsidesportsUpdate(Request $request, $id) {
+        $category = Page::find($id);
+
+        $category->content = $request->content;
+        $category->update();
+
+        return back();
+    }
 }

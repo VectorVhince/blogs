@@ -44,5 +44,35 @@ class UsersTableSeeder extends Seeder
             'category' => 'weather',
             'content' => 'Nothing posted.'
         ]);
+
+        DB::table('pages')->insert([
+            'id' => 5,
+            'category' => 'calendar',
+            'content' => 'Nothing posted.'
+        ]);
+
+        DB::table('pages')->insert([
+            'id' => 6,
+            'category' => 'selfopinion',
+            'content' => 'Nothing posted.'
+        ]);
+
+        DB::table('pages')->insert([
+            'id' => 7,
+            'category' => 'readalso',
+            'content' => 'Nothing posted.'
+        ]);
+
+        DB::table('pages')->insert([
+            'id' => 8,
+            'category' => 'fromweb',
+            'content' => 'Nothing posted.'
+        ]);
+
+        DB::table('pages')->insert([
+            'id' => 9,
+            'category' => 'outsidesports',
+            'content' => 'Nothing posted.'
+        ]);
     }
 }

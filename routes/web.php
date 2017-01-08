@@ -26,6 +26,11 @@ Route::patch('terms/{id}', 'HomeController@termsUpdate')->name('terms.update');
 Route::get('privacy', 'HomeController@privacy')->name('privacy');
 Route::patch('privacy/{id}', 'HomeController@privacyUpdate')->name('privacy.update');
 Route::patch('weather/{id}', 'HomeController@weatherUpdate')->name('weather.update');
+Route::patch('calendar/{id}', 'HomeController@calendarUpdate')->name('calendar.update');
+Route::patch('selfopinion/{id}', 'HomeController@selfopinionUpdate')->name('selfopinion.update');
+Route::patch('readalso/{id}', 'HomeController@readalsoUpdate')->name('readalso.update');
+Route::patch('fromweb/{id}', 'HomeController@fromwebUpdate')->name('fromweb.update');
+Route::patch('outsidesports/{id}', 'HomeController@outsidesportsUpdate')->name('outsidesports.update');
 
 // Account Settings
 Route::get('settings', 'HomeController@settings');

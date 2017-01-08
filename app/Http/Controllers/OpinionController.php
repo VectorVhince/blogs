@@ -10,6 +10,8 @@ use App\Opinion;
 use App\OpinionComment;
 use Auth;
 use Image;
+use App\Page;
+
 
 class OpinionController extends Controller
 {
@@ -25,9 +27,10 @@ class OpinionController extends Controller
      */
     public function index()
     {
-        $opinions = Opinion::orderBy('id', 'desc')->paginate(10);;
+        $opinions = Opinion::orderBy('id', 'desc')->paginate(10);
+        $category = Page::where('category','selfopinion')->first();
 
-        return view('opinion.index')->with('opinions', $opinions);
+        return view('opinion.index')->with('opinions', $opinions)->with('category',$category);
     }
 
     public function sortBy(Request $request)
@@ -107,7 +110,9 @@ class OpinionController extends Controller
     {
         $opinion = Opinion::find($id);
         $comments = Opinion::find($id)->opinionComments;
-        return view('opinion.show')->with('opinion', $opinion)->with('comments', $comments);
+        $stories = Opinion::where('id', '!=', $news->id)->get()->random(2);
+
+        return view('opinion.show')->with('opinion', $opinion)->with('comments', $comments)->with('stories', $stories);
     }
 
     /**
@@ -134,11 +139,10 @@ class OpinionController extends Controller
     {
         $opinion = Opinion::find($id);
         $this->validate($request, [
-            'title' => 'required|max:255|unique:opinion,title,'.$opinion->id,
+            'title' => 'required|max:255|unique:opinions,title,'.$opinion->id,
             'body' => 'required',
             'image' => 'mimes:jpeg,png,gif',
         ]);
-
         
         if ($request->hasFile('image')) {
             $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();

@@ -10,6 +10,7 @@ use App\Humors;
 use App\HumorsComment;
 use Auth;
 use Image;
+use App\Page;
 
 class HumorsController extends Controller
 {
@@ -26,8 +27,9 @@ class HumorsController extends Controller
     public function index()
     {
         $humors = Humors::orderBy('id', 'desc')->paginate(10);
+        $category = Page::where('category','fromweb')->first();
 
-        return view('humor.index')->with('humors', $humors);
+        return view('humor.index')->with('humors', $humors)->with('category',$category);
     }
 
     public function sortBy(Request $request)
@@ -107,7 +109,9 @@ class HumorsController extends Controller
     {
         $humors = Humors::find($id);
         $comments = Humors::find($id)->humorsComments;
-        return view('humor.show')->with('humors', $humors)->with('comments', $comments);
+        $stories = Humors::where('id', '!=', $news->id)->get()->random(2);
+
+        return view('humor.show')->with('humors', $humors)->with('comments', $comments)->with('stories', $stories);
     }
 
     /**

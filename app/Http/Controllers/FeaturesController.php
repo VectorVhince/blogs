@@ -10,6 +10,7 @@ use App\Features;
 use App\FeaturesComment;
 use Auth;
 use Image;
+use App\Page;
 
 class FeaturesController extends Controller
 {
@@ -26,8 +27,9 @@ class FeaturesController extends Controller
     public function index()
     {
         $features = Features::orderBy('id', 'desc')->paginate(10);
+        $category = Page::where('category','readalso')->first();
 
-        return view('feature.index')->with('features', $features);
+        return view('feature.index')->with('features', $features)->with('category',$category);
     }
 
     public function sortBy(Request $request)
@@ -107,7 +109,9 @@ class FeaturesController extends Controller
     {
         $features = Features::find($id);
         $comments = Features::find($id)->featuresComments;
-        return view('feature.show')->with('features', $features)->with('comments', $comments);
+        $stories = Features::where('id', '!=', $news->id)->get()->random(2);
+        
+        return view('feature.show')->with('features', $features)->with('comments', $comments)->with('stories', $stories);
     }
 
     /**
