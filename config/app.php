@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        Kryptonit3\Counter\CounterServiceProvider::class,
 
     ],
 
@@ -229,7 +230,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+        'Counter' => Kryptonit3\Counter\Facades\CounterFacade::class,
 
     ],
+
+    'trend_time' => 5,
 
 ];

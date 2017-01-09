@@ -11,6 +11,7 @@ use App\NewsComment;
 use Auth;
 use Image;
 use App\Page;
+use Counter;
 
 class NewsController extends Controller
 {
@@ -117,7 +118,14 @@ class NewsController extends Controller
             $stories = News::where('id', '!=', $news->id)->get()->random(2);
         }
 
-        return view('news.show')->with('news', $news)->with('comments', $comments)->with('stories', $stories);
+        $counter = Counter::showAndCount('news.show', $news->id);
+        $news->views = $counter;
+        if ($news->views == config('app.trend_time') ) {
+            $news->trend_date = time();
+        }
+        $news->update();
+
+        return view('news.show')->with('news', $news)->with('comments', $comments)->with('stories', $stories)->with('counter', $counter);
     }
 
     /**

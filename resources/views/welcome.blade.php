@@ -41,15 +41,27 @@
         <div class="col-lg-3 pd0">
           <div class="bgc-black-t ht400">
             <div class="row mg0">
-              <div class="dp-bl fc-white fs20 pd10 bgc-red col-sm-8">
-                LATEST TRENDS
-              </div>
-              <div class="col-sm-4">
-                
+              <div class="dp-bl fc-white fs20 pd10 bgc-red col-sm-12">
+                TRENDING
               </div>
             </div>
-            <div class="fc-white trending-panel">
-              sdkljfbn sjkdfhgpdouifg ndfo'jk
+            <div style="overflow-y: auto;">
+            @if(!$views->isEmpty())
+              @foreach($views as $view)
+                <a href="{{ route($view->category . '.show',$view->id) }}" class="fc-white">
+                  <div class="row mgh0 trending-panel bg-blue-hover">
+                    <div class="col-sm-4 pdh0">
+                      <img src="{{ asset('img/uploads/' . $view->image) }}" class="img-responsive" style="width: 100%;">
+                    </div>
+                    <div class="col-sm-8 pdr0">
+                      {{ $view->title }}
+                    </div>
+                  </div>
+                </a>
+              @endforeach
+            @else
+              <div class="text-center fc-white mgv20">No trending yet.</div>
+            @endif
             </div>
           </div>
         </div>

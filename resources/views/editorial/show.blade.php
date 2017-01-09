@@ -69,7 +69,7 @@
                                     <ul class="dropdown-menu dropdown-menu2" aria-labelledby="dropdownMenu1">
                                         <div class="box-arrow1"></div>
                                         @if(Auth::user()->role == 'superadmin')
-                                          @if(!$editorial->featured == '1')
+                                          @if(!$editorials->featured == '1')
                                           <li><a href="#!" data-toggle="modal" data-target="#modal2"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Mark featured</a></li>
                                           @else
                                           <li><a href="#!" data-toggle="modal" data-target="#modal3"><img src="{{ asset('/img/unfeatured.png') }}" class="ht20"> Unmark featured</a></li>
@@ -94,18 +94,21 @@
                         </div>
                     </div>
                     <div class="row">
-                      <div class="col-sm-3 col-sm-offset-9 pdh0">
+                      <div class="col-sm-3">
+                        <span class="fs15 text-muted">Views: {{ number_format($counter) }}</span>
+                      </div>
+                      <div class="col-sm-3 col-sm-offset-6 pdh0">
                         <div class="social-container">
                           <div class="fb-container">
                             <div class="fb-share-button" 
                                 data-href="{{ Request::url() }}" 
-                                data-layout="button" data-size="large">
+                                data-layout="button">
                             </div>
                           </div>
                           <div class="tw-container">
                             <a class="twitter-share-button"
                               href="https://twitter.com/intent/tweet?text=Check%20this%20article%20on%20The%20Angelite%20"
-                              data-size="large">
+                             >
                             Tweet</a>
                           </div>
                         </div>

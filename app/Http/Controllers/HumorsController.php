@@ -11,6 +11,7 @@ use App\HumorsComment;
 use Auth;
 use Image;
 use App\Page;
+use Counter;
 
 class HumorsController extends Controller
 {
@@ -117,7 +118,14 @@ class HumorsController extends Controller
             $stories = Humors::where('id', '!=', $humors->id)->get()->random(2);
         }
 
-        return view('humor.show')->with('humors', $humors)->with('comments', $comments)->with('stories', $stories);
+        $counter = Counter::showAndCount('humor.show', $humors->id);
+        $humors->views = $counter;
+        if ($humors->views == config('app.trend_time') ) {
+            $humors->trend_date = time();
+        }
+        $humors->update();
+
+        return view('humor.show')->with('humors', $humors)->with('comments', $comments)->with('stories', $stories)->with('counter', $counter);
     }
 
     /**

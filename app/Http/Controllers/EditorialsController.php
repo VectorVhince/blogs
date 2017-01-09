@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+
 use App\Editorials;
 use App\EditorialsComment;
-use App\Featured;
 use Auth;
 use Image;
 use App\Page;
+use Counter;
 
 class EditorialsController extends Controller
 {
@@ -116,8 +117,15 @@ class EditorialsController extends Controller
         else if (Editorials::all()->count() > 2) {
             $stories = Editorials::where('id', '!=', $editorials->id)->get()->random(2);
         }
+
+        $counter = Counter::showAndCount('editorial.show', $editorials->id);
+        $editorials->views = $counter;
+        if ($editorials->views == config('app.trend_time') ) {
+            $editorials->trend_date = time();
+        }
+        $editorials->update();
         
-        return view('editorial.show')->with('editorials', $editorials)->with('comments', $comments)->with('stories', $stories);
+        return view('editorial.show')->with('editorials', $editorials)->with('comments', $comments)->with('stories', $stories)->with('counter', $counter);
     }
 
     /**

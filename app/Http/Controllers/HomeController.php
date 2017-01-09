@@ -64,6 +64,23 @@ class HomeController extends Controller
         ->take(7)
         ->get();
 
+        $news_views = News::where('views', '>=', '5');
+        $editorial_views = Editorials::where('views', '>=', '5');
+        $opinion_views = Opinion::where('views', '>=', '5');
+        $feature_views = Features::where('views', '>=', '5');
+        $humor_views = Humors::where('views', '>=', '5');
+        $sports_views = Sports::where('views', '>=', '5');
+
+        $views = $news_views
+        ->union($editorial_views)
+        ->union($opinion_views)
+        ->union($feature_views)
+        ->union($humor_views)
+        ->union($sports_views)
+        ->orderBy('trend_date', 'desc')
+        ->take(7)
+        ->get();
+
         $news = News::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
         $news_first = News::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
         $opinions = Opinion::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
@@ -99,6 +116,7 @@ class HomeController extends Controller
 
         return view('welcome')
         ->with('featured', $featured)
+        ->with('views', $views)
         ->with('news', $news)
         ->with('opinions', $opinions)
         ->with('features', $features)

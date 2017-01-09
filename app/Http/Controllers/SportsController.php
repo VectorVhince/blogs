@@ -11,6 +11,7 @@ use App\SportsComment;
 use Auth;
 use Image;
 use App\Page;
+use Counter;
 
 class SportsController extends Controller
 {
@@ -117,7 +118,14 @@ class SportsController extends Controller
             $stories = Sports::where('id', '!=', $sports->id)->get()->random(2);
         }
 
-        return view('sports.show')->with('sports', $sports)->with('comments', $comments)->with('stories', $stories);
+        $counter = Counter::showAndCount('sports.show', $sports->id);
+        $sports->views = $counter;
+        if ($sports->views == config('app.trend_time') ) {
+            $sports->trend_date = time();
+        }
+        $sports->update();
+
+        return view('sports.show')->with('sports', $sports)->with('comments', $comments)->with('stories', $stories)->with('counter', $counter);
     }
 
     /**

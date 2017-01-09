@@ -11,6 +11,7 @@ use App\FeaturesComment;
 use Auth;
 use Image;
 use App\Page;
+use Counter;
 
 class FeaturesController extends Controller
 {
@@ -116,8 +117,15 @@ class FeaturesController extends Controller
         else if (Features::all()->count() > 2) {
             $stories = Features::where('id', '!=', $features->id)->get()->random(2);
         }
+
+        $counter = Counter::showAndCount('feature.show', $features->id);
+        $features->views = $counter;
+        if ($features->views == config('app.trend_time') ) {
+            $features->trend_date = time();
+        }
+        $features->update();
         
-        return view('feature.show')->with('features', $features)->with('comments', $comments)->with('stories', $stories);
+        return view('feature.show')->with('features', $features)->with('comments', $comments)->with('stories', $stories)->with('counter', $counter);
     }
 
     /**

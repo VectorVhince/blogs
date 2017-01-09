@@ -11,7 +11,7 @@ use App\OpinionComment;
 use Auth;
 use Image;
 use App\Page;
-
+use Counter;
 
 class OpinionController extends Controller
 {
@@ -118,7 +118,14 @@ class OpinionController extends Controller
             $stories = Opinion::where('id', '!=', $opinion->id)->get()->random(2);
         }
 
-        return view('opinion.show')->with('opinion', $opinion)->with('comments', $comments)->with('stories', $stories);
+        $counter = Counter::showAndCount('opinion.show', $opinion->id);
+        $opinion->views = $counter;
+        if ($opinion->views == config('app.trend_time') ) {
+            $opinion->trend_date = time();
+        }
+        $opinion->update();
+
+        return view('opinion.show')->with('opinion', $opinion)->with('comments', $comments)->with('stories', $stories)->with('counter', $counter);
     }
 
     /**
