@@ -58,7 +58,7 @@
         </div>
         <div class="col-lg-4">
             @include('partials.selfopinion')
-            @include('partials.archive')
+             
         </div>
     </div>
 </div>

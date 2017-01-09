@@ -374,16 +374,24 @@ class HomeController extends Controller
 
     public function accounts() {
         $users = User::all();
-        $roles = User::select('role')->groupBy('role')->get();
-        // dd($roles->count());
 
-        return view('accounts')->with('users',$users)->with('roles',$roles);
+        return view('accounts')->with('users',$users);
     }
 
     public function updateRole(Request $request, $id) {
         $user = User::find($id);
 
         $user->role = $request->role;
+        $user->update();
+
+        $request->session()->flash('alert-success', "Role successfully updated!");
+        return back();
+    }
+
+    public function updatePosition(Request $request, $id) {
+        $user = User::find($id);
+
+        $user->position = $request->position;
         $user->update();
 
         $request->session()->flash('alert-success', "Role successfully updated!");

@@ -18,6 +18,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('myposts/{id}', 'HomeController@myPosts')->name('myposts');
 Route::get('accounts', 'HomeController@accounts')->name('accounts')->middleware('superadmin');
 Route::patch('update/role/{id}', 'HomeController@updateRole')->name('update.role')->middleware('superadmin');
+Route::patch('update/position/{id}', 'HomeController@updatePosition')->name('update.position')->middleware('superadmin');
 Route::get('myposts/sortby/{id}', 'HomeController@myPostsSortBy')->name('myposts.sortBy');
 Route::get('error', 'HomeController@error')->name('errors.503');
 Route::get('about', 'HomeController@about')->name('about');

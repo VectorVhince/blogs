@@ -145,7 +145,7 @@
                   @endif
               </div>
           </div>
-          @include('partials.archive')
+           
         </div>
     </div>
     <div class="row">

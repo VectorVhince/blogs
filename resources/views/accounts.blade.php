@@ -30,8 +30,8 @@
                             <label>Role</label>
                         </div>
                         <div class="col-md-9 roleHover" data-id="{{ $user->id }}">
-                            {{ ucfirst($user->role) }} <span class="dp0 pointer roleBtn{{ $user->id }}" data-toggle="tooltip" title="Edit"><img src="{{ asset('img/edit.png') }}" class="ht25"></span>
-                            <form action="{{ route('update.role',$user->id) }}" method="post" id="roleForm" class="hidden">
+                            {{ ucfirst($user->role) }} <span class="dp0 pointer roleBtn" id="roleBtn{{ $user->id }}" data-toggle="tooltip" title="Edit" data-id="{{ $user->id }}"><img src="{{ asset('img/edit.png') }}" class="ht20"></span>
+                            <form action="{{ route('update.role',$user->id) }}" method="post" id="roleForm{{ $user->id }}" class="dp0">
                                 {{ csrf_field() }}
                                 {{ method_field('patch') }}
                                 <div class="box-shadow wd200">
@@ -48,8 +48,20 @@
                         <div class="col-md-3">
                             <label>Position</label>
                         </div>
-                        <div class="col-md-9">
-                            {{ $user->position }} <span class="dp-il pointer" data-toggle="tooltip" title="Edit"><img src="{{ asset('img/edit.png') }}" class="ht25"></span>
+                        <div class="col-md-9 positionHover" data-id="{{ $user->id }}">
+                            {{ $user->position }} <span class="dp0 pointer positionBtn" id="positionBtn{{ $user->id }}" data-toggle="tooltip" title="Edit" data-id="{{ $user->id }}"><img src="{{ asset('img/edit.png') }}" class="ht20"></span>
+                            <form action="{{ route('update.position',$user->id) }}" method="post" id="positionForm{{ $user->id }}" class="dp0">
+                                {{ csrf_field() }}
+                                {{ method_field('patch') }}
+                                <div class="box-shadow wd200">
+                                    <select class="form-control bd-rad0 mgv10" name="position" onchange="this.form.submit()">
+                                        <option selected disabled>{{ ucfirst($user->position) }}</option>
+                                        <option value="President">President</option>
+                                        <option value="Vice President">Vice President</option>
+                                        <option value="Staff">Staff</option>
+                                    </select>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div style="height: 1px;" class="bgc-gray mgv20"></div>
@@ -68,12 +80,33 @@
 @section('script')
     <script type="text/javascript">
     $(document).ready(function(){
-        var roleId = $('.roleHover').data('id');
+        var roleId = "";
+        var positionId = "";
 
         $('.roleHover').on('mouseenter', function(){
-            $('.roleBtn' + roleId).show();
+            roleId = $(this).data('id');
+            $('#roleBtn' + roleId).show();
         }).on('mouseleave', function(){
-            $('.roleBtn' + roleId).hide();
+            roleId = $(this).data('id');
+            $('#roleBtn' + roleId).hide();
+        });
+
+        $('.roleBtn').click(function(){
+            roleId = $(this).data('id');
+            $('#roleForm' + roleId).slideToggle(300);
+        });
+
+        $('.positionHover').on('mouseenter', function(){
+            positionId = $(this).data('id');
+            $('#positionBtn' + positionId).show();
+        }).on('mouseleave', function(){
+            positionId = $(this).data('id');
+            $('#positionBtn' + positionId).hide();
+        });
+
+        $('.positionBtn').click(function(){
+            positionId = $(this).data('id');
+            $('#positionForm' + positionId).slideToggle(300);
         });
     });
     </script>
