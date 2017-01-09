@@ -30,8 +30,6 @@ class HomeController extends Controller
         $this->middleware('auth', [
         'only' => [
         'create',
-        'createAnnouncement',
-        'storeAnnouncement',
         'settings',
         'changePassword',
         'changeName',
@@ -129,8 +127,41 @@ class HomeController extends Controller
 
     public function storeAnnouncement(Request $request)
     {
+        $this->validate($request, [
+            'body' => 'required'
+            ]);
+
         $announcements = new Announcements;
         $announcements->create($request->all());
+
+        $request->session()->flash('alert-danger', 'Announcement was successfully created!');
+        return redirect()->route('home');
+    }
+
+    public function editAnnouncement($id)
+    {
+        $announcement = Announcements::find($id);
+
+        return view('edit_announcement')->with('announcement',$announcement);
+    }
+
+    public function updateAnnouncement(Request $request, $id)
+    {
+        $announcement = Announcements::find($id);
+        $this->validate($request, [
+            'body' => 'required'
+            ]);
+
+        $announcement->update($request->all());
+        
+        $request->session()->flash('alert-success', 'Announcement was successfully update!');
+        return redirect()->route('home');
+    }
+
+    public function deleteAnnouncement(Request $request, $id) {
+        Announcements::find($id)->delete();
+
+        $request->session()->flash('alert-danger', 'Announcement was successfully deleted!');
         return redirect()->route('home');
     }
 
@@ -343,8 +374,20 @@ class HomeController extends Controller
 
     public function accounts() {
         $users = User::all();
+        $roles = User::select('role')->groupBy('role')->get();
+        // dd($roles->count());
 
-        return view('accounts')->with('users',$users);
+        return view('accounts')->with('users',$users)->with('roles',$roles);
+    }
+
+    public function updateRole(Request $request, $id) {
+        $user = User::find($id);
+
+        $user->role = $request->role;
+        $user->update();
+
+        $request->session()->flash('alert-success', "Role successfully updated!");
+        return back();
     }
 
     public function about() {

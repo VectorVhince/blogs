@@ -109,7 +109,13 @@ class NewsController extends Controller
     {
         $news = News::find($id);
         $comments = News::find($id)->newsComments;
-        $stories = News::where('id', '!=', $news->id)->get()->random(2);
+        $stories = News::get();
+        if (News::all()->count() <= 2) {
+            $stories = News::where('id', '!=', $news->id)->get();
+        }
+        else if (News::all()->count() > 2) {
+            $stories = News::where('id', '!=', $news->id)->get()->random(2);
+        }
 
         return view('news.show')->with('news', $news)->with('comments', $comments)->with('stories', $stories);
     }

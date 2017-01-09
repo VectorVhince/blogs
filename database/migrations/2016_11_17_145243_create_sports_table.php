@@ -24,6 +24,7 @@ class CreateSportsTable extends Migration
             $table->string('update');
             $table->string('featured')->default('0');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

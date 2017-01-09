@@ -59,7 +59,7 @@
                         </div>
                         <div class="col-md-2">
                         @if (Auth::user())
-                            @if (Auth::user()->id == $editorials->user_id)                                
+                            @if (Auth::user()->id == $editorials->user_id || Auth::user()->role == 'superadmin')                                
                                 <div class="dropdown" style="float: right;">
                                     <a class="dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1">
                                         <div class="icon-circle text-center pdt10 mgt5">
@@ -68,10 +68,12 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu2" aria-labelledby="dropdownMenu1">
                                         <div class="box-arrow1"></div>
-                                        @if(!$editorials->featured == '1')
-                                        <li><a href="#!" data-toggle="modal" data-target="#modal2"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Mark featured</a></li>
-                                        @else
-                                        <li><a href="#!" data-toggle="modal" data-target="#modal3"><img src="{{ asset('/img/unfeatured.png') }}" class="ht20"> Unmark featured</a></li>
+                                        @if(Auth::user()->role == 'superadmin')
+                                          @if(!$editorial->featured == '1')
+                                          <li><a href="#!" data-toggle="modal" data-target="#modal2"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Mark featured</a></li>
+                                          @else
+                                          <li><a href="#!" data-toggle="modal" data-target="#modal3"><img src="{{ asset('/img/unfeatured.png') }}" class="ht20"> Unmark featured</a></li>
+                                          @endif
                                         @endif
                                         <li><a href="{{ route('editorial.edit',$editorials->id) }}"><img src="{{ asset('/img/edit.png') }}" class="ht20"> Edit</a></li>
                                         <li><a href="#!" data-toggle="modal" data-target="#modal1"><img src="{{ asset('/img/delete.png') }}" class="ht20"> Delete</a></li>

@@ -20,6 +20,7 @@ class CreateAnnouncementsTable extends Migration
             $table->string('user');
             $table->string('update');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

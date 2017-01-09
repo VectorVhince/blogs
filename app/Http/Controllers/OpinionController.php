@@ -110,7 +110,13 @@ class OpinionController extends Controller
     {
         $opinion = Opinion::find($id);
         $comments = Opinion::find($id)->opinionComments;
-        $stories = Opinion::where('id', '!=', $news->id)->get()->random(2);
+        $stories = Opinion::get();
+        if (Opinion::all()->count() <= 2) {
+            $stories = Opinion::where('id', '!=', $opinion->id)->get();
+        }
+        else if (Opinion::all()->count() > 2) {
+            $stories = Opinion::where('id', '!=', $opinion->id)->get()->random(2);
+        }
 
         return view('opinion.show')->with('opinion', $opinion)->with('comments', $comments)->with('stories', $stories);
     }

@@ -51,7 +51,7 @@
                     <li class="mgr10 pdv10">
                         <form action="{{ route('search') }}" method="get">
                             <div style="display: flex;">
-                                <input type="text" name="search" class="form-control dp0 input-sm" placeholder="Search.." style="flex: 1;" id="searchInput">
+                                <input type="text" name="search" class="form-control dp0 input-sm" placeholder="Search.. (Press enter)" style="flex: 1;" id="searchInput">
                                 <button type="submit" class="hidden">Submit</button>
                                 <span class="mgr20 mgl10 pdv5" id="searchIcon"><i class="glyphicon glyphicon-search pointer"></i></span>
                             </div>

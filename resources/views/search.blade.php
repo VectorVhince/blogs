@@ -10,27 +10,24 @@
                     <span>Search results for: <b>{{ $search }}</b> <br>Found: <b>{{ $count }}</b></span>
                     <div style="height: 2px;" class="bgc-red mg0 mgv20"></div>
                     @foreach($items as $item)
-                    <div class="row mgb20">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <a href="{{ route($item->category . '.show', $item->id) }}"><span class="fs25 fc-red">{{ $item->title }}</span></a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span class="fs20">{{ ucfirst($item->category) }}</span>
+                    <a href="{{ route($item->category.'.show', $item->id) }}" class="fc-black">
+                        <div class="bg-blue-hover pd10">
+                            <div class="row mgb20">
+                                <div class="col-md-12">
+                                    <span class="dp-bl fs25 fc-red">{{ $item->title }}</span>
+                                    <span class="text-muted">Author: </span>{{ $item->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($item->created_at, 'F d, Y') }}
                                 </div>
                             </div>
-                            <span class="text-muted">Author: </span>{{ $item->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($item->created_at, 'F d, Y') }}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{{ asset('/img/uploads/' . $item->image) }}" class="img-responsive img-thumbnail">
+                                </div>
+                                <div class="col-md-8">
+                                    {{ strip_tags(substr($item->body,0,400)) }}...
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="{{ asset('/img/uploads/' . $item->image) }}" class="img-responsive img-thumbnail">
-                        </div>
-                        <div class="col-md-8">
-                            {{ strip_tags(substr($item->body,0,400)) }}...
-                        </div>
-                    </div>
+                    </a>
                     <div style="height: 1px;" class="bgc-gray mgv20"></div>
                     @endforeach
                     {{-- $items->links() --}}

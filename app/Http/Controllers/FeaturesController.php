@@ -109,7 +109,13 @@ class FeaturesController extends Controller
     {
         $features = Features::find($id);
         $comments = Features::find($id)->featuresComments;
-        $stories = Features::where('id', '!=', $news->id)->get()->random(2);
+        $stories = Features::get();
+        if (Features::all()->count() <= 2) {
+            $stories = Features::where('id', '!=', $features->id)->get();
+        }
+        else if (Features::all()->count() > 2) {
+            $stories = Features::where('id', '!=', $features->id)->get()->random(2);
+        }
         
         return view('feature.show')->with('features', $features)->with('comments', $comments)->with('stories', $stories);
     }

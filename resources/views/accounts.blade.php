@@ -29,8 +29,19 @@
                         <div class="col-md-3">
                             <label>Role</label>
                         </div>
-                        <div class="col-md-9">
-                            {{ ucfirst($user->role) }}
+                        <div class="col-md-9 roleHover" data-id="{{ $user->id }}">
+                            {{ ucfirst($user->role) }} <span class="dp0 pointer roleBtn{{ $user->id }}" data-toggle="tooltip" title="Edit"><img src="{{ asset('img/edit.png') }}" class="ht25"></span>
+                            <form action="{{ route('update.role',$user->id) }}" method="post" id="roleForm" class="hidden">
+                                {{ csrf_field() }}
+                                {{ method_field('patch') }}
+                                <div class="box-shadow wd200">
+                                    <select class="form-control bd-rad0 mgv10" name="role" onchange="this.form.submit()">
+                                        <option selected disabled>{{ ucfirst($user->role) }}</option>
+                                        <option value="superadmin">Superadmin</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row">
@@ -38,7 +49,7 @@
                             <label>Position</label>
                         </div>
                         <div class="col-md-9">
-                            {{ $user->position }}
+                            {{ $user->position }} <span class="dp-il pointer" data-toggle="tooltip" title="Edit"><img src="{{ asset('img/edit.png') }}" class="ht25"></span>
                         </div>
                     </div>
                     <div style="height: 1px;" class="bgc-gray mgv20"></div>
@@ -53,3 +64,17 @@
     </div>
 </div>
 @endsection
+
+@section('script')
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var roleId = $('.roleHover').data('id');
+
+        $('.roleHover').on('mouseenter', function(){
+            $('.roleBtn' + roleId).show();
+        }).on('mouseleave', function(){
+            $('.roleBtn' + roleId).hide();
+        });
+    });
+    </script>
+@stop

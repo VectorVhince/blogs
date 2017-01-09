@@ -76,6 +76,7 @@
 .wd-auto { width: auto; }
 
 .ht20 { height: 20px; }
+.ht25 { height: 25px; }
 .ht30 { height: 30px; }
 .ht34 { height: 34px; }
 .ht35 { height: 35px; }
@@ -165,6 +166,7 @@
 .pdr3 { padding-right: 0; }
 .pdh0 { padding-left: 0; padding-right: 0; }
 .pdh5 { padding-left: 5px !important; padding-right: 5px !important; }
+.pdh10 { padding-left: 10px !important; padding-right: 10px !important; }
 .pdh15 { padding-left: 15px !important; padding-right: 15px !important; }
 .pdh20 { padding-left: 20px; padding-right: 20px; }
 .pdh30{ padding-left: 30px !important; padding-right: 30px !important; }

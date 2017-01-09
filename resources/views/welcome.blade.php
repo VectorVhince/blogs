@@ -63,7 +63,7 @@
           <div class="panel-body">
             @if(isset($news_first))
             <div class="row">
-              <div class="col-md-6 text-center">
+              <div class="col-md-6 text-center bg-blue-hover pdb10">
                 <a href="{{ route('news.show', $news_first->id) }}" class="fc-black">
                   <div class="mgv10">
                     <img src="{{ asset('img/uploads/' . $news_first->image) }}" class="img-responsive img-thumbnail dp-bl">
@@ -74,7 +74,7 @@
               <div class="col-md-6 mgv10 pdl0">
               @foreach($news as $new)
               <a href="{{ route('news.show', $new->id) }}" class="fc-black dp-bl">
-                <div class="row mg0">
+                <div class="row mg0 bg-blue-hover pd10">
                   <div class="col-sm-4 pdl0">
                     <img src="{{ asset('img/uploads/' . $new->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
@@ -111,7 +111,7 @@
           <div class="panel-body">
             @if(isset($editorials_first))
             <div class="row">
-              <div class="col-md-6 text-center">
+              <div class="col-md-6 text-center bg-blue-hover pdb10">
                 <a href="{{ route('editorial.show', $editorials_first->id) }}" class="fc-black">
                   <div class="mgv10">
                     <img src="{{ asset('img/uploads/' . $editorials_first->image) }}" class="img-responsive img-thumbnail dp-bl">
@@ -122,7 +122,7 @@
               <div class="col-md-6 mgv10 pdl0">
               @foreach($editorials as $editorial)
               <a href="{{ route('editorial.show', $editorial->id) }}" class="fc-black dp-bl">
-                <div class="row mg0">
+                <div class="row mg0 bg-blue-hover pd10">
                   <div class="col-sm-4 pdl0">
                     <img src="{{ asset('img/uploads/' . $editorial->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
@@ -159,7 +159,7 @@
           <div class="panel-body">
             @if(isset($opinions_first))
             <div class="row">
-              <div class="col-md-6 text-center">
+              <div class="col-md-6 text-center bg-blue-hover pdb10">
                 <a href="{{ route('opinion.show', $opinions_first->id) }}" class="fc-black">
                   <div class="mgv10">
                     <img src="{{ asset('img/uploads/' . $opinions_first->image) }}" class="img-responsive img-thumbnail dp-bl">
@@ -170,7 +170,7 @@
               <div class="col-md-6 mgv10 pdl0">
               @foreach($opinions as $opinion)
               <a href="{{ route('opinion.show', $opinion->id) }}" class="fc-black dp-bl">
-                <div class="row mg0">
+                <div class="row mg0 bg-blue-hover pd10">
                   <div class="col-sm-4 pdl0">
                     <img src="{{ asset('img/uploads/' . $opinion->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
@@ -207,7 +207,7 @@
           <div class="panel-body">
             @if(isset($features_first))
             <div class="row">
-              <div class="col-md-6 text-center">
+              <div class="col-md-6 text-center bg-blue-hover pdb10">
                 <a href="{{ route('feature.show', $features_first->id) }}" class="fc-black">
                   <div class="mgv10">
                     <img src="{{ asset('img/uploads/' . $features_first->image) }}" class="img-responsive img-thumbnail dp-bl">
@@ -218,7 +218,7 @@
               <div class="col-md-6 mgv10 pdl0">
               @foreach($features as $feature)
               <a href="{{ route('feature.show', $feature->id) }}" class="fc-black dp-bl">
-                <div class="row mg0">
+                <div class="row mg0 bg-blue-hover pd10">
                   <div class="col-sm-4 pdl0">
                     <img src="{{ asset('img/uploads/' . $feature->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
@@ -255,7 +255,7 @@
           <div class="panel-body">
             @if(isset($humors_first))
             <div class="row">
-              <div class="col-md-6 text-center">
+              <div class="col-md-6 text-center bg-blue-hover pdb10">
                 <a href="{{ route('humor.show', $humors_first->id) }}" class="fc-black">
                   <div class="mgv10">
                     <img src="{{ asset('img/uploads/' . $humors_first->image) }}" class="img-responsive img-thumbnail dp-bl">
@@ -266,7 +266,7 @@
               <div class="col-md-6 mgv10 pdl0">
               @foreach($humors as $humor)
               <a href="{{ route('humor.show', $humor->id) }}" class="fc-black dp-bl">
-                <div class="row mg0">
+                <div class="row mg0 bg-blue-hover pd10">
                   <div class="col-sm-4 pdl0">
                     <img src="{{ asset('img/uploads/' . $humor->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
@@ -303,7 +303,7 @@
           <div class="panel-body">
             @if(isset($sports_first))
             <div class="row">
-              <div class="col-md-6 text-center">
+              <div class="col-md-6 text-center bg-blue-hover pdb10">
                 <a href="{{ route('sports.show', $sports_first->id) }}" class="fc-black">
                   <div class="mgv10">
                     <img src="{{ asset('img/uploads/' . $sports_first->image) }}" class="img-responsive img-thumbnail dp-bl">
@@ -314,7 +314,7 @@
               <div class="col-md-6 mgv10 pdl0">
               @foreach($sports as $sport)
               <a href="{{ route('sports.show', $sport->id) }}" class="fc-black dp-bl">
-                <div class="row mg0">
+                <div class="row mg0 bg-blue-hover pd10">
                   <div class="col-sm-4 pdl0">
                     <img src="{{ asset('img/uploads/' . $sport->image) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
@@ -354,9 +354,23 @@
           <div class="bgc-red pd5 fc-white fs20">Announcements</div>
           <div class="panel-body">
             @if(!$announcements->isEmpty())
-            <ul class="list-unstyled">
+            <ul>
             @foreach($announcements as $announcement)
-              <li class="mgv10"><span class="dp-bl fs15 break-word"><i class="glyphicon glyphicon-share-alt"></i> {!! $announcement->body !!}</span></li>
+              <li class="mgv10 adminHover" data-id="{{ $announcement->id }}">
+                <form action="{{ route('delete.announcement',$announcement->id) }}" method="post" class="form-inline">
+                  {{ csrf_field() }}
+                  {{ method_field('delete') }}
+                  <span class="fs15 break-word">{!! $announcement->body !!}</span>
+                  @if(Auth::user())
+                    @if(Auth::user()->role == 'superadmin')
+                      <div class="pull-right mgr20 dp0 adminButtons{{ $announcement->id }}">
+                        <a href="{{ route('edit.announcement',$announcement->id) }}" data-toggle="tooltip" title="Edit"><img src="{{ asset('img/edit.png') }}" class="ht25"></a>
+                        <button type="submit" class="bd0 bgc0" data-toggle="tooltip" title="Delete"><img src="{{ asset('img/delete.png') }}" class="ht25"></button>
+                      </div>
+                    @endif
+                  @endif
+                </form>
+              </li>
             @endforeach
             </ul>
             @else
@@ -406,6 +420,15 @@
         autoplayDisableOnInteraction: false,
         grabCursor: true,
         lazyLoading: true
+    });
+
+    var announcementId = "";
+    $('.adminHover').on('mouseenter', function(){
+      announcementId = $(this).data('id');
+      $('.adminButtons' + announcementId).show();
+    }).on('mouseleave', function(){
+      announcementId = $(this).data('id');
+      $('.adminButtons' + announcementId).hide();
     });
   });
 </script>

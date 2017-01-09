@@ -23,6 +23,7 @@ class CreateSportsCommentsTable extends Migration
             $table->string('comment_dept')->nullable();
             $table->string('comment_message')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

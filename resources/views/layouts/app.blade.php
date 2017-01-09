@@ -48,7 +48,7 @@
 
     <script type="text/javascript">
         $('#searchIcon').click(function(){
-            $('#searchInput').toggle('slide');
+            $('#searchInput').toggle('slide').focus();
         });
 
         $('#flashMessage').delay(5000).fadeOut(5000);

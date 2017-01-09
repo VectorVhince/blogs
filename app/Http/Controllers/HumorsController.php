@@ -109,7 +109,13 @@ class HumorsController extends Controller
     {
         $humors = Humors::find($id);
         $comments = Humors::find($id)->humorsComments;
-        $stories = Humors::where('id', '!=', $news->id)->get()->random(2);
+        $stories = Humors::get();
+        if (Humors::all()->count() <= 2) {
+            $stories = Humors::where('id', '!=', $humors->id)->get();
+        }
+        else if (Humors::all()->count() > 2) {
+            $stories = Humors::where('id', '!=', $humors->id)->get()->random(2);
+        }
 
         return view('humor.show')->with('humors', $humors)->with('comments', $comments)->with('stories', $stories);
     }

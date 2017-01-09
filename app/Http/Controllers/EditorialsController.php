@@ -109,7 +109,13 @@ class EditorialsController extends Controller
     {
         $editorials = Editorials::find($id);
         $comments = Editorials::find($id)->editorialsComments;
-        $stories = Editorials::where('id', '!=', $news->id)->get()->random(2);
+        $stories = Editorials::get();
+        if (Editorials::all()->count() <= 2) {
+            $stories = Editorials::where('id', '!=', $editorials->id)->get();
+        }
+        else if (Editorials::all()->count() > 2) {
+            $stories = Editorials::where('id', '!=', $editorials->id)->get()->random(2);
+        }
         
         return view('editorial.show')->with('editorials', $editorials)->with('comments', $comments)->with('stories', $stories);
     }

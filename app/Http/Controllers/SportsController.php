@@ -109,7 +109,13 @@ class SportsController extends Controller
     {
         $sports = Sports::find($id);
         $comments = Sports::find($id)->sportsComments;
-        $stories = Sports::where('id', '!=', $news->id)->get()->random(2);
+        $stories = Sports::get();
+        if (Sports::all()->count() <= 2) {
+            $stories = Sports::where('id', '!=', $sports->id)->get();
+        }
+        else if (Sports::all()->count() > 2) {
+            $stories = Sports::where('id', '!=', $sports->id)->get()->random(2);
+        }
 
         return view('sports.show')->with('sports', $sports)->with('comments', $comments)->with('stories', $stories);
     }
