@@ -214,6 +214,7 @@ class FeaturesController extends Controller
     public function featured(Request $request, $id) {
         $features = Features::find($id);
         $features->featured = '1';
+        $features->featured_date = time();
         $features->update();
 
         $request->session()->flash('alert-success', 'Post was successfully featured!');

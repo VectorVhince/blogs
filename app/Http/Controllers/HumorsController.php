@@ -214,6 +214,7 @@ class HumorsController extends Controller
     public function featured(Request $request, $id) {
         $humors = Humors::find($id);
         $humors->featured = '1';
+        $humors->featured_date = time();
         $humors->update();
 
         $request->session()->flash('alert-success', 'Post was successfully featured!');

@@ -216,6 +216,7 @@ class EditorialsController extends Controller
     public function featured(Request $request, $id) {
         $editorials = Editorials::find($id);
         $editorials->featured = '1';
+        $editorials->featured_date = time();
         $editorials->update();
 
         $request->session()->flash('alert-success', 'Post was successfully featured!');

@@ -213,6 +213,7 @@ class OpinionController extends Controller
     public function featured(Request $request, $id) {
         $opinion = Opinion::find($id);
         $opinion->featured = '1';
+        $opinion->featured_date = time();
         $opinion->update();
 
         $request->session()->flash('alert-success', 'Post was successfully featured!');

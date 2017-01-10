@@ -45,7 +45,7 @@
                 TRENDING
               </div>
             </div>
-            <div style="overflow-y: auto;">
+            <div class="trending-panel-of trending-panel-scrollbar">
             @if(!$views->isEmpty())
               @foreach($views as $view)
                 <a href="{{ route($view->category . '.show',$view->id) }}" class="fc-white">

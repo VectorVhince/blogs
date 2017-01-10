@@ -60,16 +60,16 @@ class HomeController extends Controller
         ->union($feature_featured)
         ->union($humor_featured)
         ->union($sports_featured)
-        ->orderBy('updated_at', 'desc')
+        ->orderBy('featured_date', 'desc')
         ->take(7)
         ->get();
 
-        $news_views = News::where('views', '>=', '5');
-        $editorial_views = Editorials::where('views', '>=', '5');
-        $opinion_views = Opinion::where('views', '>=', '5');
-        $feature_views = Features::where('views', '>=', '5');
-        $humor_views = Humors::where('views', '>=', '5');
-        $sports_views = Sports::where('views', '>=', '5');
+        $news_views = News::where('views', '>=', "config('app.trend_time')")->where('featured', '!=', '1');
+        $editorial_views = Editorials::where('views', '>=', "config('app.trend_time')")->where('featured', '!=', '1');
+        $opinion_views = Opinion::where('views', '>=', "config('app.trend_time')")->where('featured', '!=', '1');
+        $feature_views = Features::where('views', '>=', "config('app.trend_time')")->where('featured', '!=', '1');
+        $humor_views = Humors::where('views', '>=', "config('app.trend_time')")->where('featured', '!=', '1');
+        $sports_views = Sports::where('views', '>=', "config('app.trend_time')")->where('featured', '!=', '1');
 
         $views = $news_views
         ->union($editorial_views)

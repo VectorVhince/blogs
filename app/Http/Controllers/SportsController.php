@@ -214,6 +214,7 @@ class SportsController extends Controller
     public function featured(Request $request, $id) {
         $sports = Sports::find($id);
         $sports->featured = '1';
+        $sports->featured_date = time();
         $sports->update();
 
         $request->session()->flash('alert-success', 'Post was successfully featured!');

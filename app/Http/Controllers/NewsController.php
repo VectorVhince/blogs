@@ -214,6 +214,7 @@ class NewsController extends Controller
     public function featured(Request $request, $id) {
         $news = News::find($id);
         $news->featured = '1';
+        $news->featured_date = time();
         $news->update();
 
         $request->session()->flash('alert-success', 'Post was successfully featured!');

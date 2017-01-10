@@ -522,6 +522,31 @@ a:hover, a:focus, a:active { text-decoration: none; }
 	padding: 10px;
 }
 
+.trending-panel-of {
+	overflow-y: auto;
+	height: 360px;
+}
+
+.trending-panel-scrollbar::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	/*border-radius: 10px;*/
+	background-color: transparent;
+}
+
+.trending-panel-scrollbar::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: transparent;
+}
+
+.trending-panel-scrollbar::-webkit-scrollbar-thumb
+{
+	/*border-radius: 10px;*/
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: rgba(0,0,0,.5);
+}
+
 .tile-img-container {
 	height: 140px;
 	overflow-y: hidden;

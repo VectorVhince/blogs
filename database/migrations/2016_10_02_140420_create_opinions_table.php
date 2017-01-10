@@ -23,8 +23,9 @@ class CreateOpinionsTable extends Migration
             $table->string('user');
             $table->string('update');
             $table->string('featured')->default('0');
+            $table->string('featured_date')->default('0');
             $table->integer('views')->default('0');
-            $table->integer('trend_date')->default('0');
+            $table->string('trend_date')->default('0');
             $table->timestamps();
             $table->softDeletes();
         });
