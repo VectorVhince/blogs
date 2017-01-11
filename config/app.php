@@ -234,6 +234,6 @@ return [
 
     ],
 
-    'trend_time' => 0,
+    'trend_time' => 3,
 
 ];
