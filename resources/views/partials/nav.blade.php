@@ -51,9 +51,8 @@
                     <li class="mgr10 pdv10">
                         <form action="{{ route('search') }}" method="get">
                             <div style="display: flex;">
-                                <input type="text" name="search" class="form-control dp0 input-sm" placeholder="Search.. (Press enter)" style="flex: 1;" id="searchInput">
-                                <button type="submit" class="hidden">Submit</button>
-                                <span class="mgr20 mgl10 pdv5" id="searchIcon"><i class="glyphicon glyphicon-search pointer"></i></span>
+                                <input type="text" name="search" class="form-control input-sm" placeholder="Search..." style="flex: 1;">
+                                <button type="submit" class="mgr20 mgl10 pdv5 bgc0 bd0"><i class="glyphicon glyphicon-search pointer"></i></button>
                             </div>
                         </form>
                     </li>
@@ -88,11 +87,13 @@
     </nav>        
 </div>
 @if (Auth::user())
-<div class="user-menu pointer dropdown">
+<div class="dropup">
     <a href="#" class="dropdown-toggle fc-black" data-toggle="dropdown" role="button" aria-expanded="false">
-        <i class="glyphicon glyphicon-user fc-white"></i>
+        <div class="user-menu">
+            <i class="glyphicon glyphicon-user fc-white"></i>
+        </div>
     </a>
-    <ul class="dropdown-menu @if(Auth::user()->role == 'superadmin') dropdown-menu3 @else dropdown-menu1 @endif" role="menu">
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <div class="box-arrow"></div>
         <li><a href="{{ url('settings') }}" style="font-weight: bold; color: #9e1e1c;">{{ Auth::user()->name }}</a></li>
         <li><a href="{{ route('myposts',Auth::user()->id) }}">My Posts</a></li>

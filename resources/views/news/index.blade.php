@@ -99,7 +99,7 @@
             'advlist autolink lists link image charmap print preview hr anchor pagebreak',
             'searchreplace wordcount visualblocks visualchars code fullscreen',
             'insertdatetime media nonbreaking save table contextmenu directionality',
-            'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+            'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc autoresize'
             ],
             toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
             toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
@@ -111,6 +111,8 @@
             oninit : "setPlainText",
             menubar: false,
             statusbar: false,
+            media_live_embeds: true,
+            media_strict: false,
             setup : function(ed){
                 ed.on('init', function(){
                     this.getDoc().body.style.fontSize = '13px';
