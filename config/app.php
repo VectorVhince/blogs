@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -233,7 +233,5 @@ return [
         'Counter' => Kryptonit3\Counter\Facades\CounterFacade::class,
 
     ],
-
-    'trend_time' => 3,
 
 ];

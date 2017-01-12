@@ -120,7 +120,7 @@ class NewsController extends Controller
 
         $counter = Counter::showAndCount('news.show', $news->id);
         $news->views = $counter;
-        if ($news->views == config('app.trend_time') ) {
+        if ($news->views == config('variables.views') ) {
             $news->trend_date = time();
         }
         $news->update();

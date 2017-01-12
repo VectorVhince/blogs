@@ -120,7 +120,7 @@ class EditorialsController extends Controller
 
         $counter = Counter::showAndCount('editorial.show', $editorials->id);
         $editorials->views = $counter;
-        if ($editorials->views == config('app.trend_time') ) {
+        if ($editorials->views == config('variables.views') ) {
             $editorials->trend_date = time();
         }
         $editorials->update();

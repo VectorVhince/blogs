@@ -87,33 +87,35 @@
     </nav>        
 </div>
 @if (Auth::user())
-<div class="dropup">
-    <a href="#" class="dropdown-toggle fc-black" data-toggle="dropdown" role="button" aria-expanded="false">
-        <div class="user-menu">
-            <i class="glyphicon glyphicon-user fc-white"></i>
-        </div>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-right" role="menu">
-        <div class="box-arrow"></div>
-        <li><a href="{{ url('settings') }}" style="font-weight: bold; color: #9e1e1c;">{{ Auth::user()->name }}</a></li>
-        <li><a href="{{ route('myposts',Auth::user()->id) }}">My Posts</a></li>
-        <li><a href="{{ url('create') }}">Add New Post</a></li>
-        @if(Auth::user()->role == 'superadmin')
-        <li><a href="{{ url('create/announcement') }}">Make Announcement</a></li>
-        <li><a href="{{ url('accounts') }}">Manage Members</a></li>
-        <li><a href="{{ url('register') }}">Register an Account</a></li>
-        @endif
-        <li>
-            <a href="{{ url('/logout') }}"
-                onclick="event.preventDefault();
-                         document.getElementById('logout-form').submit();">
-                Logout
-            </a>
+<div class="user-menu-container">
+    <div class="dropup">
+        <a href="#" class="dropdown-toggle fc-black" data-toggle="dropdown" role="button" aria-expanded="false" id="dropdownMenu2">
+            <div class="user-menu">
+                <i class="glyphicon glyphicon-user fc-white"></i>
+            </div>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right text-center" role="menu" aria-labelledby="dropdownMenu2">
+            <div class="box-arrow"></div>
+            <li><a href="{{ url('settings') }}" style="font-weight: bold; color: #9e1e1c;">{{ Auth::user()->name }}</a></li>
+            <li><a href="{{ route('myposts',Auth::user()->id) }}">My Posts</a></li>
+            <li><a href="{{ url('create') }}">Add New Post</a></li>
+            @if(Auth::user()->role == 'superadmin')
+            <li><a href="{{ url('create/announcement') }}">Make Announcement</a></li>
+            <li><a href="{{ url('accounts') }}">Manage Members</a></li>
+            <li><a href="{{ url('register') }}">Register an Account</a></li>
+            @endif
+            <li>
+                <a href="{{ url('/logout') }}"
+                    onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
 
-            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                {{ csrf_field() }}
-            </form>
-        </li>
-    </ul>
+                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            </li>
+        </ul>
+    </div>
 </div>
 @endif

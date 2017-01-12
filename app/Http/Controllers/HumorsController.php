@@ -120,7 +120,7 @@ class HumorsController extends Controller
 
         $counter = Counter::showAndCount('humor.show', $humors->id);
         $humors->views = $counter;
-        if ($humors->views == config('app.trend_time') ) {
+        if ($humors->views == config('variables.views') ) {
             $humors->trend_date = time();
         }
         $humors->update();

@@ -120,7 +120,7 @@ class OpinionController extends Controller
 
         $counter = Counter::showAndCount('opinion.show', $opinion->id);
         $opinion->views = $counter;
-        if ($opinion->views == config('app.trend_time') ) {
+        if ($opinion->views == config('variables.views') ) {
             $opinion->trend_date = time();
         }
         $opinion->update();

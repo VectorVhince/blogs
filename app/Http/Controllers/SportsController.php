@@ -120,7 +120,7 @@ class SportsController extends Controller
 
         $counter = Counter::showAndCount('sports.show', $sports->id);
         $sports->views = $counter;
-        if ($sports->views == config('app.trend_time') ) {
+        if ($sports->views == config('variables.views') ) {
             $sports->trend_date = time();
         }
         $sports->update();

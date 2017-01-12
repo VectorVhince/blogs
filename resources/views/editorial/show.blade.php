@@ -66,7 +66,7 @@
                                             <span class="glyphicon glyphicon-th-list fs25 fc-white"></span>
                                         </div>
                                     </a>
-                                    <ul class="dropdown-menu dropdown-menu2" aria-labelledby="dropdownMenu1">
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
                                         <div class="box-arrow1"></div>
                                         @if(Auth::user()->role == 'superadmin')
                                           @if(!$editorials->featured == '1')

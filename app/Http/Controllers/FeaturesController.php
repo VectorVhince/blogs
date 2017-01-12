@@ -120,7 +120,7 @@ class FeaturesController extends Controller
 
         $counter = Counter::showAndCount('feature.show', $features->id);
         $features->views = $counter;
-        if ($features->views == config('app.trend_time') ) {
+        if ($features->views == config('variables.views') ) {
             $features->trend_date = time();
         }
         $features->update();
