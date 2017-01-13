@@ -66,7 +66,7 @@
         </div>
     </div>
 </div>
-@include('editor')
+@include('partials.editor')
 @endsection
 
 @section('script')

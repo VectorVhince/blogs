@@ -15,18 +15,30 @@ Auth::routes();
 
 // Home Controllers
 Route::get('/', 'HomeController@index')->name('home');
+
 Route::get('myposts/{id}', 'HomeController@myPosts')->name('myposts');
+
 Route::get('accounts', 'HomeController@accounts')->name('accounts')->middleware('superadmin');
+
 Route::patch('update/role/{id}', 'HomeController@updateRole')->name('update.role')->middleware('superadmin');
+
 Route::patch('update/position/{id}', 'HomeController@updatePosition')->name('update.position')->middleware('superadmin');
+
 Route::get('myposts/sortby/{id}', 'HomeController@myPostsSortBy')->name('myposts.sortBy');
+
 Route::get('error', 'HomeController@error')->name('errors.503');
+
 Route::get('about', 'HomeController@about')->name('about');
 Route::patch('about/{id}', 'HomeController@aboutUpdate')->name('about.update')->middleware('superadmin');
+
 Route::get('terms', 'HomeController@terms')->name('terms');
 Route::patch('terms/{id}', 'HomeController@termsUpdate')->name('terms.update')->middleware('superadmin');
+
 Route::get('privacy', 'HomeController@privacy')->name('privacy');
 Route::patch('privacy/{id}', 'HomeController@privacyUpdate')->name('privacy.update')->middleware('superadmin');
+
+
+// Side panels
 Route::patch('weather/{id}', 'HomeController@weatherUpdate')->name('weather.update')->middleware('superadmin');
 Route::patch('calendar/{id}', 'HomeController@calendarUpdate')->name('calendar.update')->middleware('superadmin');
 Route::patch('selfopinion/{id}', 'HomeController@selfopinionUpdate')->name('selfopinion.update')->middleware('superadmin');
@@ -41,9 +53,6 @@ Route::patch('settings/{id}/change_name', 'HomeController@changeName')->name('ch
 Route::patch('settings/{id}/change_username', 'HomeController@changeUsername')->name('change.username');
 Route::patch('settings/{id}/change_email', 'HomeController@changeEmail')->name('change.email');
 
-// Create Post
-Route::get('create', 'HomeController@create')->name('create');
-
 // Announcement
 Route::get('create/announcement', 'HomeController@createAnnouncement')->middleware('superadmin');
 Route::post('store/announcement', 'HomeController@storeAnnouncement')->name('store.announcement')->middleware('superadmin');
@@ -54,45 +63,22 @@ Route::delete('delete/announcement/{id}', 'HomeController@deleteAnnouncement')->
 // Search
 Route::get('search', 'HomeController@search')->name('search');
 
-// Home Featured
-Route::get('news/featured/{id}', 'NewsController@featured')->name('news.featured')->middleware('superadmin');
-Route::get('editorial/featured/{id}', 'EditorialsController@featured')->name('editorial.featured')->middleware('superadmin');
-Route::get('opinion/featured/{id}', 'OpinionController@featured')->name('opinion.featured')->middleware('superadmin');
-Route::get('feature/featured/{id}', 'FeaturesController@featured')->name('feature.featured')->middleware('superadmin');
-Route::get('humor/featured/{id}', 'HumorsController@featured')->name('humor.featured')->middleware('superadmin');
-Route::get('sports/featured/{id}', 'SportsController@featured')->name('sports.featured')->middleware('superadmin');
+// Posts
+Route::resource('posts', 'PostsController');
 
-// Home Unfeatured
-Route::get('news/unfeatured/{id}', 'NewsController@unfeatured')->name('news.unfeatured')->middleware('superadmin');
-Route::get('editorial/unfeatured/{id}', 'EditorialsController@unfeatured')->name('editorial.unfeatured')->middleware('superadmin');
-Route::get('opinion/unfeatured/{id}', 'OpinionController@unfeatured')->name('opinion.unfeatured')->middleware('superadmin');
-Route::get('feature/unfeatured/{id}', 'FeaturesController@unfeatured')->name('feature.unfeatured')->middleware('superadmin');
-Route::get('humor/unfeatured/{id}', 'HumorsController@unfeatured')->name('humor.unfeatured')->middleware('superadmin');
-Route::get('sports/unfeatured/{id}', 'SportsController@unfeatured')->name('sports.unfeatured')->middleware('superadmin');
+Route::get('news', 'PostsController@newsIndex')->name('index.news');
+Route::get('editorial', 'PostsController@editorialIndex')->name('index.editorial');
+Route::get('feature', 'PostsController@featureIndex')->name('index.feature');
+Route::get('opinion', 'PostsController@opinionIndex')->name('index.opinion');
+Route::get('humor', 'PostsController@humorIndex')->name('index.humor');
+Route::get('sports', 'PostsController@sportsIndex')->name('index.sports');
 
-// Sort By
-Route::get('news/sortby', 'NewsController@sortBy')->name('news.sortBy');
-Route::get('editorial/sortby', 'EditorialsController@sortBy')->name('editorial.sortBy');
-Route::get('opinion/sortby', 'OpinionController@sortBy')->name('opinion.sortBy');
-Route::get('feature/sortby', 'FeaturesController@sortBy')->name('feature.sortBy');
-Route::get('humor/sortby', 'HumorsController@sortBy')->name('humor.sortBy');
-Route::get('sports/sortby', 'SportsController@sortBy')->name('sports.sortBy');
+Route::post('posts/comment/{id}', 'PostsController@comment')->name('comment');
 
-//Resource
-Route::resource('news', 'NewsController');
-Route::resource('editorial', 'EditorialsController');
-Route::resource('opinion', 'OpinionController');
-Route::resource('feature', 'FeaturesController');
-Route::resource('humor', 'HumorsController');
-Route::resource('sports', 'SportsController');
+Route::get('posts/featured/{id}', 'PostsController@featured')->name('posts.featured')->middleware('superadmin');
+Route::get('posts/unfeatured/{id}', 'PostsController@unfeatured')->name('posts.unfeatured')->middleware('superadmin');
 
-// Comment
-Route::post('news.comment/{id}', 'NewsController@newsComment')->name('news.comment');
-Route::post('editorial.comment/{id}', 'EditorialsController@editorialsComment')->name('editorial.comment');
-Route::post('opinion.comment/{id}', 'OpinionController@opinionComment')->name('opinion.comment');
-Route::post('feature.comment/{id}', 'FeaturesController@featuresComment')->name('feature.comment');
-Route::post('humor.comment/{id}', 'HumorsController@humorsComment')->name('humor.comment');
-Route::post('sports.comment/{id}', 'SportsController@sportsComment')->name('sports.comment');
+Route::get('sortby/{category}', 'PostsController@sortBy')->name('sortBy');
 
 // Redirect wrong url
 Route::get('/{any}', function($any){

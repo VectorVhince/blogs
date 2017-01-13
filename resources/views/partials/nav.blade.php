@@ -37,12 +37,12 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('news.index') }} ">NEWS</a></li>
-                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('editorial.index') }} ">EDITORIAL</a></li>
-                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('opinion.index') }} ">OPINION</a></li>
-                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('feature.index') }} ">FEATURE</a></li>
-                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('humor.index') }} ">HUMOR</a></li>
-                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('sports.index') }} ">SPORTS</a></li>
+                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('index.news') }} ">NEWS</a></li>
+                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('index.editorial') }} ">EDITORIAL</a></li>
+                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('index.opinion') }} ">OPINION</a></li>
+                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('index.feature') }} ">FEATURE</a></li>
+                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('index.humor') }} ">HUMOR</a></li>
+                <li class="fs17 pdh20"><a class="fc-black" href=" {{ route('index.sports') }} ">SPORTS</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -91,24 +91,24 @@
     <div class="dropup">
         <a href="#" class="dropdown-toggle fc-black" data-toggle="dropdown" role="button" aria-expanded="false" id="dropdownMenu2">
             <div class="user-menu">
-                <i class="glyphicon glyphicon-user fc-white"></i>
+                <i class="glyphicon glyphicon-user fc-white"></i> {{ Auth::user()->name }}
             </div>
         </a>
-        <ul class="dropdown-menu dropdown-menu-right text-center" role="menu" aria-labelledby="dropdownMenu2">
+        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu2">
             <div class="box-arrow"></div>
-            <li><a href="{{ url('settings') }}" style="font-weight: bold; color: #9e1e1c;">{{ Auth::user()->name }}</a></li>
-            <li><a href="{{ route('myposts',Auth::user()->id) }}">My Posts</a></li>
-            <li><a href="{{ url('create') }}">Add New Post</a></li>
+            <li><a href="{{ url('settings') }}"><span class="glyphicon glyphicon-wrench"></span> Account Settings</a></li>
+            <li><a href="{{ route('myposts',Auth::user()->id) }}"><span class="glyphicon glyphicon-list-alt"></span> My Posts</a></li>
+            <li><a href="{{ route('posts.create') }}"><span class="glyphicon glyphicon-pencil"></span> Add New Post</a></li>
             @if(Auth::user()->role == 'superadmin')
-            <li><a href="{{ url('create/announcement') }}">Make Announcement</a></li>
-            <li><a href="{{ url('accounts') }}">Manage Members</a></li>
-            <li><a href="{{ url('register') }}">Register an Account</a></li>
+            <li><a href="{{ url('create/announcement') }}"><span class="glyphicon glyphicon-pencil"></span> Make Announcement</a></li>
+            <li><a href="{{ url('accounts') }}"><span class="glyphicon glyphicon-user"></span> Manage Members</a></li>
+            <li><a href="{{ url('register') }}"><span class="glyphicon glyphicon-user"></span> Register an Account</a></li>
             @endif
             <li>
                 <a href="{{ url('/logout') }}"
                     onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">
-                    Logout
+                    <span class="glyphicon glyphicon-log-out"></span>  Logout
                 </a>
 
                 <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">

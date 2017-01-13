@@ -116,6 +116,7 @@
 .mgb40 { margin-bottom: 40px; }
 .mgl5 { margin-left: 5px; }
 .mgl10 { margin-left: 10px; }
+.mgl15 { margin-left: 15px; }
 .mgl20 { margin-left: 20px; }
 .mgl30 { margin-left: 30px; }
 .mgl35 { margin-left: 35px; }
@@ -225,12 +226,12 @@ a:hover, a:focus, a:active { text-decoration: none; }
 .fs4em { font-size: 4em; }
 
 .fc-gold { color: gold !important; }
-.fc-red { color: #9e1e1c !important; }
-.fc-red:hover { color: #9e1e1c; }
+.fc-red { color: #9e1e1c; }
+/*.fc-red:hover { color: #fff; }*/
 .fc-orange { color: #fbb061; }
 .fc-white{ color: #fff !important; }
 .fc-black { color: #333 !important; }
-.fc-black:hover { color: #333 important; }
+/*.fc-black:hover { color: #fff !important; }*/
 .f-ul { text-decoration: underline; }
 	
 .f-shadow { text-shadow: 0 0 1px rgba(0,0,0,.5); }
@@ -421,13 +422,14 @@ a:hover, a:focus, a:active { text-decoration: none; }
 	z-index: 999;
 }
 .user-menu {
-	border-radius: 50%;
+	border-radius: 20px;
 	border: none;
 	background-color: purple;
-	padding: 20px;
+	padding: 10px 15px;
 	/*height: 60px;
 	width: 60px;*/
-	font-size: 25px;
+	font-size: 15px;
+	color: #fff;
 	text-align: center;
 	line-height: .5;
 }
@@ -486,6 +488,25 @@ a:hover, a:focus, a:active { text-decoration: none; }
 	margin-left: -12px;
 }
 
+.box-arrow2 {
+	position: relative;
+	background: #9e1e1c;
+}
+.box-arrow2:after {
+	top: 100%;
+	left: 9%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(158, 30, 28, 0);
+	border-top-color: #9e1e1c;
+	border-width: 20px;
+	margin-left: -20px;
+}
+
 .flash-message {
 	position: fixed !important;
 	bottom: 20px !important;
@@ -524,7 +545,9 @@ a:hover, a:focus, a:active { text-decoration: none; }
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: rgba(0,0,0,.5);
 }
-
+.archive > li > a {
+	color: #333;
+}
 .tile-img-container {
 	height: 140px;
 	overflow-y: hidden;
@@ -625,7 +648,14 @@ footer {
 	left: 0px;
 	z-index: 1;
 }
-
+.bg-blue-hover{
+	transition: all 300ms ease-in-out;
+}
 .bg-blue-hover:hover {
-	background: linear-gradient(transparent, rgba(158, 30, 28, 0.7));
+	background: rgba(158, 30, 28, 1);
+	color: #fff !important;
+}
+.bg-blue-hover > a:hover {
+	background: rgba(158, 30, 28, 1);
+	color: #fff !important;
 }

@@ -8,7 +8,7 @@
                         <img src="{{ asset('/img/TheAngelite.png') }}" style="height: 40px;">                
                     </div>
                     <div class="col-md-11 pdr0 mgt10">
-                        <span class="dp-bl fc-red fs20"  style="font-family: arongrotesque">
+                        <span class="dp-bl fs20"  style="font-family: arongrotesque">
                             THE ANGELITE
                         </span>
                     </div>
@@ -44,12 +44,12 @@
 					<span class="fc-red fs15">SECTIONS</span>
 					<div style="border-left: solid 1px rgba(0,0,0,.3); padding-left: 10px;">
 						<ul class="list-unstyled">
-							<li><a class="fc-black fs12" href=" {{ route('news.index') }} ">News</a></li>
-			                <li><a class="fc-black fs12" href=" {{ route('editorial.index') }} ">Editorial</a></li>
-			                <li><a class="fc-black fs12" href=" {{ route('opinion.index') }} ">Opinion</a></li>
-			                <li><a class="fc-black fs12" href=" {{ route('feature.index') }} ">Feature</a></li>
-			                <li><a class="fc-black fs12" href=" {{ route('humor.index') }} ">Humor</a></li>
-			                <li><a class="fc-black fs12" href=" {{ route('sports.index') }} ">Sports</a></li>
+							<li><a class="fc-black fs12" href=" {{ route('index.news') }} ">News</a></li>
+			                <li><a class="fc-black fs12" href=" {{ route('index.editorial') }} ">Editorial</a></li>
+			                <li><a class="fc-black fs12" href=" {{ route('index.opinion') }} ">Opinion</a></li>
+			                <li><a class="fc-black fs12" href=" {{ route('index.feature') }} ">Feature</a></li>
+			                <li><a class="fc-black fs12" href=" {{ route('index.humor') }} ">Humor</a></li>
+			                <li><a class="fc-black fs12" href=" {{ route('index.sports') }} ">Sports</a></li>
 						</ul>
 					</div>
 				</div>

@@ -3,22 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Opinion;
-use App\News;
-use App\Features;
-use App\Humors;
-use App\Sports;
-use App\Editorials;
+use App\Posts;
+use App\Comments;
 use App\Announcements;
-
-use App\OpinionComment;
-use App\NewsComment;
-use App\FeaturesComment;
-use App\HumorsComment;
-use App\SportsComment;
-use App\EditorialsComment;
-
 use App\User;
 use Auth;
 use App\Page;
@@ -28,15 +15,13 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-        'only' => [
-        'create',
-        'settings',
-        'changePassword',
-        'changeName',
-        'changeUsername',
-        'changeEmail',
-        'myPosts',
-        'myPostsSortBy'
+        'except' => [
+        'index',
+        'search',
+        'error',
+        'about',
+        'terms',
+        'privacy',
         ]]);
     }
 
@@ -47,75 +32,29 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $news_featured = News::where('featured', '=', '1');
-        $editorial_featured = Editorials::where('featured', '=', '1');
-        $opinion_featured = Opinion::where('featured', '=', '1');
-        $feature_featured = Features::where('featured', '=', '1');
-        $humor_featured = Humors::where('featured', '=', '1');
-        $sports_featured = Sports::where('featured', '=', '1');
-
-        $featured = $news_featured
-        ->union($editorial_featured)
-        ->union($opinion_featured)
-        ->union($feature_featured)
-        ->union($humor_featured)
-        ->union($sports_featured)
-        ->orderBy('featured_date', 'desc')
-        ->take(7)
-        ->get();
+        $featured = Posts::where('featured', '=', '1')->orderBy('featured_date', 'desc')->take(7)->get();
 
         $views_counter = config('variables.views');
-        // dd($views_counter);
+        $views = Posts::where('views', '>=', $views_counter)->where('featured', '!=', '1')->orderBy('trend_date', 'desc')->take(7)->get();        
 
-        $news_views = News::where([['views', '>=', $views_counter],['featured', '!=', '1']]);
-        $editorial_views = Editorials::where([['views', '>=', $views_counter],['featured', '!=', '1']]);
-        $opinion_views = Opinion::where([['views', '>=', $views_counter],['featured', '!=', '1']]);
-        $feature_views = Features::where([['views', '>=', $views_counter],['featured', '!=', '1']]);
-        $humor_views = Humors::where([['views', '>=', $views_counter],['featured', '!=', '1']]);
-        $sports_views = Sports::where([['views', '>=', $views_counter],['featured', '!=', '1']]);
+        $news = Posts::where('category','news')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
+        $editorials = Posts::where('category','editorial')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
+        $opinions = Posts::where('category','opinion')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
+        $features = Posts::where('category','feature')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
+        $humors = Posts::where('category','humor')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
+        $sports = Posts::where('category','sports')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
+        
 
-        $views = $news_views
-        ->union($editorial_views)
-        ->union($opinion_views)
-        ->union($feature_views)
-        ->union($humor_views)
-        ->union($sports_views)
-        ->orderBy('trend_date', 'desc')
-        ->take(7)
-        ->get();
+        $news_first = Posts::where('category','news')->where('featured','!=','1')->latest()->first();
+        $editorials_first = Posts::where('category','editorial')->where('featured','!=','1')->latest()->first();
+        $opinions_first = Posts::where('category','opinion')->where('featured','!=','1')->latest()->first();
+        $features_first = Posts::where('category','feature')->where('featured','!=','1')->latest()->first();
+        $humors_first = Posts::where('category','humor')->where('featured','!=','1')->latest()->first();
+        $sports_first = Posts::where('category','sports')->where('featured','!=','1')->latest()->first();
 
-        $news = News::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
-        $news_first = News::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $opinions = Opinion::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
-        $opinions_first = Opinion::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $features = Features::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
-        $features_first = Features::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $humors = Humors::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
-        $humors_first = Humors::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $sports = Sports::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
-        $sports_first = Sports::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $editorials = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->skip(1)->take(3)->get();
-        $editorials_first = Editorials::where('featured', '!=', '1')->orderBy('id', 'desc')->first();
-        $announcements = Announcements::orderBy('id', 'desc')->take(7)->get();
+        $announcements = Announcements::latest()->take(7)->get();
 
-        // dd($news_first);
-
-        $news_comments = NewsComment::orderBy('id', 'asc');
-        $editorial_comments = EditorialsComment::orderBy('id', 'asc');
-        $opinion_comments = OpinionComment::orderBy('id', 'asc');
-        $feature_comments = FeaturesComment::orderBy('id', 'asc');
-        $humor_comments = HumorsComment::orderBy('id', 'asc');
-        $sports_comments = SportsComment::orderBy('id', 'asc');
-
-        $recent_comments = $news_comments
-        ->union($editorial_comments)
-        ->union($opinion_comments)
-        ->union($feature_comments)
-        ->union($humor_comments)
-        ->union($sports_comments)
-        ->orderBy('created_at', 'desc')
-        ->take(7)
-        ->get();
+        $recent_comments = Comments::latest()->take(7)->get();        
 
         return view('welcome')
         ->with('featured', $featured)
@@ -136,14 +75,9 @@ class HomeController extends Controller
         ->with('recent_comments', $recent_comments);
     }
 
-    public function create()
-    {
-        return view('create_post');
-    }
-
     public function createAnnouncement()
     {
-        return view('create_announcement');
+        return view('admin.create_announcement');
     }
 
     public function storeAnnouncement(Request $request)
@@ -155,7 +89,7 @@ class HomeController extends Controller
         $announcements = new Announcements;
         $announcements->create($request->all());
 
-        $request->session()->flash('alert-danger', 'Announcement was successfully created!');
+        $request->session()->flash('alert-success', 'Announcement was successfully created!');
         return redirect()->route('home');
     }
 
@@ -163,7 +97,7 @@ class HomeController extends Controller
     {
         $announcement = Announcements::find($id);
 
-        return view('edit_announcement')->with('announcement',$announcement);
+        return view('admin.edit_announcement')->with('announcement',$announcement);
     }
 
     public function updateAnnouncement(Request $request, $id)
@@ -175,7 +109,7 @@ class HomeController extends Controller
 
         $announcement->update($request->all());
         
-        $request->session()->flash('alert-success', 'Announcement was successfully update!');
+        $request->session()->flash('alert-success', 'Announcement was successfully updated!');
         return redirect()->route('home');
     }
 
@@ -194,67 +128,17 @@ class HomeController extends Controller
             }
         }
 
-        $news = News::where(function($query) use ($request) {
+        $items = Posts::where(function($query) use ($request) {
             if ($search=$request->get('search')) {
                 $query->orWhere('title', 'like', '%' . $search . '%');
                 $query->orWhere('body', 'like', '%' . $search . '%');
                 $query->orWhere('user', 'like', '%' . $search . '%');
             }
-        });
-
-        $editorials = Editorials::where(function($query) use ($request) {
-            if ($search=$request->get('search')) {
-                $query->orWhere('title', 'like', '%' . $search . '%');
-                $query->orWhere('body', 'like', '%' . $search . '%');
-                $query->orWhere('user', 'like', '%' . $search . '%');
-            }
-        });
-
-        $features = Features::where(function($query) use ($request) {
-            if ($search=$request->get('search')) {
-                $query->orWhere('title', 'like', '%' . $search . '%');
-                $query->orWhere('body', 'like', '%' . $search . '%');
-                $query->orWhere('user', 'like', '%' . $search . '%');
-            }
-        });
-
-        $humors = Humors::where(function($query) use ($request) {
-            if ($search=$request->get('search')) {
-                $query->orWhere('title', 'like', '%' . $search . '%');
-                $query->orWhere('body', 'like', '%' . $search . '%');
-                $query->orWhere('user', 'like', '%' . $search . '%');
-            }
-        });
-
-        $opinion = Opinion::where(function($query) use ($request) {
-            if ($search=$request->get('search')) {
-                $query->orWhere('title', 'like', '%' . $search . '%');
-                $query->orWhere('body', 'like', '%' . $search . '%');
-                $query->orWhere('user', 'like', '%' . $search . '%');
-            }
-        });
-
-        $sports = Sports::where(function($query) use ($request) {
-            if ($search=$request->get('search')) {
-                $query->orWhere('title', 'like', '%' . $search . '%');
-                $query->orWhere('body', 'like', '%' . $search . '%');
-                $query->orWhere('user', 'like', '%' . $search . '%');
-            }
-        });
-
-        $items = $news
-        ->union($editorials)
-        ->union($features)
-        ->union($humors)
-        ->union($opinion)
-        ->union($sports)
-        ->get();
-
-        // dd($items);
+        })->paginate(10);
 
         $search = $request->search;
 
-        $count = $items->count();
+        $count = $items->total();
 
         return view('search')
         ->with('items',$items)
@@ -264,7 +148,7 @@ class HomeController extends Controller
 
     public function settings()
     {
-        return view('settings');
+        return view('admin.settings');
     }
 
     public function changePassword(Request $request, $id) {
@@ -340,50 +224,30 @@ class HomeController extends Controller
 
     public function myPosts($id)
     {
-        $news = User::find($id)->newsDate();
-        $editorial = User::find($id)->editorialDate();
-        $opinion = User::find($id)->opinionDate();
-        $feature = User::find($id)->featureDate();
-        $humor = User::find($id)->humorDate();
-        $sports = User::find($id)->sportsDate();
+        $users = User::find($id)->postsUser()->latest()->get();
 
-        $users = $news->union($editorial)->union($feature)->union($opinion)->union($humor)->union($sports)->latest()->get();
-        // dd($users);
-
-        return view('my_posts')->with('users', $users);
+        return view('admin.my_posts')->with('users', $users);
     }
 
     public function myPostsSortBy(Request $request, $id)
     {
         switch ($request->key) {
             case 'date':
-                $news = User::find($id)->newsDate();
-                $editorial = User::find($id)->editorialDate();
-                $opinion = User::find($id)->opinionDate();
-                $feature = User::find($id)->featureDate();
-                $humor = User::find($id)->humorDate();
-                $sports = User::find($id)->sportsDate();
+                $users = User::find($id)->postsUser()->latest()->get();
 
-                $users = $news->union($editorial)->union($feature)->union($opinion)->union($humor)->union($sports)->latest()->get();
-
-                return view('my_posts')->with('users', $users);
+                return view('admin.my_posts')->with('users', $users);
                 break;
 
             case 'name':
-                $news = User::find($id)->newsName();
-                $editorial = User::find($id)->editorialName();
-                $opinion = User::find($id)->opinionName();
-                $feature = User::find($id)->featureName();
-                $humor = User::find($id)->humorName();
-                $sports = User::find($id)->sportsName();
+                $users = User::find($id)->postsUser()->orderBy('title','asc')->get();
 
-                $users = $news->union($editorial)->union($feature)->union($opinion)->union($humor)->union($sports)->orderBy('title', 'asc')->get();
-
-                return view('my_posts')->with('users', $users);
+                return view('admin.my_posts')->with('users', $users);
                 break;
-            
-            default:
-                # code...
+
+            case 'views':
+                $users = User::find($id)->postsUser()->orderBy('views','desc')->get();
+
+                return view('admin.my_posts')->with('users', $users);
                 break;
         }
         
@@ -396,7 +260,7 @@ class HomeController extends Controller
     public function accounts() {
         $users = User::all();
 
-        return view('accounts')->with('users',$users);
+        return view('admin.accounts')->with('users',$users);
     }
 
     public function updateRole(Request $request, $id) {
