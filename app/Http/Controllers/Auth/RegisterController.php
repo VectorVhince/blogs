@@ -53,9 +53,11 @@ class RegisterController extends Controller
 
         event(new Registered($user = $this->create($request->all())));
 
+        $request->session()->flash('alert-success', "Account successfully created!");
+
         // $this->guard()->login($user);
 
-        return redirect()->route('home');
+        return redirect()->route('accounts');
     }
 
     /**
