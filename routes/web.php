@@ -47,7 +47,7 @@ Route::patch('fromweb/{id}', 'HomeController@fromwebUpdate')->name('fromweb.upda
 Route::patch('outsidesports/{id}', 'HomeController@outsidesportsUpdate')->name('outsidesports.update')->middleware('superadmin');
 
 // Account Settings
-Route::get('settings', 'HomeController@settings');
+Route::get('settings', 'HomeController@settings')->name('settings');
 Route::patch('settings/{id}/change_password', 'HomeController@changePassword')->name('change.password');
 Route::patch('settings/{id}/change_name', 'HomeController@changeName')->name('change.name');
 Route::patch('settings/{id}/change_username', 'HomeController@changeUsername')->name('change.username');
@@ -79,6 +79,9 @@ Route::get('posts/featured/{id}', 'PostsController@featured')->name('posts.featu
 Route::get('posts/unfeatured/{id}', 'PostsController@unfeatured')->name('posts.unfeatured')->middleware('superadmin');
 
 Route::get('sortby/{category}', 'PostsController@sortBy')->name('sortBy');
+
+// Mood
+Route::post('mood/store/{id}', 'PostsController@moodStore')->name('mood.store');
 
 // Redirect wrong url
 Route::get('/{any}', function($any){

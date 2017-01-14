@@ -25,4 +25,8 @@ class Posts extends Model
     public function comments() {
     	return $this->hasMany('\App\Comments', 'post_id');
     }
+
+    public function postMoods() {
+        return $this->hasMany('\App\Mood','post_id');
+    }
 }

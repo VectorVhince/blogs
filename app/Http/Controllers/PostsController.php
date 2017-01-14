@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Posts;
 use App\Comments;
+use App\Page;
+use App\Mood;
 use Auth;
 use Image;
-use App\Page;
 use Counter;
 use Carbon\Carbon;
 
@@ -296,7 +297,7 @@ class PostsController extends Controller
             })->save(public_path('img/uploads/thumbnails/' . $fileName));
         }
 
-        $post = new PendingPosts;
+        $post = new Posts;
         $post->user_id = Auth::user()->id;
         $post->category = $request->category;
         $post->title = $request->title;
@@ -340,7 +341,20 @@ class PostsController extends Controller
         }
         $post->update();
 
-        return view('posts.show')->with('post', $post)->with('comments', $comments)->with('stories', $stories)->with('counter', $counter);
+        $happy = $post->postMoods->where('mood','happy')->count();
+        $love = $post->postMoods->where('mood','love')->count();
+        $shocked = $post->postMoods->where('mood','shocked')->count();
+        $angry = $post->postMoods->where('mood','angry')->count();
+
+        return view('posts.show')
+        ->with('post', $post)
+        ->with('comments', $comments)
+        ->with('stories', $stories)
+        ->with('counter', $counter)
+        ->with('happy', $happy)
+        ->with('love', $love)
+        ->with('shocked', $shocked)
+        ->with('angry', $angry);
     }
 
     /**
@@ -443,5 +457,16 @@ class PostsController extends Controller
 
         $request->session()->flash('alert-danger', 'Post was successfully unfeatured!');
         return redirect()->route('home');        
+    }
+
+    public function moodStore(Request $request, $id) {
+        $post = Posts::find($id);
+
+        $mood = new Mood;
+        $mood->post_id = $post->id;
+        $mood->mood = $request->mood;
+        $mood->save();
+
+        return redirect()->route('posts.show',$post->id);
     }
 }

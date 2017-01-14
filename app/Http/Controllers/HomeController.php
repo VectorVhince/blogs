@@ -171,12 +171,12 @@ class HomeController extends Controller
                 $user->update();
 
                 $request->session()->flash('alert-success', "Password successfully updated!");
-                return back();
+                return redirect()->route('settings');
             }
         }
         else {
             $request->session()->flash('alert-danger', "New password and confirm password don't match!");
-            return back();
+            return redirect()->route('settings');
         }
     }
 
@@ -191,7 +191,7 @@ class HomeController extends Controller
         $user->update();
 
         $request->session()->flash('alert-success', "Name successfully updated!");
-        return back();
+        return redirect()->route('settings');
     }
 
     public function changeUsername(Request $request, $id) {
@@ -205,7 +205,7 @@ class HomeController extends Controller
         $user->update();
 
         $request->session()->flash('alert-success', "Username successfully updated!");
-        return back();
+        return redirect()->route('settings');
     }
 
     public function changeEmail(Request $request, $id) {
@@ -219,7 +219,7 @@ class HomeController extends Controller
         $user->update();
 
         $request->session()->flash('alert-success', "Username successfully updated!");
-        return back();
+        return redirect()->route('settings');
     }
 
     public function myPosts($id)
@@ -270,7 +270,7 @@ class HomeController extends Controller
         $user->update();
 
         $request->session()->flash('alert-success', "Role successfully updated!");
-        return back();
+        return redirect()->route('accounts');
     }
 
     public function updatePosition(Request $request, $id) {
@@ -280,7 +280,7 @@ class HomeController extends Controller
         $user->update();
 
         $request->session()->flash('alert-success', "Role successfully updated!");
-        return back();
+        return redirect()->route('accounts');
     }
 
     public function about() {
@@ -295,7 +295,7 @@ class HomeController extends Controller
         $category->content = $request->content;
         $category->update();
 
-        return back();
+        return redirect()->route('accounts');
     }
 
     public function terms() {

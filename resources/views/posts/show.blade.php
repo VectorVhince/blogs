@@ -150,6 +150,8 @@
                   @endif
               </div>
           </div>
+
+          @include('partials.mood_meter')
             
         </div>
     </div>
@@ -166,8 +168,8 @@
                     @foreach($comments as $comment)
                         <div class="mgv20 pdh15 bdrl1-gray">
                             <span class="dp-bl fs20 mgb5">{{ $comment->name }}, {{ $comment->dept }}</span>
-                            <p class="mgl20">{{ $comment->message }}</p>
-                  <span class="pointer" data-toggle="tooltip" title="{{ date_format($comment->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}</span> 
+                              <p class="mgl20">{{ $comment->message }}</p>
+                            <span class="pointer" data-toggle="tooltip" title="{{ date_format($comment->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}</span> 
                         </div>
                     @endforeach
                     @else
