@@ -309,7 +309,7 @@ class PostsController extends Controller
         $post->save();
         
         $request->session()->flash('alert-success', 'Post was successfully created, wait for approval of admin!');
-        return redirect()->route('index.'.$post->category,$post->id);
+        return redirect()->route('myposts');
 
     }
 

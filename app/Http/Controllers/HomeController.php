@@ -295,7 +295,7 @@ class HomeController extends Controller
         $category->content = $request->content;
         $category->update();
 
-        return redirect()->route('accounts');
+        return redirect()->route('about');
     }
 
     public function terms() {
@@ -309,7 +309,7 @@ class HomeController extends Controller
         $category->content = $request->content;
         $category->update();
 
-        return back();
+        return redirect()->route('terms');
     }
 
     public function privacy() {
@@ -323,7 +323,7 @@ class HomeController extends Controller
         $category->content = $request->content;
         $category->update();
 
-        return back();
+        return redirect()->route('privacy');
     }
 
     public function weatherUpdate(Request $request, $id) {
@@ -332,7 +332,7 @@ class HomeController extends Controller
         $category->content = $request->content;
         $category->update();
 
-        return back();
+        return redirect()->route('index.news');
     }
 
     public function calendarUpdate(Request $request, $id) {
@@ -341,7 +341,7 @@ class HomeController extends Controller
         $category->content = $request->content;
         $category->update();
 
-        return back();
+        return redirect()->route('index.editorial');
     }
 
     public function selfopinionUpdate(Request $request, $id) {
@@ -350,7 +350,7 @@ class HomeController extends Controller
         $category->content = $request->content;
         $category->update();
 
-        return back();
+        return redirect()->route('index.opinion');
     }
 
     public function readalsoUpdate(Request $request, $id) {
@@ -359,7 +359,7 @@ class HomeController extends Controller
         $category->content = $request->content;
         $category->update();
 
-        return back();
+        return redirect()->route('index.feature');
     }
 
     public function fromwebUpdate(Request $request, $id) {
@@ -368,7 +368,7 @@ class HomeController extends Controller
         $category->content = $request->content;
         $category->update();
 
-        return back();
+        return redirect()->route('index.humor');
     }
 
     public function outsidesportsUpdate(Request $request, $id) {
@@ -377,6 +377,6 @@ class HomeController extends Controller
         $category->content = $request->content;
         $category->update();
 
-        return back();
+        return redirect()->route('index.sports');
     }
 }
