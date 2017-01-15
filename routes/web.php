@@ -26,6 +26,8 @@ Route::patch('update/position/{id}', 'HomeController@updatePosition')->name('upd
 
 Route::get('myposts/sortby/{id}', 'HomeController@myPostsSortBy')->name('myposts.sortBy');
 
+Route::get('admin/pendingposts/sortby', 'HomeController@pendingSortBy')->name('pending.sortBy');
+
 Route::get('admin/pendingposts', 'HomeController@pendingPosts')->name('pending.posts')->middleware('superadmin');
 
 Route::get('error', 'HomeController@error')->name('errors.503');

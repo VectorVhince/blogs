@@ -254,9 +254,27 @@ class HomeController extends Controller
     }
 
     public function pendingPosts() {
-        $posts = Posts::latest()->get();
+        $posts = Posts::where('approved','0')->latest()->get();
 
         return view('admin.pending_posts')->with('posts',$posts);
+    }
+
+    public function pendingSortBy(Request $request)
+    {
+        switch ($request->key) {
+            case 'date':
+                $posts = Posts::where('approved','0')->latest()->get();
+
+                return view('admin.pending_posts')->with('posts', $posts);
+                break;
+
+            case 'name':
+                $posts = Posts::where('approved','0')->orderBy('title','asc')->get();
+
+                return view('admin.pending_posts')->with('posts', $posts);
+                break;
+        }
+        
     }
 
     public function error() {
