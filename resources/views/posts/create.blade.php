@@ -47,8 +47,12 @@
                         </div>
                         <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                             <label>Cover photo</label> (Minimum size: 863 x 400 px resolution)
-                            <label class="checkbox-inline pull-right"><input type="checkbox" value="1" name="" id="featured">Mark featured</label>
-                            <label class="checkbox-inline pull-right hidden"><input type="checkbox" value="0" name="featured" id="unfeatured" checked="checked">Unmark featured</label>
+                            @if(Auth::user())
+                                @if(Auth::user()->role == 'superadmin')
+                                <label class="checkbox-inline pull-right"><input type="checkbox" value="1" name="" id="featured">Mark featured</label>
+                                <label class="checkbox-inline pull-right hidden"><input type="checkbox" value="0" name="featured" id="unfeatured" checked="checked">Unmark featured</label>
+                                @endif
+                            @endif
                             <div class="box-shadow">
                                 <input type="file" name="image" class="form-control mgb20 bd-rad0" id="imgInp" accept="image">
                             </div>

@@ -7,6 +7,7 @@ use App\Posts;
 use App\Comments;
 use App\Page;
 use App\Mood;
+use App\Notification;
 use Auth;
 use Image;
 use Counter;
@@ -307,6 +308,13 @@ class PostsController extends Controller
         $post->update = Auth::user()->name;
         $post->featured = $request->featured;
         $post->save();
+
+        $notifs = new Notification;
+        $notifs->user_id = Auth::user()->id;
+        $notifs->active = '1';
+        $notifs->category = 'pending';
+        $notifs->message = Auth::user()->name . 'has new post, waiting for your approval.';
+        $notifs->save();
         
         $request->session()->flash('alert-success', 'Post was successfully created, wait for approval of admin!');
         return redirect()->route('myposts',Auth::user()->id);

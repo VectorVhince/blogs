@@ -2,12 +2,10 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -32,8 +30,8 @@ class User extends Authenticatable
         return $this->hasMany('\App\Posts', 'user_id');
     }
 
-    public function announcementsIndex(){
-        return $this->hasMany('\App\Announcements', 'user_id')->orderBy('id', 'desc');
+    public function notifications(){
+        return $this->hasMany('\App\Notifications', 'user_id');
     }
 
 }
