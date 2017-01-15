@@ -91,7 +91,12 @@
     <div class="dropup">
         <a href="#" class="dropdown-toggle fc-black" data-toggle="dropdown" role="button" aria-expanded="false" id="dropdownMenu2">
             <div class="user-menu">
-                <i class="glyphicon glyphicon-user fc-white"></i> {{ Auth::user()->name }}
+                <div class="notification-container">
+                    @if(!$notifs->count() == 0)
+                        <span class="notification-count">{{ $notifs->count() }}</span>
+                    @endif
+                        <i class="glyphicon glyphicon-user fc-white"></i>
+                </div>
             </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu2">
@@ -100,10 +105,16 @@
             <li><a href="{{ route('myposts',Auth::user()->id) }}"><span class="glyphicon glyphicon-list-alt"></span> My Posts</a></li>
             <li><a href="{{ route('posts.create') }}"><span class="glyphicon glyphicon-pencil"></span> Add New Post</a></li>
             @if(Auth::user()->role == 'superadmin')
-            <li><a href="{{ route('pending.posts') }}"><span class="glyphicon glyphicon-time"></span> Pending Posts</a></li>
-            <li><a href="{{ url('create/announcement') }}"><span class="glyphicon glyphicon-pencil"></span> Make Announcement</a></li>
+            <li>
+                <a href="{{ route('pending.posts') }}"><span class="glyphicon glyphicon-time"></span> Pending Posts
+                    @if(!$notifs->where('category','pending')->count() == 0)
+                        {{ $notifs->where('category','pending')->count() }}
+                    @endif
+                </a>
+            </li>
+            <li><a href="{{ url('create/announcement') }}"><span class="glyphicon glyphicon-plus-sign"></span> Make Announcement</a></li>
             <li><a href="{{ url('accounts') }}"><span class="glyphicon glyphicon-user"></span> Manage Members</a></li>
-            <li><a href="{{ url('register') }}"><span class="glyphicon glyphicon-user"></span> Register an Account</a></li>
+            <li><a href="{{ url('register') }}"><span class="glyphicon glyphicon-plus"></span> Register an Account</a></li>
             @endif
             <li>
                 <a href="{{ url('/logout') }}"

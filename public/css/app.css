@@ -423,16 +423,30 @@ a:hover, a:focus, a:active { text-decoration: none; }
 	z-index: 999;
 }
 .user-menu {
-	border-radius: 20px;
+	border-radius: 50%;
 	border: none;
 	background-color: purple;
-	padding: 10px 15px;
+	padding: 10px;
 	/*height: 60px;
 	width: 60px;*/
 	font-size: 15px;
 	color: #fff;
 	text-align: center;
 	line-height: .5;
+}
+.notification-container{
+	position: relative;
+	padding: 10px;
+}
+.notification-count {
+	position: absolute;
+	left: 0; top: 0;
+	z-index: 1;
+	padding: 5px;
+	background-color: red;
+	border-radius: 50%;
+	border: none;
+	font-size: 12px;
 }
 .icon-circle {
 	border-radius: 50%;

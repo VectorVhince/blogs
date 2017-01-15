@@ -7,6 +7,8 @@ use App\Posts;
 use App\Comments;
 use App\Page;
 use App\Mood;
+use App\Notification;
+use App\User;
 use Auth;
 use Image;
 use Counter;
@@ -303,10 +305,23 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->body = $request->body;
         $post->image = $fileName;
+        if (Auth::user()->role == 'superadmin') {
+            $post->approved = '1';
+        }
         $post->user = Auth::user()->name;
         $post->update = Auth::user()->name;
         $post->featured = $request->featured;
         $post->save();
+
+        $superadmins = User::where('role','superadmin')->get();
+        foreach($superadmins as $superadmin){
+            $notifs = new Notification;
+            $notifs->user_id = $superadmin->id;
+            $notifs->active = '1';
+            $notifs->category = 'pending';
+            $notifs->message = Auth::user()->name . 'has new post, waiting for your approval.';
+            $notifs->save();
+        }
         
         $request->session()->flash('alert-success', 'Post was successfully created, wait for approval of admin!');
         return redirect()->route('myposts',Auth::user()->id);
@@ -345,6 +360,12 @@ class PostsController extends Controller
         $love = $post->postMoods->where('mood','love')->count();
         $shocked = $post->postMoods->where('mood','shocked')->count();
         $angry = $post->postMoods->where('mood','angry')->count();
+
+        if (Auth::guest()) {
+            if ($post->approved == '0') {
+                return redirect()->route('errors.503');
+            }
+        }
 
         return view('posts.show')
         ->with('post', $post)

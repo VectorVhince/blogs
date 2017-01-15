@@ -7,6 +7,7 @@ use App\Posts;
 use App\Comments;
 use App\Announcements;
 use App\User;
+use App\Notification;
 use Auth;
 use App\Page;
 
@@ -255,6 +256,7 @@ class HomeController extends Controller
 
     public function pendingPosts() {
         $posts = Posts::where('approved','0')->latest()->get();
+        Notification::where('active', '=', '1')->where('category','pending')->update(array('active' => '0'));
 
         return view('admin.pending_posts')->with('posts',$posts);
     }
