@@ -26,6 +26,8 @@ Route::patch('update/position/{id}', 'HomeController@updatePosition')->name('upd
 
 Route::get('myposts/sortby/{id}', 'HomeController@myPostsSortBy')->name('myposts.sortBy');
 
+Route::get('admin/pendingposts', 'HomeController@pendingPosts')->name('pending.posts')->middleware('superadmin');
+
 Route::get('error', 'HomeController@error')->name('errors.503');
 
 Route::get('about', 'HomeController@about')->name('about');
@@ -77,6 +79,9 @@ Route::post('posts/comment/{id}', 'PostsController@comment')->name('comment');
 
 Route::get('posts/featured/{id}', 'PostsController@featured')->name('posts.featured')->middleware('superadmin');
 Route::get('posts/unfeatured/{id}', 'PostsController@unfeatured')->name('posts.unfeatured')->middleware('superadmin');
+
+Route::get('posts/approved/{id}', 'PostsController@approved')->name('posts.approved')->middleware('superadmin');
+Route::get('posts/disapproved/{id}', 'PostsController@disapproved')->name('posts.disapproved')->middleware('superadmin');
 
 Route::get('sortby/{category}', 'PostsController@sortBy')->name('sortBy');
 

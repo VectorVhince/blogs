@@ -32,25 +32,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $featured = Posts::where('featured', '=', '1')->orderBy('featured_date', 'desc')->take(7)->get();
+        $featured = Posts::where('featured', '=', '1')->where('approved', '=', '1')->orderBy('featured_date', 'desc')->take(7)->get();
 
         $views_counter = config('variables.views');
-        $views = Posts::where('views', '>=', $views_counter)->where('featured', '!=', '1')->orderBy('trend_date', 'desc')->take(7)->get();        
+        $views = Posts::where('views', '>=', $views_counter)->where('featured', '!=', '1')->where('approved', '=', '1')->orderBy('trend_date', 'desc')->take(7)->get();        
 
-        $news = Posts::where('category','news')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
-        $editorials = Posts::where('category','editorial')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
-        $opinions = Posts::where('category','opinion')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
-        $features = Posts::where('category','feature')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
-        $humors = Posts::where('category','humor')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
-        $sports = Posts::where('category','sports')->where('featured','!=','1')->latest()->skip(1)->take(3)->get();
+        $news = Posts::where('category','news')->where('featured','!=','1')->where('approved', '=', '1')->latest()->skip(1)->take(3)->get();
+        $editorials = Posts::where('category','editorial')->where('featured','!=','1')->where('approved', '=', '1')->latest()->skip(1)->take(3)->get();
+        $opinions = Posts::where('category','opinion')->where('featured','!=','1')->where('approved', '=', '1')->latest()->skip(1)->take(3)->get();
+        $features = Posts::where('category','feature')->where('featured','!=','1')->where('approved', '=', '1')->latest()->skip(1)->take(3)->get();
+        $humors = Posts::where('category','humor')->where('featured','!=','1')->where('approved', '=', '1')->latest()->skip(1)->take(3)->get();
+        $sports = Posts::where('category','sports')->where('featured','!=','1')->where('approved', '=', '1')->latest()->skip(1)->take(3)->get();
         
 
-        $news_first = Posts::where('category','news')->where('featured','!=','1')->latest()->first();
-        $editorials_first = Posts::where('category','editorial')->where('featured','!=','1')->latest()->first();
-        $opinions_first = Posts::where('category','opinion')->where('featured','!=','1')->latest()->first();
-        $features_first = Posts::where('category','feature')->where('featured','!=','1')->latest()->first();
-        $humors_first = Posts::where('category','humor')->where('featured','!=','1')->latest()->first();
-        $sports_first = Posts::where('category','sports')->where('featured','!=','1')->latest()->first();
+        $news_first = Posts::where('category','news')->where('featured','!=','1')->where('approved', '=', '1')->latest()->first();
+        $editorials_first = Posts::where('category','editorial')->where('featured','!=','1')->where('approved', '=', '1')->latest()->first();
+        $opinions_first = Posts::where('category','opinion')->where('featured','!=','1')->where('approved', '=', '1')->latest()->first();
+        $features_first = Posts::where('category','feature')->where('featured','!=','1')->where('approved', '=', '1')->latest()->first();
+        $humors_first = Posts::where('category','humor')->where('featured','!=','1')->where('approved', '=', '1')->latest()->first();
+        $sports_first = Posts::where('category','sports')->where('featured','!=','1')->where('approved', '=', '1')->latest()->first();
 
         $announcements = Announcements::latest()->take(7)->get();
 
@@ -251,6 +251,12 @@ class HomeController extends Controller
                 break;
         }
         
+    }
+
+    public function pendingPosts() {
+        $posts = Posts::latest()->get();
+
+        return view('admin.pending_posts')->with('posts',$posts);
     }
 
     public function error() {

@@ -26,7 +26,7 @@ class PostsController extends Controller
      */
     public function newsIndex()
     {
-        $news = Posts::where('category','news')->orderBy('id', 'desc')->paginate(10);
+        $news = Posts::where('category','news')->where('approved', '=', '1')->orderBy('id', 'desc')->paginate(10);
         $category = Page::where('category','weather')->first();
 
         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
@@ -38,7 +38,7 @@ class PostsController extends Controller
 
     public function editorialIndex()
     {
-        $editorial = Posts::where('category','editorial')->orderBy('id', 'desc')->paginate(10);
+        $editorial = Posts::where('category','editorial')->where('approved', '=', '1')->orderBy('id', 'desc')->paginate(10);
         $category = Page::where('category','calendar')->first();
 
         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
@@ -50,7 +50,7 @@ class PostsController extends Controller
 
     public function opinionIndex()
     {
-        $opinion = Posts::where('category','opinion')->orderBy('id', 'desc')->paginate(10);
+        $opinion = Posts::where('category','opinion')->where('approved', '=', '1')->orderBy('id', 'desc')->paginate(10);
         $category = Page::where('category','selfopinion')->first();
 
         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
@@ -62,7 +62,7 @@ class PostsController extends Controller
 
     public function featureIndex()
     {
-        $feature = Posts::where('category','feature')->orderBy('id', 'desc')->paginate(10);
+        $feature = Posts::where('category','feature')->where('approved', '=', '1')->orderBy('id', 'desc')->paginate(10);
         $category = Page::where('category','readalso')->first();
 
         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
@@ -74,7 +74,7 @@ class PostsController extends Controller
 
     public function humorIndex()
     {
-        $humor = Posts::where('category','humor')->orderBy('id', 'desc')->paginate(10);
+        $humor = Posts::where('category','humor')->where('approved', '=', '1')->orderBy('id', 'desc')->paginate(10);
         $category = Page::where('category','fromweb')->first();
 
         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
@@ -86,7 +86,7 @@ class PostsController extends Controller
 
     public function sportsIndex()
     {
-        $sports = Posts::where('category','sports')->orderBy('id', 'desc')->paginate(10);
+        $sports = Posts::where('category','sports')->where('approved', '=', '1')->orderBy('id', 'desc')->paginate(10);
         $category = Page::where('category','outsidesports')->first();
 
         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
@@ -102,7 +102,7 @@ class PostsController extends Controller
             case 'date':
                 switch ($category) {
                     case 'news':
-                        $news = Posts::where('category','news')->orderBy('created_at', 'desc')->paginate(10);
+                        $news = Posts::where('category','news')->where('approved', '=', '1')->orderBy('created_at', 'desc')->paginate(10);
                         $category = Page::where('category','weather')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -110,7 +110,7 @@ class PostsController extends Controller
                         return view('index.news')->with('news', $news)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'editorial':
-                        $editorial = Posts::where('category','editorial')->orderBy('created_at', 'desc')->paginate(10);
+                        $editorial = Posts::where('category','editorial')->where('approved', '=', '1')->orderBy('created_at', 'desc')->paginate(10);
                         $category = Page::where('category','calendar')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -118,7 +118,7 @@ class PostsController extends Controller
                         return view('index.editorial')->with('editorial', $editorial)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'opinion':
-                        $opinion = Posts::where('category','opinion')->orderBy('created_at', 'desc')->paginate(10);
+                        $opinion = Posts::where('category','opinion')->where('approved', '=', '1')->orderBy('created_at', 'desc')->paginate(10);
                         $category = Page::where('category','selfopinion')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -126,7 +126,7 @@ class PostsController extends Controller
                         return view('index.opinion')->with('opinion', $opinion)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'feature':
-                        $feature = Posts::where('category','feature')->orderBy('created_at', 'desc')->paginate(10);
+                        $feature = Posts::where('category','feature')->where('approved', '=', '1')->orderBy('created_at', 'desc')->paginate(10);
                         $category = Page::where('category','readalso')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -134,7 +134,7 @@ class PostsController extends Controller
                         return view('index.feature')->with('feature', $feature)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'humor':
-                        $humor = Posts::where('category','humor')->orderBy('created_at', 'desc')->paginate(10);
+                        $humor = Posts::where('category','humor')->where('approved', '=', '1')->orderBy('created_at', 'desc')->paginate(10);
                         $category = Page::where('category','fromweb')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -142,7 +142,7 @@ class PostsController extends Controller
                         return view('index.humor')->with('humor', $humor)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'sports':
-                        $sports = Posts::where('category','sports')->orderBy('created_at', 'desc')->paginate(10);
+                        $sports = Posts::where('category','sports')->where('approved', '=', '1')->orderBy('created_at', 'desc')->paginate(10);
                         $category = Page::where('category','outsidesports')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -155,7 +155,7 @@ class PostsController extends Controller
             case 'name':
                 switch ($category) {
                     case 'news':
-                        $news = Posts::where('category','news')->orderBy('title', 'asc')->paginate(10);
+                        $news = Posts::where('category','news')->where('approved', '=', '1')->orderBy('title', 'asc')->paginate(10);
                         $category = Page::where('category','weather')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -163,7 +163,7 @@ class PostsController extends Controller
                         return view('index.news')->with('news', $news)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'editorial':
-                        $editorial = Posts::where('category','editorial')->orderBy('title', 'asc')->paginate(10);
+                        $editorial = Posts::where('category','editorial')->where('approved', '=', '1')->orderBy('title', 'asc')->paginate(10);
                         $category = Page::where('category','calendar')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -171,7 +171,7 @@ class PostsController extends Controller
                         return view('index.editorial')->with('editorial', $editorial)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'opinion':
-                        $opinion = Posts::where('category','opinion')->orderBy('title', 'asc')->paginate(10);
+                        $opinion = Posts::where('category','opinion')->where('approved', '=', '1')->orderBy('title', 'asc')->paginate(10);
                         $category = Page::where('category','selfopinion')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -179,7 +179,7 @@ class PostsController extends Controller
                         return view('index.opinion')->with('opinion', $opinion)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'feature':
-                        $feature = Posts::where('category','feature')->orderBy('title', 'asc')->paginate(10);
+                        $feature = Posts::where('category','feature')->where('approved', '=', '1')->orderBy('title', 'asc')->paginate(10);
                         $category = Page::where('category','readalso')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -187,7 +187,7 @@ class PostsController extends Controller
                         return view('index.feature')->with('feature', $feature)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'humor':
-                        $humor = Posts::where('category','humor')->orderBy('title', 'asc')->paginate(10);
+                        $humor = Posts::where('category','humor')->where('approved', '=', '1')->orderBy('title', 'asc')->paginate(10);
                         $category = Page::where('category','fromweb')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -195,7 +195,7 @@ class PostsController extends Controller
                         return view('index.humor')->with('humor', $humor)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'sports':
-                        $sports = Posts::where('category','sports')->orderBy('title', 'asc')->paginate(10);
+                        $sports = Posts::where('category','sports')->where('approved', '=', '1')->orderBy('title', 'asc')->paginate(10);
                         $category = Page::where('category','outsidesports')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -208,7 +208,7 @@ class PostsController extends Controller
             case 'views':
                 switch ($category) {
                     case 'news':
-                        $news = Posts::where('category','news')->orderBy('views', 'desc')->paginate(10);
+                        $news = Posts::where('category','news')->where('approved', '=', '1')->orderBy('views', 'desc')->paginate(10);
                         $category = Page::where('category','weather')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -216,7 +216,7 @@ class PostsController extends Controller
                         return view('index.news')->with('news', $news)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'editorial':
-                        $editorial = Posts::where('category','editorial')->orderBy('views', 'desc')->paginate(10);
+                        $editorial = Posts::where('category','editorial')->where('approved', '=', '1')->orderBy('views', 'desc')->paginate(10);
                         $category = Page::where('category','calendar')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -224,7 +224,7 @@ class PostsController extends Controller
                         return view('index.editorial')->with('editorial', $editorial)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'opinion':
-                        $opinion = Posts::where('category','opinion')->orderBy('views', 'desc')->paginate(10);
+                        $opinion = Posts::where('category','opinion')->where('approved', '=', '1')->orderBy('views', 'desc')->paginate(10);
                         $category = Page::where('category','selfopinion')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -232,7 +232,7 @@ class PostsController extends Controller
                         return view('index.opinion')->with('opinion', $opinion)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'feature':
-                        $feature = Posts::where('category','feature')->orderBy('views', 'desc')->paginate(10);
+                        $feature = Posts::where('category','feature')->where('approved', '=', '1')->orderBy('views', 'desc')->paginate(10);
                         $category = Page::where('category','readalso')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -240,7 +240,7 @@ class PostsController extends Controller
                         return view('index.feature')->with('feature', $feature)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'humor':
-                        $humor = Posts::where('category','humor')->orderBy('views', 'desc')->paginate(10);
+                        $humor = Posts::where('category','humor')->where('approved', '=', '1')->orderBy('views', 'desc')->paginate(10);
                         $category = Page::where('category','fromweb')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -248,7 +248,7 @@ class PostsController extends Controller
                         return view('index.humor')->with('humor', $humor)->with('category', $category)->with('archive_year', $archive_year);
                         break;
                     case 'sports':
-                        $sports = Posts::where('category','sports')->orderBy('views', 'desc')->paginate(10);
+                        $sports = Posts::where('category','sports')->where('approved', '=', '1')->orderBy('views', 'desc')->paginate(10);
                         $category = Page::where('category','outsidesports')->first();
                         $archive_year = Posts::orderBy('created_at','asc')->get()->groupBy(function($date) {
                             return Carbon::parse($date->created_at)->format('Y');
@@ -309,7 +309,7 @@ class PostsController extends Controller
         $post->save();
         
         $request->session()->flash('alert-success', 'Post was successfully created, wait for approval of admin!');
-        return redirect()->route('myposts');
+        return redirect()->route('myposts',Auth::user()->id);
 
     }
 
@@ -398,6 +398,7 @@ class PostsController extends Controller
         $post->category = $request->category;
         $post->body = $request->body;
         $post->update = Auth::user()->name;
+        $post->approved = '0';
         $post->update();
         
         $request->session()->flash('alert-success', 'Post was successfully updated!');
@@ -459,6 +460,24 @@ class PostsController extends Controller
         return redirect()->route('home');        
     }
 
+    public function approved(Request $request, $id) {
+        $post = Posts::find($id);
+        $post->approved = '1';
+        $post->update();
+
+        $request->session()->flash('alert-success', 'Post was approved!');
+        return redirect()->route('posts.show',$post->id);        
+    }
+
+    public function disapproved(Request $request, $id) {
+        $post = Posts::find($id);
+        $post->approved = '0';
+        $post->update();
+
+        $request->session()->flash('alert-danger', 'Post was disapproved!');
+        return redirect()->route('posts.show',$post->id);        
+    }
+
     public function moodStore(Request $request, $id) {
         $post = Posts::find($id);
 
@@ -467,6 +486,7 @@ class PostsController extends Controller
         $mood->mood = $request->mood;
         $mood->save();
 
-        return redirect()->route('posts.show',$post->id);
+        // return redirect()->route('posts.show',$post->id);
+        return response()->json(['mood' => $mood->mood], 200);
     }
 }

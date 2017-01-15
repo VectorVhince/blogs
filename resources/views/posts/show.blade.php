@@ -50,6 +50,15 @@
             <div class="panel panel-default bd-rad0 box-shadow panel-bg">
                 <div class="bgc-red mg0 fc-white fs20 pdv5 pdh45 box-arrow2">
                   {{ ucfirst($post->category) }}
+                  <span class="pull-right">
+                  @if(Auth::user())
+                    @if($post->approved==0)
+                     <span>Pending</span>
+                    @else
+                      <span>Approved</span>
+                    @endif
+                  @endif
+                  </span>
                 </div>
                 <div class="panel-body pdh45">
                     <div class="row mgb40">
@@ -75,6 +84,11 @@
                                           <li><a href="#!" data-toggle="modal" data-target="#modal2"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Mark featured</a></li>
                                           @else
                                           <li><a href="#!" data-toggle="modal" data-target="#modal3"><img src="{{ asset('/img/unfeatured.png') }}" class="ht20"> Unmark featured</a></li>
+                                          @endif
+                                          @if(!$post->approved == '1')
+                                          <li><a href="#!" data-toggle="modal" data-target="#modal4"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Approve</a></li>
+                                          @else
+                                          <li><a href="#!" data-toggle="modal" data-target="#modal5"><img src="{{ asset('/img/unfeatured.png') }}" class="ht20"> Disapprove</a></li>
                                           @endif
                                         @endif
                                         <li><a href="{{ route('posts.edit',$post->id) }}"><img src="{{ asset('/img/edit.png') }}" class="ht20"> Edit</a></li>
@@ -120,39 +134,11 @@
             </div>
         </div>
         <div class="col-lg-4">
-          <div class="panel panel-default bd-rad0 box-shadow">
-              <div style="height: 20px;" class="bgc-red mg0"></div>
-              <div class="panel-body pd15">
-                  <div class="mgb20">
-                      <div class="row">
-                          <div class="col-sm-12">
-                              <span class="fs25">More Stories</span>
-                          </div>
-                      </div>
-                      <div style="height: 2px;" class="bgc-red mg0"></div>
-                  </div>
-                  @if(!$stories->isEmpty())
-                    @foreach($stories as $story)
-                      <a href="{{ route('posts.show', $story->id) }}" class="fc-black dp-bl">
-                        <div class="row mg0 bg-blue-hover pd5">
-                          <div class="col-sm-4 pdl0">
-                            <img src="{{ asset('img/uploads/thumbnails/' . $story->image) }}" class="img-responsive img-thumbnail dp-bl">
-                          </div>
-                          <div class="col-sm-8 pdl0">
-                            <span class="fs17 dp-bl"><b>{{ $story->title }}</b></span>
-                          </div>
-                        </div>
-                      </a>
-                      <div style="height: 1px;" class="bgc-gray mgv20"></div>
-                    @endforeach
-                  @else
-                    <span class="text-center">No other stories yet.</span>
-                  @endif
-              </div>
-          </div>
 
           @include('partials.mood_meter')
-            
+
+          @include('partials.more_stories')
+
         </div>
     </div>
     <div class="row">
@@ -283,4 +269,36 @@
     </div>
   </div>
 </div>
+
+<div id="modal4" class="modal fade bs-example-modal-sm pdt200" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content text-center pd15">
+
+      <span>Approve this post?</span>
+      <div class="row mgt20">
+          <a href="{{ route('posts.approved',$post->id) }}"><button type="button" class="btn btn-success btn-sm">Yes</button></a>
+          <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="modal5" class="modal fade bs-example-modal-sm pdt200" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content text-center pd15">
+
+      <span>Disapprove this post?</span>
+      <div class="row mgt20">
+          <a href="{{ route('posts.disapproved',$post->id) }}"><button type="button" class="btn btn-danger btn-sm">Yes</button></a>
+          <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 @endsection
+
+@section('script')
+  <script type="text/javascript" src="{{ asset('/js/mood_meter.js') }}"></script>
+@stop

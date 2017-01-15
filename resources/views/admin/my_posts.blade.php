@@ -33,6 +33,7 @@
                         <div class="bg-blue-hover pd10">
                             <div class="row mgb20">
                                 <div class="col-md-12">
+                                    <span class="dp-bl fs15">{{ ucfirst($user->category) }}</span> <span class="pull-right">@if($user->approved==0) <span>Pending</span> @else Approved @endif</span>
                                     <span class="dp-bl fs25">{{ $user->title }}</span>
                                     <span class="text-muted">Author: </span>{{ $user->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($user->created_at, 'F d, Y') }}
                                 </div>

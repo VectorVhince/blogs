@@ -227,6 +227,7 @@ a:hover, a:focus, a:active { text-decoration: none; }
 
 .fc-gold { color: gold !important; }
 .fc-red { color: #9e1e1c; }
+.fc-blue { color: #0066ff; }
 /*.fc-red:hover { color: #fff; }*/
 .fc-orange { color: #fbb061; }
 .fc-white{ color: #fff !important; }

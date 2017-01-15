@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
             $table->string('image');
             $table->string('user');
             $table->string('update');
+            $table->string('approved')->default('0');
             $table->string('featured')->default('0');
             $table->string('featured_date')->default('0');
             $table->integer('views')->default('0');
