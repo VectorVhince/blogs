@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Notification;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
+use App\Notification;
+use App\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,9 +17,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $notifs = Notification::where('active','1')->get();
+        if (Schema::hasTable('notifications')) {
+            $notifs = Notification::where('active','1')->get();
 
-        View::share('notifs', $notifs);
+            View::share('notifs', $notifs);
+        }
     }
 
     /**
