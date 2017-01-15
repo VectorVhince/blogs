@@ -87,16 +87,43 @@
     </nav>        
 </div>
 @if (Auth::user())
+<div class="user-notifications-container">
+    <div class="dropup">
+        <a href="#" class="dropdown-toggle fc-black" data-toggle="dropdown" role="button" aria-expanded="false" id="dropdownMenu1">
+            <div class="user-notifications">
+                @if(!$notifs->isEmpty())
+                    @if(!$notifs->where('active','1')->count() == 0)
+                        <span class="notification-count">{{ $notifs->where('active','1')->count() }}</span>
+                    @endif
+                @endif
+                <span class="glyphicon glyphicon-globe"></span>
+            </div>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+            <div class="box-arrow"></div>
+            @if(!$notifs->isEmpty())
+                @foreach($notifs as $notif)
+                    <li><a href="{{ route('posts.show',$notif->post_id) }}">
+                        @if($notif->active == '1')
+                        <span class="fc-green">
+                        @else
+                        <span>
+                        @endif
+                            {{ $notif->message }}
+                        </span>
+                    </a></li>
+                @endforeach
+            @else
+                <li><a href="#">No new notifications.</a></li>
+            @endif
+        </ul>
+    </div>
+</div>
 <div class="user-menu-container">
     <div class="dropup">
         <a href="#" class="dropdown-toggle fc-black" data-toggle="dropdown" role="button" aria-expanded="false" id="dropdownMenu2">
-            <div class="user-menu">
-                <div class="notification-container">
-                    @if(!$notifs->count() == 0)
-                        <span class="notification-count">{{ $notifs->count() }}</span>
-                    @endif
-                        <i class="glyphicon glyphicon-user fc-white"></i>
-                </div>
+            <div class="user-menu">                  
+                <i class="glyphicon glyphicon-user fc-white"></i>
             </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu2">
@@ -105,13 +132,7 @@
             <li><a href="{{ route('myposts',Auth::user()->id) }}"><span class="glyphicon glyphicon-list-alt"></span> My Posts</a></li>
             <li><a href="{{ route('posts.create') }}"><span class="glyphicon glyphicon-pencil"></span> Add New Post</a></li>
             @if(Auth::user()->role == 'superadmin')
-            <li>
-                <a href="{{ route('pending.posts') }}"><span class="glyphicon glyphicon-time"></span> Pending Posts
-                    @if(!$notifs->where('category','pending')->count() == 0)
-                        {{ $notifs->where('category','pending')->count() }}
-                    @endif
-                </a>
-            </li>
+            <li><a href="{{ route('pending.posts') }}"><span class="glyphicon glyphicon-time"></span> Pending Posts</a></li>
             <li><a href="{{ url('create/announcement') }}"><span class="glyphicon glyphicon-plus-sign"></span> Make Announcement</a></li>
             <li><a href="{{ url('accounts') }}"><span class="glyphicon glyphicon-user"></span> Manage Members</a></li>
             <li><a href="{{ url('register') }}"><span class="glyphicon glyphicon-plus"></span> Register an Account</a></li>

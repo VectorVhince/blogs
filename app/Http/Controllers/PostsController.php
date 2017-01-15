@@ -317,9 +317,10 @@ class PostsController extends Controller
         foreach($superadmins as $superadmin){
             $notifs = new Notification;
             $notifs->user_id = $superadmin->id;
+            $notifs->post_id = $post->id;
             $notifs->active = '1';
             $notifs->category = 'pending';
-            $notifs->message = Auth::user()->name . 'has new post, waiting for your approval.';
+            $notifs->message = Auth::user()->name . ' has a new post, ' . substr($post->title, 0, 20) . '... , waiting for your approval.';
             $notifs->save();
         }
         
@@ -337,16 +338,17 @@ class PostsController extends Controller
     public function show($id)
     {
         $post = Posts::find($id);
+        $user = Posts::find($id)->userPost;
         $posts = Posts::all();
 
         $comments = Posts::find($id)->comments;
 
         $stories = Posts::get();
         if ($posts->count() <= 7) {
-            $stories = Posts::where('id', '!=', $post->id)->inRandomOrder()->get();
+            $stories = Posts::where('id', '!=', $post->id)->where('approved','1')->inRandomOrder()->get();
         }
         else if ($posts->count() > 7) {
-            $stories = Posts::where('id', '!=', $post->id)->random(7)->inRandomOrder()->get();
+            $stories = Posts::where('id', '!=', $post->id)->where('approved','1')->random(7)->inRandomOrder()->get();
         }
 
         $counter = Counter::showAndCount('posts.show', $post->id);
@@ -360,6 +362,18 @@ class PostsController extends Controller
         $love = $post->postMoods->where('mood','love')->count();
         $shocked = $post->postMoods->where('mood','shocked')->count();
         $angry = $post->postMoods->where('mood','angry')->count();
+
+        if (Auth::user()) {
+            if (Auth::user()->role == 'superadmin') {
+                Notification::where('active', '=', '1')->where('category','pending')->where('post_id',$post->id)->update(['active' => '0']);
+            }
+            if (Auth::user()->id == $user->id && Notification::where('active', '=', '1')->where('category','comment')->where('post_id',$post->id)) {
+                Notification::where('active', '=', '1')->where('category','comment')->where('post_id',$post->id)->update(['active' => '0']);
+            }
+            if (Auth::user()->id == $user->id && Notification::where('active', '=', '1')->where('category','approved')->where('post_id',$post->id)) {
+                Notification::where('active', '=', '1')->where('category','approved')->where('post_id',$post->id)->update(['active' => '0']);
+            }
+        }
 
         if (Auth::guest()) {
             if ($post->approved == '0') {
@@ -420,7 +434,21 @@ class PostsController extends Controller
         $post->body = $request->body;
         $post->update = Auth::user()->name;
         $post->approved = '0';
+        if (Auth::user()->role == 'superadmin') {
+            $post->approved = '1';
+        }
         $post->update();
+
+        $superadmins = User::where('role','superadmin')->get();
+        foreach($superadmins as $superadmin){
+            $notifs = new Notification;
+            $notifs->user_id = $superadmin->id;
+            $notifs->active = '1';
+            $notifs->post_id = $post->id;
+            $notifs->category = 'pending';
+            $notifs->message = Auth::user()->name . ' has edited a post, ' . substr($post->title, 0, 20) . '... , waiting for your approval.';
+            $notifs->save();
+        }
         
         $request->session()->flash('alert-success', 'Post was successfully updated!');
         return redirect()->route('posts.show',$post->id);
@@ -450,6 +478,7 @@ class PostsController extends Controller
         ]);
 
         $post = Posts::find($id);
+        $user = Posts::find($id)->userPost;
 
         $comment = new Comments;
         $comment->post_id = $post->id;
@@ -459,7 +488,21 @@ class PostsController extends Controller
         $comment->message = $request->message;
         $comment->save();
 
+        $notifs = new Notification;
+        $notifs->user_id = $user->id;
+        $notifs->post_id = $post->id;
+        $notifs->active = '1';
+        $notifs->category = 'comment';
+        $notifs->message = $comment->name . ' has commented on your post, ' . substr($post->title, 0, 20) . '... ';
+        $notifs->save();
+
         return redirect()->route('posts.show',$post->id);
+    }
+
+    public function commentDestroy($id) {
+        Comments::find($id)->delete();
+
+        return back();
     }
 
     public function featured(Request $request, $id) {
@@ -486,6 +529,15 @@ class PostsController extends Controller
         $post->approved = '1';
         $post->update();
 
+        $user = Posts::find($id)->userPost;
+        $notifs = new Notification;
+        $notifs->user_id = $user->id;
+        $notifs->post_id = $post->id;
+        $notifs->active = '1';
+        $notifs->category = 'approved';
+        $notifs->message = 'Your post has been approved, ' . substr($post->title, 0, 20) . '... ';
+        $notifs->save();
+
         $request->session()->flash('alert-success', 'Post was approved!');
         return redirect()->route('posts.show',$post->id);        
     }
@@ -494,6 +546,15 @@ class PostsController extends Controller
         $post = Posts::find($id);
         $post->approved = '0';
         $post->update();
+
+        $user = Posts::find($id)->userPost;
+        $notifs = new Notification;
+        $notifs->user_id = $user->id;
+        $notifs->post_id = $post->id;
+        $notifs->active = '1';
+        $notifs->category = 'approved';
+        $notifs->message = 'Your post has been disapproved, ' . substr($post->title, 0, 20) . '... ';
+        $notifs->save();
 
         $request->session()->flash('alert-danger', 'Post was disapproved!');
         return redirect()->route('posts.show',$post->id);        

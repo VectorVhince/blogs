@@ -152,10 +152,20 @@
                     </div>
                     @if(!$comments->isEmpty())
                     @foreach($comments as $comment)
-                        <div class="mgv20 pdh15 bdrl1-gray">
-                            <span class="dp-bl fs20 mgb5">{{ $comment->name }}, {{ $comment->dept }}</span>
-                              <p class="mgl20">{{ $comment->message }}</p>
-                            <span class="pointer" data-toggle="tooltip" title="{{ date_format($comment->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}</span> 
+                        <div class="mgv20 pdh15 bdrl1-gray commentHover" data-id="{{ $comment->id }}">
+                        @if($comment->trashed())
+                          <span class="dp-bl">This comment was deleted.</span>
+                          <span class="pointer" data-toggle="tooltip" title="{{ date_format($comment->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->deleted_at))->diffForHumans() }}</span>
+                        @else
+                          @if(Auth::user())
+                            @if(Auth::user()->id == $post->user_id || Auth::user()->role == 'superadmin')
+                            <span class="glyphicon glyphicon-remove pull-right pointer dp0" data-toggle="modal" data-target="#modal6" data-cid="{{ route('comment.destroy',$comment->id) }}" id="commentDeleteBtn{{ $comment->id }}"></span>
+                            @endif
+                          @endif
+                          <span class="dp-bl fs20 mgb5">{{ $comment->name }}, {{ $comment->dept }}</span>
+                            <p class="mgl20">{{ $comment->message }}</p>
+                          <span class="pointer" data-toggle="tooltip" title="{{ date_format($comment->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}</span>
+                        @endif
                         </div>
                     @endforeach
                     @else
@@ -297,8 +307,39 @@
     </div>
   </div>
 </div>
+
+<div id="modal6" class="modal fade bs-example-modal-sm pdt200" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content text-center pd15">
+
+      <span>Delete this comment?</span>
+      <div class="row mgt20">
+          <a href="" id="commentDeleteUrl"><button type="button" class="btn btn-danger btn-sm">Yes</button></a>
+          <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 @endsection
 
 @section('script')
   <script type="text/javascript" src="{{ asset('/js/mood_meter.js') }}"></script>
+  <script type="text/javascript">
+
+    $('.commentHover').on('mouseenter', function(){
+      var commentId = $(this).data('id');
+      $('#commentDeleteBtn'+commentId).show();
+    }).on('mouseleave', function(){
+      var commentId = $(this).data('id');
+      $('#commentDeleteBtn'+commentId).hide();
+    });
+
+    $('.glyphicon-remove').on('click',function(){
+      var commentUrl = $(this).data('cid');
+      // console.log(commentUrl);
+      $('#commentDeleteUrl').attr('href', commentUrl);
+    });
+
+  </script>
 @stop

@@ -8,7 +8,7 @@ $(document).ready(function(){
   var urlMood = $('#moodForm').data('url');
   var token = $('#moodForm').data('token')
 
-  $('.moodBtn').click(function(){
+  $('.moodBtn').on('click',function(){
     var moodVal = $(this).val();
     // console.log(urlMood);
     $.ajax({

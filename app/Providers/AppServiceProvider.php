@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use App\Notification;
 use App\User;
+use Auth;
+use Illuminate\Http\Request;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,12 +17,21 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Request $request)
     {
         if (Schema::hasTable('notifications')) {
-            $notifs = Notification::where('active','1')->get();
 
-            View::share('notifs', $notifs);
+            view()->composer('*', function ($view) 
+            {
+                if (Auth::user()) {
+
+                    $notifs = Notification::where('user_id', Auth::user()->id)->take(10)->latest()->get();
+                    // dd($notifs->get());
+                    $view->with('notifs', $notifs);    
+
+                }
+            });  
+
         }
     }
 

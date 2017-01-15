@@ -227,6 +227,7 @@ a:hover, a:focus, a:active { text-decoration: none; }
 
 .fc-gold { color: gold !important; }
 .fc-red { color: #9e1e1c; }
+.fc-green { color: green; }
 .fc-blue { color: #0066ff; }
 /*.fc-red:hover { color: #fff; }*/
 .fc-orange { color: #fbb061; }
@@ -426,7 +427,25 @@ a:hover, a:focus, a:active { text-decoration: none; }
 	border-radius: 50%;
 	border: none;
 	background-color: purple;
-	padding: 10px;
+	padding: 15px;
+	/*height: 60px;
+	width: 60px;*/
+	font-size: 15px;
+	color: #fff;
+	text-align: center;
+	line-height: .5;
+}
+.user-notifications-container {
+	position: fixed;
+	right: 70px;
+	bottom: 17px;
+	z-index: 999;
+}
+.user-notifications {
+	border-radius: 50%;
+	border: none;
+	background-color: purple;
+	padding: 15px;
 	/*height: 60px;
 	width: 60px;*/
 	font-size: 15px;
@@ -457,7 +476,7 @@ a:hover, a:focus, a:active { text-decoration: none; }
 
 .box-arrow:after, .box-arrow:before {
 	top: 100%;
-	left: 80%;
+	right: 12px;
 	border: solid transparent;
 	content: " ";
 	height: 0;

@@ -79,6 +79,8 @@ Route::get('sports', 'PostsController@sportsIndex')->name('index.sports');
 
 Route::post('posts/comment/{id}', 'PostsController@comment')->name('comment');
 
+Route::get('posts/comment/destroy/{id}', 'PostsController@commentDestroy')->name('comment.destroy');
+
 Route::get('posts/featured/{id}', 'PostsController@featured')->name('posts.featured')->middleware('superadmin');
 Route::get('posts/unfeatured/{id}', 'PostsController@unfeatured')->name('posts.unfeatured')->middleware('superadmin');
 
