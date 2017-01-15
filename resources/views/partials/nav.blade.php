@@ -100,7 +100,7 @@
             <li><a href="{{ route('myposts',Auth::user()->id) }}"><span class="glyphicon glyphicon-list-alt"></span> My Posts</a></li>
             <li><a href="{{ route('posts.create') }}"><span class="glyphicon glyphicon-pencil"></span> Add New Post</a></li>
             @if(Auth::user()->role == 'superadmin')
-            <li><a href="{{ route('pending.posts') }}">Pending Posts</a></li>
+            <li><a href="{{ route('pending.posts') }}"><span class="glyphicon glyphicon-time"></span> Pending Posts</a></li>
             <li><a href="{{ url('create/announcement') }}"><span class="glyphicon glyphicon-pencil"></span> Make Announcement</a></li>
             <li><a href="{{ url('accounts') }}"><span class="glyphicon glyphicon-user"></span> Manage Members</a></li>
             <li><a href="{{ url('register') }}"><span class="glyphicon glyphicon-user"></span> Register an Account</a></li>
