@@ -93,6 +93,6 @@ Route::get('sortby/{category}', 'PostsController@sortBy')->name('sortBy');
 Route::post('mood/store/{id}', 'PostsController@moodStore')->name('mood.store');
 
 // Redirect wrong url
-Route::get('/{any}', function($any){
-	return redirect()->route('errors.503');
-})->where('any', '.*');
+// Route::get('/{any}', function($any){
+// 	return redirect()->route('errors.503');
+// })->where('any', '.*');

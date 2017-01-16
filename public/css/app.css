@@ -693,3 +693,9 @@ footer {
 	background: rgba(158, 30, 28, 1);
 	color: #fff !important;
 }
+
+.post-body img {
+	max-width: 100%;
+}
+
+.tinymce-content { white-space: normal; }

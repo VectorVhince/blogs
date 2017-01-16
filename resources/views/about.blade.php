@@ -77,63 +77,6 @@
                 e.stopImmediatePropagation();
             }
         });
-        
-        function setPlainText() {
-            var ed = tinyMCE.get('textarea');
-
-            ed.pasteAsPlainText = true;  
-
-            //adding handlers crossbrowser
-            if (tinymce.isOpera || /Firefox\/2/.test(navigator.userAgent)) {
-                ed.onKeyDown.add(function (ed, e) {
-                    if (((tinymce.isMac ? e.metaKey : e.ctrlKey) && e.keyCode == 86) || (e.shiftKey && e.keyCode == 45))
-                        ed.pasteAsPlainText = true;
-                });
-            } else {            
-                ed.onPaste.addToTop(function (ed, e) {
-                    ed.pasteAsPlainText = true;
-                });
-            }
-        };
-
-        tinymce.init({ 
-            selector:'textarea',
-            plugins: [
-            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-            'searchreplace wordcount visualblocks visualchars code fullscreen',
-            'insertdatetime media nonbreaking save table contextmenu directionality',
-            'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc autoresize'
-            ],
-            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-            toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
-            image_advtab: true,
-            templates: [
-            { title: 'Test template 1', content: 'Test 1' },
-            { title: 'Test template 2', content: 'Test 2' }
-            ],
-            oninit : "setPlainText",
-            menubar: false,
-            statusbar: false,
-            setup : function(ed){
-                ed.on('init', function(){
-                    this.getDoc().body.style.fontSize = '13px';
-                    this.getDoc().body.style.fontFamily = 'Helvetica';
-                    this.getDoc().body.style.color = '#555';
-                });
-            }
-        });
-
-        $('#featured').on('change', function(){
-            if (this.checked) {
-                $('#unfeatured').prop('checked', false);
-                $('#unfeatured').attr('name', '');
-                $(this).attr('name', 'featured');
-            }
-            else{
-                $('#unfeatured').prop('checked', true);
-                $('#unfeatured').attr('name', 'featured');
-                $(this).attr('name', '');
-            };            
-        })
     </script>
+    <script src="{{ asset('/js/tinymce-config.js') }}"></script>
 @stop

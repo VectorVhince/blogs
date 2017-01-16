@@ -105,7 +105,7 @@
                         </div>
                     </div>
                     <div class="row mgb20">
-                        <div class="col-lg-12">
+                        <div class="col-lg-12 post-body">
                             {!! $post->body !!}
                         </div>
                     </div>

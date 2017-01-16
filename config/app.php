@@ -180,6 +180,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         Kryptonit3\Counter\CounterServiceProvider::class,
+        Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
 
     ],
 
