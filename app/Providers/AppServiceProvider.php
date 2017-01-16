@@ -6,7 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use App\Notification;
-use App\User;
+use App\Posts;
+use Carbon\Carbon;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,23 @@ class AppServiceProvider extends ServiceProvider
                 }
             });  
 
+        }
+
+        if (Schema::hasTable('posts')) {
+
+            view()->composer('*', function ($view) {
+
+                $archive_year = Posts::where('approved','1')->orderBy('created_at','asc')->get()->groupBy(function($date) {
+                    return Carbon::parse($date->created_at)->format('Y');
+                });
+
+                $archive_month = Posts::where('approved','1')->orderBy('created_at','asc')->get()->groupBy(function($date) {
+                    return Carbon::parse($date->created_at)->format('Y-F');
+                });
+
+                $view->with('archive_year', $archive_year)->with('archive_month', $archive_month);
+
+            }); 
         }
     }
 

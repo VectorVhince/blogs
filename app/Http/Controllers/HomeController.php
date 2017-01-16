@@ -185,7 +185,7 @@ class HomeController extends Controller
         $user = User::find($id);
 
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|max:255|unique:users,name',
             ]);
 
         $user->name = $request->name;
@@ -199,7 +199,7 @@ class HomeController extends Controller
         $user = User::find($id);
 
         $this->validate($request, [
-            'username' => 'required',
+            'username' => 'required|max:255|unique:users,username',
             ]);
 
         $user->username = $request->username;
@@ -213,7 +213,7 @@ class HomeController extends Controller
         $user = User::find($id);
 
         $this->validate($request, [
-            'email' => 'required',
+            'email' => 'required|email|max:255|unique:users,email',
             ]);
 
         $user->email = $request->email;
@@ -256,7 +256,7 @@ class HomeController extends Controller
 
     public function pendingPosts() {
         $posts = Posts::where('approved','0')->latest()->get();
-        Notification::where('active', '=', '1')->where('category','pending')->update(array('active' => '0'));
+        // Notification::where('active', '=', '1')->where('category','pending')->update(array('active' => '0'));
 
         return view('admin.pending_posts')->with('posts',$posts);
     }

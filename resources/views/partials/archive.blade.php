@@ -7,16 +7,25 @@
         </div>
 
         @if(!$archive_year->isEmpty())
-        <ul class="archive" id="accordion1">
-            @foreach($archive_year as $year => $posts)
-            <li>
-                <a data-toggle="collapse" data-parent="#accordion1" href="#collapse{{ $year }}">{{ $year }}</a>
-                <ul id="collapse{{ $year }}" class="collapse">
-                    @foreach($posts as $post)
-                    <li><a href="{{ route('posts.show',$post->id) }}">{{ $post->title }}</a></li>
-                    @endforeach
+        <ul id="accordion1">
+            @foreach($archive_year as $year => $posts)            
+            <li class="pointer" data-toggle="collapse" data-parent="#accordion1" href="#collapse{{ $year }}">{{ $year }}</li>
+            <div id="collapse{{ $year }}" class="collapse">
+                <ul id="accordion{{ $year }}">                    
+                    @foreach($archive_month as $month => $posts)
+                    @if($month ==  $year)
+                        <?php $month = explode('-', $month) ?>
+                        <li class="pointer" data-toggle="collapse" data-parent="#accordion{{ $year }}" href="#collapse{{ $year }}{{ $month[1] }}">{{ $month[1] }}</li>
+
+                        <ul id="collapse{{ $year }}{{ $month[1] }}" class="collapse">
+                            @foreach($posts as $post)
+                                <li><a href="{{ route('posts.show',$post->id) }}">{{ $post->title }}</a></li>
+                            @endforeach
+                        </ul>
+                    @endif
+                    @endforeach                    
                 </ul>
-            </li>
+            </div>
             @endforeach
         </ul>
         @else
