@@ -115,6 +115,9 @@
                         <span>
                         @endif
                             {{ $notif->message }}
+                            <div class="row">
+                                <span class="dp-bl text-muted fs12 pull-right mgr10 mgt10">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notif->created_at))->diffForHumans() }}</span>
+                            </div>
                         </span>
                     </a></li>
                 @endforeach

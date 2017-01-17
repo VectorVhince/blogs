@@ -499,7 +499,7 @@ class PostsController extends Controller
     }
 
     public function reports() {
-        $reports = Report::all();
+        $reports = Report::latest()->get();
 
         if (Auth::user()) {
             if (Auth::user()->role == 'superadmin' && Notification::where('active', '=', '1')->where('category','report')) {
@@ -519,7 +519,7 @@ class PostsController extends Controller
         switch ($request->category) {
             case 'post':
                 $post = Posts::find($id);
-                $user = $post->userPost;
+                // $user = $post->userPost;
                 $report->post_id = $post->id;
                 $report->post_title = $post->title;
                 $report->type = 'post';
@@ -528,7 +528,7 @@ class PostsController extends Controller
 
             case 'comment':
                 $comment = Comments::find($id);
-                $user = $comment->commentsPost->userPost;
+                // $user = $comment->commentsPost->userPost;
                 $report->comment_id = $comment->id;
                 $post = $comment->commentsPost;
                 $report->post_id = $post->id;
@@ -540,13 +540,16 @@ class PostsController extends Controller
         $report->message = $request->report_message;
         $report->save();
 
-        $notifs = new Notification;
-        $notifs->user_id = $user->id;
-        $notifs->post_id = $post->id;
-        $notifs->active = '1';
-        $notifs->category = 'report';
-        $notifs->message = $message;
-        $notifs->save();
+        $superadmins = User::where('role','superadmin')->get();
+        foreach($superadmins as $superadmin){
+            $notifs = new Notification;
+            $notifs->user_id = $superadmin->id;
+            $notifs->post_id = $post->id;
+            $notifs->active = '1';
+            $notifs->category = 'report';
+            $notifs->message = $message;
+            $notifs->save();
+        }
 
         $request->session()->flash('alert-success', 'Report was successfully sent!');
         return back();
