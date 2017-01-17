@@ -9,30 +9,25 @@
                 <div class="panel-body pdh45">
                     <div class="mgb20">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <span class="fs40">Reports</span>
-                            </div>
-                            <div class="col-sm-4 col-sm-offset-2 mgt10">
-                            <form action="{{ route('pending.sortBy') }}" method="get">
-                                <div class="box-shadow">
-                                    <select class="form-control input-sm bd-rad0" name="key" onchange="this.form.submit()">
-                                        <option disabled selected>Sort By</option>
-                                        <option value="date">Date</option>
-                                        <option value="name">Name</option>
-                                    </select>
-                                </div>
-                            </form>
                             </div>
                         </div>
                         <div style="height: 2px;" class="bgc-red mg0"></div>
                     </div>
                     @if(!$reports->isEmpty())
                     @foreach($reports as $report)
-                    <a href="" class="fc-black">
+                    <a href="{{ route('posts.show',$report->post_id) }}" class="fc-black">
                         <div class="bg-blue-hover pd10">
                             <div class="row mgb20">
                                 <div class="col-md-12">
-                                    {{ $report->message }}                                    
+                                    <span class="dp-bl fs15 mgb20">{{ ucfirst($report->type) }}</span>
+                                    @if($report->type == 'post')
+                                    <p class="mgl20">{{ $report->post_title }}</p>
+                                    @else
+                                    <p class="mgl20">{{ $report->comment_title }}</p>
+                                    @endif
+                                    <p class="mgl20">{{ $report->message }}</p>                                    
                                 </div>
                             </div>
                             <div class="row">
@@ -45,7 +40,7 @@
                     <div style="height: 1px;" class="bgc-gray mgv20"></div>
                     @endforeach
                     @else
-                    Nothing posted.
+                    No reports yet.
                     @endif
                     
                 </div>

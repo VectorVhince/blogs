@@ -299,9 +299,6 @@ class PostsController extends Controller
             if (Auth::user()->id == $user->id && Notification::where('active', '=', '1')->where('category','approved')->where('post_id',$post->id)) {
                 Notification::where('active', '=', '1')->where('category','approved')->where('post_id',$post->id)->update(['active' => '0']);
             }
-            if (Auth::user()->id == $user->id && Notification::where('active', '=', '1')->where('category','report')->where('post_id',$post->id)) {
-                Notification::where('active', '=', '1')->where('category','report')->where('post_id',$post->id)->update(['active' => '0']);
-            }
         }
 
         if (Auth::guest()) {
@@ -502,9 +499,13 @@ class PostsController extends Controller
     }
 
     public function reports() {
-        $posts = Auth::user()->postsUser;
-        $reports = Report::where('post_id','=',$posts->id);
-        dd($reports);
+        $reports = Report::all();
+
+        if (Auth::user()) {
+            if (Auth::user()->role == 'superadmin' && Notification::where('active', '=', '1')->where('category','report')) {
+                Notification::where('active', '=', '1')->where('category','report')->update(['active' => '0']);
+            }
+        }
 
         return view('admin.reports')->with('reports',$reports);
     }
@@ -517,16 +518,22 @@ class PostsController extends Controller
         $report = new Report;
         switch ($request->category) {
             case 'post':
-                $user = Posts::find($id)->userPost;
-                $report->post_id = Posts::find($id)->id;
                 $post = Posts::find($id);
-                $message = 'A user reported your post, ' . substr($post->title, 0, 20) . '... ';
+                $user = $post->userPost;
+                $report->post_id = $post->id;
+                $report->post_title = $post->title;
+                $report->type = 'post';
+                $message = 'A user reported a post, ' . substr($post->title, 0, 20) . '... ';
                 break;
 
             case 'comment':
-                $user = Comments::find($id)->commentsPost->userPost;
-                $report->comment_id = Comments::find($id)->id;
-                $post = Comments::find($id)->commentsPost;
+                $comment = Comments::find($id);
+                $user = $comment->commentsPost->userPost;
+                $report->comment_id = $comment->id;
+                $post = $comment->commentsPost;
+                $report->post_id = $post->id;
+                $report->comment_title = $comment->name . ' &bull; ' . $comment->message;
+                $report->type = 'comment';
                 $message = 'A user reported a comment on post, ' . substr($post->title, 0, 20) . '... ';
                 break;
         }

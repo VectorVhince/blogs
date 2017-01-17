@@ -95,7 +95,7 @@ Route::post('mood/store/{id}', 'PostsController@moodStore')->name('mood.store');
 // Report
 Route::get('reports', 'PostsController@reports')->name('reports')->middleware('superadmin');
 
-Route::post('report/{id}', 'PostsController@reportStore')->name('reports.store')->middleware('superadmin');
+Route::post('report/{id}', 'PostsController@reportStore')->name('reports.store');
 
 // Filemanager
 $middleware = array_merge(\Config::get('lfm.middlewares'), ['\Unisharp\Laravelfilemanager\middleware\MultiUser']);

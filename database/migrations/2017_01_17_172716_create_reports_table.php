@@ -17,6 +17,9 @@ class CreateReportsTable extends Migration
             $table->increments('id');
             $table->string('post_id')->nullable();
             $table->string('comment_id')->nullable();
+            $table->string('post_title')->nullable();
+            $table->string('comment_title')->nullable();
+            $table->string('type')->nullable();
             $table->string('message');
             $table->timestamps();
         });
