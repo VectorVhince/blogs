@@ -299,6 +299,9 @@ class PostsController extends Controller
             if (Auth::user()->id == $user->id && Notification::where('active', '=', '1')->where('category','approved')->where('post_id',$post->id)) {
                 Notification::where('active', '=', '1')->where('category','approved')->where('post_id',$post->id)->update(['active' => '0']);
             }
+            if (Auth::user()->id == $user->id && Notification::where('active', '=', '1')->where('category','report')->where('post_id',$post->id)) {
+                Notification::where('active', '=', '1')->where('category','report')->where('post_id',$post->id)->update(['active' => '0']);
+            }
         }
 
         if (Auth::guest()) {
@@ -499,27 +502,46 @@ class PostsController extends Controller
     }
 
     public function reports() {
-        return view('admin.reports');
+        $posts = Auth::user()->postsUser;
+        $reports = Report::where('post_id','=',$posts->id);
+        dd($reports);
+
+        return view('admin.reports')->with('reports',$reports);
     }
 
-    public function reportStore(Request $request, $id, $category) {
+    public function reportStore(Request $request, $id) {
         $this->validate($request, [
             'report_message' => 'required'
             ]);
 
         $report = new Report;
-        switch ($category) {
+        switch ($request->category) {
             case 'post':
-                $report_id = Posts::find($id)->id;
-                $report->post_id = $report_id;
+                $user = Posts::find($id)->userPost;
+                $report->post_id = Posts::find($id)->id;
+                $post = Posts::find($id);
+                $message = 'A user reported your post, ' . substr($post->title, 0, 20) . '... ';
                 break;
 
             case 'comment':
-                $report_id = Comments::find($id)->id;
-                $report->comment_id = $report_id;
+                $user = Comments::find($id)->commentsPost->userPost;
+                $report->comment_id = Comments::find($id)->id;
+                $post = Comments::find($id)->commentsPost;
+                $message = 'A user reported a comment on post, ' . substr($post->title, 0, 20) . '... ';
                 break;
         }
         $report->message = $request->report_message;
         $report->save();
+
+        $notifs = new Notification;
+        $notifs->user_id = $user->id;
+        $notifs->post_id = $post->id;
+        $notifs->active = '1';
+        $notifs->category = 'report';
+        $notifs->message = $message;
+        $notifs->save();
+
+        $request->session()->flash('alert-success', 'Report was successfully sent!');
+        return back();
     }
 }
