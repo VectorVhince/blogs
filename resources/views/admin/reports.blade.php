@@ -26,23 +26,18 @@
                         </div>
                         <div style="height: 2px;" class="bgc-red mg0"></div>
                     </div>
-                    @if(!$posts->isEmpty())
-                    @foreach($posts as $post)
-                    <a href="{{ route('posts.show', $post->id) }}" class="fc-black">
+                    @if(!$reports->isEmpty())
+                    @foreach($reports as $report)
+                    <a href="" class="fc-black">
                         <div class="bg-blue-hover pd10">
                             <div class="row mgb20">
                                 <div class="col-md-12">
-                                    <span class="dp-bl fs15">{{ ucfirst($post->category) }}</span> <span class="pull-right">@if($post->approved==0) <span>Pending</span> @else Approved @endif</span>
-                                    <span class="dp-bl fs25">{{ $post->title }}</span>
-                                    <span class="text-muted">Author: </span>{{ $post->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($post->created_at, 'F d, Y') }}
+                                    {{ $report->message }}                                    
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <img src="{{ asset('/img/uploads/thumbnails/' . $post->image) }}" class="img-responsive img-thumbnail">
-                                </div>
-                                <div class="col-md-8">
-                                    {{ strip_tags(substr($post->body,0,400)) }}...
+                                <div class="col-md-12">
+                                    <span class="pointer" data-toggle="tooltip" title="{{ date_format($report->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($report->created_at))->diffForHumans() }}</span>
                                 </div>
                             </div>
                         </div>

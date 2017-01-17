@@ -165,7 +165,7 @@
                           @endif
                           <span class="dp-bl fs20 mgb5">{{ $comment->name }}, {{ $comment->dept }}</span>
                             <p class="mgl20">{{ $comment->message }}</p>
-                          <span class="pointer" data-toggle="tooltip" title="{{ date_format($comment->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}</span> <a href="#!" class="fs12 text-muted" data-toggle="modal" data-target="#modal8">Report this comment</a>
+                          <span class="pointer" data-toggle="tooltip" title="{{ date_format($comment->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}</span> &bull; <a href="#!" class="fs12 text-muted rcidBtn" data-toggle="modal" data-target="#modal8" data-rcid="{{ route('reports.store',$comment->id) }}">Report</a>
                         @endif
                         </div>
                     @endforeach
@@ -329,9 +329,10 @@
 
       <span>Report this post?</span>
       <div class="row mgt20 pdh15">
-          <form action="{{ route('reports.store',[$category='post',$post->id]) }}" method="post">
+          <form action="{{ route('reports.store',$post->id) }}" method="post">
             {{ csrf_field() }}
             <textarea class="form-control mgb20" name="report_message" placeholder="Type your reason here" required rows="8"></textarea>
+            <input type="hidden" name="category" value="post">
             <button type="submit" class="btn btn-primary btn-sm">Report</button>
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
           </form>
@@ -347,9 +348,10 @@
 
       <span>Report this comment?</span>
       <div class="row mgt20 pdh15">
-          <form action="{{ route('reports.store',[$category='comment',$comment->id]) }}" method="post">
+          <form action="" method="post" id="rcidForm">
             {{ csrf_field() }}
             <textarea class="form-control mgb20" name="report_message" placeholder="Type your reason here" required rows="8"></textarea>
+            <input type="hidden" name="category" value="comment">
             <button type="submit" class="btn btn-primary btn-sm">Report</button>
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
           </form>
@@ -376,6 +378,11 @@
       var commentUrl = $(this).data('cid');
       // console.log(commentUrl);
       $('#commentDeleteUrl').attr('href', commentUrl);
+    });
+
+    $('.rcidBtn').on('click', function(){
+      var rcidUrl = $(this).data('rcid');
+      $('#rcidForm').attr('action',rcidUrl);
     });
 
   </script>
