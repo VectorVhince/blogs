@@ -133,6 +133,7 @@
             <li><a href="{{ route('posts.create') }}"><span class="glyphicon glyphicon-pencil"></span> Add New Post</a></li>
             @if(Auth::user()->role == 'superadmin')
             <li><a href="{{ route('pending.posts') }}"><span class="glyphicon glyphicon-time"></span> Pending Posts</a></li>
+            <li><a href="{{ route('reports') }}"><span class="glyphicon glyphicon-warning-sign"></span> Reports</a></li>
             <li><a href="{{ url('create/announcement') }}"><span class="glyphicon glyphicon-plus-sign"></span> Make Announcement</a></li>
             <li><a href="{{ url('accounts') }}"><span class="glyphicon glyphicon-user"></span> Manage Members</a></li>
             <li><a href="{{ url('register') }}"><span class="glyphicon glyphicon-plus"></span> Register an Account</a></li>

@@ -9,11 +9,10 @@ use App\Page;
 use App\Mood;
 use App\Notification;
 use App\User;
+use App\Report;
 use Auth;
 use Image;
 use Counter;
-use Carbon\Carbon;
-use DB;
 
 class PostsController extends Controller
 {
@@ -497,5 +496,30 @@ class PostsController extends Controller
 
         // return redirect()->route('posts.show',$post->id);
         return response()->json(['mood' => $mood->mood], 200);
+    }
+
+    public function reports() {
+        return view('admin.reports');
+    }
+
+    public function reportStore(Request $request, $id, $category) {
+        $this->validate($request, [
+            'report_message' => 'required'
+            ]);
+
+        $report = new Report;
+        switch ($category) {
+            case 'post':
+                $report_id = Posts::find($id)->id;
+                $report->post_id = $report_id;
+                break;
+
+            case 'comment':
+                $report_id = Comments::find($id)->id;
+                $report->comment_id = $report_id;
+                break;
+        }
+        $report->message = $request->report_message;
+        $report->save();
     }
 }

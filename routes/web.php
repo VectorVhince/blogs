@@ -92,6 +92,11 @@ Route::get('sortby/{category}', 'PostsController@sortBy')->name('sortBy');
 // Mood
 Route::post('mood/store/{id}', 'PostsController@moodStore')->name('mood.store');
 
+// Report
+Route::get('reports', 'PostsController@reports')->name('reports')->middleware('superadmin');
+
+Route::post('report/{category}/{id}', 'PostsController@reportStore')->name('reports.store')->middleware('superadmin');
+
 // Filemanager
 $middleware = array_merge(\Config::get('lfm.middlewares'), ['\Unisharp\Laravelfilemanager\middleware\MultiUser']);
 $prefix = \Config::get('lfm.prefix', 'laravel-filemanager');

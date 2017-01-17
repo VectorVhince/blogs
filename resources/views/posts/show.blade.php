@@ -111,7 +111,8 @@
                     </div>
                     <div class="row">
                       <div class="col-sm-3">
-                        <span class="fs15 text-muted">Views: {{ number_format($counter) }}</span>
+                        <span class="fs15 text-muted dp-bl">Views: {{ number_format($counter) }}</span>
+                        <a href="#!" class="fs12 text-muted" data-toggle="modal" data-target="#modal7">Report this post</a>
                       </div>
                       <div class="col-sm-3 col-sm-offset-6 pdh0">
                         <div class="social-container">
@@ -164,7 +165,7 @@
                           @endif
                           <span class="dp-bl fs20 mgb5">{{ $comment->name }}, {{ $comment->dept }}</span>
                             <p class="mgl20">{{ $comment->message }}</p>
-                          <span class="pointer" data-toggle="tooltip" title="{{ date_format($comment->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}</span>
+                          <span class="pointer" data-toggle="tooltip" title="{{ date_format($comment->created_at, 'F d, Y g:i a') }}">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($comment->created_at))->diffForHumans() }}</span> <a href="#!" class="fs12 text-muted" data-toggle="modal" data-target="#modal8">Report this comment</a>
                         @endif
                         </div>
                     @endforeach
@@ -316,6 +317,42 @@
       <div class="row mgt20">
           <a href="" id="commentDeleteUrl"><button type="button" class="btn btn-danger btn-sm">Yes</button></a>
           <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">No</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="modal7" class="modal fade bs-example-modal-sm pdt200" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-center pd15">
+
+      <span>Report this post?</span>
+      <div class="row mgt20 pdh15">
+          <form action="{{ route('reports.store',[$category='post',$post->id]) }}" method="post">
+            {{ csrf_field() }}
+            <textarea class="form-control mgb20" name="report_message" placeholder="Type your reason here" required rows="8"></textarea>
+            <button type="submit" class="btn btn-primary btn-sm">Report</button>
+            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
+          </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="modal8" class="modal fade bs-example-modal-sm pdt200" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-center pd15">
+
+      <span>Report this comment?</span>
+      <div class="row mgt20 pdh15">
+          <form action="{{ route('reports.store',[$category='comment',$comment->id]) }}" method="post">
+            {{ csrf_field() }}
+            <textarea class="form-control mgb20" name="report_message" placeholder="Type your reason here" required rows="8"></textarea>
+            <button type="submit" class="btn btn-primary btn-sm">Report</button>
+            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
+          </form>
       </div>
 
     </div>
