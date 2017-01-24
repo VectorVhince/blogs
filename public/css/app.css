@@ -164,7 +164,7 @@
 .pdl25 { padding-left: 25px !important; }
 .pdl30 { padding-left: 30px !important; }
 .pdr0 { padding-right: 0; }
-.pdr3 { padding-right: 0; }
+.pdr30 { padding-right: 30px; }
 .pdh0 { padding-left: 0; padding-right: 0; }
 .pdh5 { padding-left: 5px !important; padding-right: 5px !important; }
 .pdh10 { padding-left: 10px !important; padding-right: 10px !important; }
@@ -699,3 +699,29 @@ footer {
 }
 
 .tinymce-content { white-space: normal; }
+
+.long-shadow {
+	text-shadow:
+	1px 1px 0 #410c0b,
+	2px 2px 0 #410c0b,
+	3px 3px 0 #410c0b,
+	4px 4px 0 #410c0b,
+	5px 5px 0 #410c0b,
+	6px 6px 0 #410c0b,
+	7px 7px 0 #410c0b
+}
+
+.search-box {
+	position: relative;
+	margin-right: 20px;
+}
+.search-button {
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 1;
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	padding: 6px 10px;
+}
