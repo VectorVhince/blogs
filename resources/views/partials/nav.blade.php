@@ -7,7 +7,7 @@
                         <img src="{{ asset('/img/TheAngelite.png') }}" style="height: 150px; margin-top: -30px; margin-left: -50px;">                
                     </div>
                     <div class="fc-white col-xs-4 pdh0 mgv15">
-                        <span class="dp-bl"  style="font-size: 50px; font-family: arongrotesque">
+                        <span class="dp-bl long-shadow"  style="font-size: 50px; font-family: arongrotesque">
                             THE ANGELITE
                         </span>
                         <span class="dp-bl" style="font-style: italic; font-size: 15px;">
@@ -47,41 +47,16 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
-                <!-- Authentication Links -->
-                    <li class="mgr10 pdv10">
-                        <form action="{{ route('search') }}" method="get">
-                            <div style="display: flex;">
-                                <input type="text" name="search" class="form-control input-sm" placeholder="Search..." style="flex: 1;">
-                                <button type="submit" class="mgr20 mgl10 pdv5 bgc0 bd0"><i class="glyphicon glyphicon-search pointer"></i></button>
+                <li class="mgr10 pdv10">
+                    <form action="{{ route('search') }}" method="get">
+                        <div class="search-box">
+                            <div class="box-shadow">
+                                <input type="text" name="search" class="form-control bd-rad0 input-sm pdr30" placeholder="Search...">
                             </div>
-                        </form>
-                    </li>
-                @if (Auth::guest())
-                    <li class="mg15 hidden"><a href="{{ url('/login') }}" class="pdv0 pdh15 mgh15 bdb0"><button class="btn-red-o bd-rad10 fc-white pd15"><i class="glyphicon glyphicon-user"></i> Log In</button></a></li>
-                    <li class="hidden"><a href="{{ url('/register') }}" class="fc-black">Register</a></li>
-                @else
-                    <li class="dropdown mgr15 hidden">
-                        <a href="#" class="dropdown-toggle fc-black" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <i class="glyphicon glyphicon-user"></i> {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('create') }}">Add New Post</a></li>
-                            <li><a href="{{ url('create/announcement') }}">Make Announcement</a></li>
-                            <li>
-                                <a href="{{ url('/logout') }}"
-                                    onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                @endif
+                            <button type="submit" class="search-button"><i class="glyphicon glyphicon-search pointer"></i></button>
+                        </div>
+                    </form>
+                </li>
             </ul>
         </div>
     </nav>        
