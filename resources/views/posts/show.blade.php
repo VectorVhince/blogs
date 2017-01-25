@@ -4,7 +4,7 @@
     <meta property="og:url"           content="{{ Request::url() }}" />
     <meta property="og:type"          content="article" />
     <meta property="og:title"         content="{{ $post->title }}" />
-    <meta property="og:description"   content="{{ $post->body }}" />
+    <meta property="og:description"   content="{!! $post->body !!}" />
     <meta property="og:image"         content="{{ asset('/img/uploads/' . $post->image) }}" />
 @stop
 
