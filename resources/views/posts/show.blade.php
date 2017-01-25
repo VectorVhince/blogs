@@ -94,21 +94,16 @@
                           @endif
                       @endif                      
                     </div>
-                    <div class="row mgb450">
-                        <div class="col-md-10 fc-white text-shadow">
-                            <span class="fs40 fw800">{{ $post->title }}</span>
-                            <div class="dp-bl italic">
+                    <div class="row ht500 mgb20">
+                        <div class="col-md-10 fc-white">
+                            <span class="fs40 fw800 text-shadow">{{ $post->title }}</span>
+                            <div class="dp-bl italic text-shadow-sm fw700">
                                 <span class="text-muted">Author: </span>{{ $post->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($post->created_at, 'F d, Y') }}
                             </div>
                         </div>
                         <div class="col-md-2">
                         </div>
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <img src="" class="img-responsive mgb40">
-                        </div>
-                    </div> -->
                     <div class="row mgb20">
                         <div class="col-lg-12 post-body">
                             {!! $post->body !!}

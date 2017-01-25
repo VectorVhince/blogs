@@ -57,7 +57,7 @@
                                 @endif
                             @endif
                             <div class="box-shadow">
-                                <input type="file" name="image" class="form-control mgb20 bd-rad0" id="imgInp" accept="image">
+                                <input type="file" name="image" class="form-control mgb20 bd-rad0" id="imgInp" accept="image/*">
                             </div>
                             <img class="img-responsive" id="blah" src="{{ asset('/img/uploads/' . $post->image) }}" alt="{{ $post->image }}">
                             @if ($errors->has('image'))

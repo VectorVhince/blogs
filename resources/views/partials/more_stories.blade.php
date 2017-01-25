@@ -14,6 +14,7 @@
             <a href="{{ route('posts.show', $story->id) }}" class="fc-black dp-bl">
               <div class="row mg0 bg-blue-hover pd5">
                 <div class="col-sm-4 pdl0">
+                  <span class="dp-bl fs12 mgb5">{{ ucfirst($story->category) }}</span>
                   <img src="{{ asset('img/uploads/thumbnails/' . $story->image) }}" class="img-responsive img-thumbnail dp-bl">
                 </div>
                 <div class="col-sm-8 pdl0">
