@@ -42,7 +42,7 @@
         <div class="col-lg-3 pd0">
           <div class="bgc-black-t ht400">
             <div class="row mg0">
-              <div class="dp-bl fc-white fs20 pd10 bgc-red col-sm-12">
+              <div class="dp-bl fc-white fs20 pd10 short-shadow bgc-red col-sm-12">
                 TRENDING
               </div>
             </div>
@@ -72,7 +72,7 @@
     <div class="row">
       <div class="col-lg-8">
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
-          <div class="bgc-red pd5 fc-white fs20">News</div>
+          <div class="bgc-red pd5 fc-white fs20 short-shadow">News</div>
           <div class="panel-body">
             @if(isset($news_first))
             <div class="row">
@@ -122,7 +122,7 @@
         </div>  
 
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
-          <div class="bgc-red pd5 fc-white fs20">Editorial</div>
+          <div class="bgc-red pd5 fc-white fs20 short-shadow">Editorial</div>
           <div class="panel-body">
             @if(isset($editorials_first))
             <div class="row">
@@ -172,7 +172,7 @@
         </div>
 
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
-          <div class="bgc-red pd5 fc-white fs20">Opinion</div>
+          <div class="bgc-red pd5 fc-white fs20 short-shadow">Opinion</div>
           <div class="panel-body">
             @if(isset($opinions_first))
             <div class="row">
@@ -222,7 +222,7 @@
         </div>
 
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
-          <div class="bgc-red pd5 fc-white fs20">Feature</div>
+          <div class="bgc-red pd5 fc-white fs20 short-shadow">Feature</div>
           <div class="panel-body">
             @if(isset($features_first))
             <div class="row">
@@ -272,7 +272,7 @@
         </div>
 
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
-          <div class="bgc-red pd5 fc-white fs20">Humor</div>
+          <div class="bgc-red pd5 fc-white fs20 short-shadow">Humor</div>
           <div class="panel-body">
             @if(isset($humors_first))
             <div class="row">
@@ -322,7 +322,7 @@
         </div>
 
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
-          <div class="bgc-red pd5 fc-white fs20">Sports</div>
+          <div class="bgc-red pd5 fc-white fs20 short-shadow">Sports</div>
           <div class="panel-body">
             @if(isset($sports_first))
             <div class="row">
@@ -376,7 +376,7 @@
       <div class="col-lg-4">
 
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
-          <div class="bgc-red pd5 fc-white fs20">Announcements</div>
+          <div class="bgc-red pd5 fc-white fs20 short-shadow">Announcements</div>
           <div class="panel-body">
             @if(!$announcements->isEmpty())
             <ul>
@@ -405,7 +405,7 @@
         </div> 
 
         <div class="panel panel-default bd-rad0 box-shadow panel-bg">
-          <div class="bgc-red pd5 fc-white fs20">Recent Comments</div>
+          <div class="bgc-red pd5 fc-white fs20 short-shadow">Recent Comments</div>
           <div class="panel-body">
             @if(!$recent_comments->isEmpty())
             @foreach($recent_comments as $recent_comment)

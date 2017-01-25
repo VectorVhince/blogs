@@ -15,7 +15,7 @@
                 </div>
                 <div class="row">
                 	<div class="col-lg-12">
-						<span class="fc-black text-shadow">&#169; 2016 The Angelite. All rights reserved.</span>
+						<span class="fc-black">&#169; 2016 The Angelite. All rights reserved.</span>
                 	</div>
                 </div>
                 <div class="row fs12 mgt20">

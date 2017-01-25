@@ -48,7 +48,7 @@
 
     <script type="text/javascript">
         $('#flashMessage').delay(5000).fadeOut(5000);
-
+        $("body").tooltip({ selector: '[data-toggle=tooltip]' });
     </script>    
     
 </body>

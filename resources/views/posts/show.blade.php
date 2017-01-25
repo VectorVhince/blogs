@@ -48,7 +48,7 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="panel panel-default bd-rad0 box-shadow panel-bg">
-                <div class="bgc-red mg0 fc-white fs20 pdv5 pdh45 box-arrow2">
+                <div class="bgc-red mg0 fc-white fs20 pdv5 pdh45 short-shadow box-arrow2" style="position: relative; z-index: 1;">
                   {{ ucfirst($post->category) }}
                   <span class="pull-right">
                   @if(Auth::user())
@@ -60,50 +60,55 @@
                   @endif
                   </span>
                 </div>
+                <div style="position: relative;">
+                  <div class="bg-cover" style="background-image: url({{ asset('/img/uploads/' . $post->image) }})"></div>                    
+                </div>
                 <div class="panel-body pdh45">
-                    <div class="row mgb40">
-                        <div class="col-md-10">
-                            <span class="fs40">{{ $post->title }}</span>
-                            <div class="dp-bl">
+                    <div class="pull-right">
+                      @if (Auth::user())
+                          @if (Auth::user()->id == $post->user_id || Auth::user()->role == 'superadmin')                                
+                              <div class="dropdown" style="float: right;">
+                                  <a class="dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1">
+                                      <div class="icon-circle text-center pdt10 mgt5" data-toggle="tooltip" title="Options">
+                                          <span class="glyphicon glyphicon-th-list fs25 fc-white"></span>
+                                      </div>
+                                  </a>
+                                  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                                      <div class="box-arrow1"></div>
+                                      @if(Auth::user()->role == 'superadmin')
+                                        @if(!$post->featured == '1')
+                                        <li><a href="#!" data-toggle="modal" data-target="#modal2"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Mark featured</a></li>
+                                        @else
+                                        <li><a href="#!" data-toggle="modal" data-target="#modal3"><img src="{{ asset('/img/unfeatured.png') }}" class="ht20"> Unmark featured</a></li>
+                                        @endif
+                                        @if(!$post->approved == '1')
+                                        <li><a href="#!" data-toggle="modal" data-target="#modal4"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Approve</a></li>
+                                        @else
+                                        <li><a href="#!" data-toggle="modal" data-target="#modal5"><img src="{{ asset('/img/unfeatured.png') }}" class="ht20"> Disapprove</a></li>
+                                        @endif
+                                      @endif
+                                      <li><a href="{{ route('posts.edit',$post->id) }}"><img src="{{ asset('/img/edit.png') }}" class="ht20"> Edit</a></li>
+                                      <li><a href="#!" data-toggle="modal" data-target="#modal1"><img src="{{ asset('/img/delete.png') }}" class="ht20"> Delete</a></li>
+                                  </ul>
+                              </div>
+                          @endif
+                      @endif                      
+                    </div>
+                    <div class="row mgb450">
+                        <div class="col-md-10 fc-white text-shadow">
+                            <span class="fs40 fw800">{{ $post->title }}</span>
+                            <div class="dp-bl italic">
                                 <span class="text-muted">Author: </span>{{ $post->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($post->created_at, 'F d, Y') }}
                             </div>
                         </div>
                         <div class="col-md-2">
-                        @if (Auth::user())
-                            @if (Auth::user()->id == $post->user_id || Auth::user()->role == 'superadmin')                                
-                                <div class="dropdown" style="float: right;">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1">
-                                        <div class="icon-circle text-center pdt10 mgt5">
-                                            <span class="glyphicon glyphicon-th-list fs25 fc-white"></span>
-                                        </div>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                                        <div class="box-arrow1"></div>
-                                        @if(Auth::user()->role == 'superadmin')
-                                          @if(!$post->featured == '1')
-                                          <li><a href="#!" data-toggle="modal" data-target="#modal2"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Mark featured</a></li>
-                                          @else
-                                          <li><a href="#!" data-toggle="modal" data-target="#modal3"><img src="{{ asset('/img/unfeatured.png') }}" class="ht20"> Unmark featured</a></li>
-                                          @endif
-                                          @if(!$post->approved == '1')
-                                          <li><a href="#!" data-toggle="modal" data-target="#modal4"><img src="{{ asset('/img/featured.png') }}" class="ht20"> Approve</a></li>
-                                          @else
-                                          <li><a href="#!" data-toggle="modal" data-target="#modal5"><img src="{{ asset('/img/unfeatured.png') }}" class="ht20"> Disapprove</a></li>
-                                          @endif
-                                        @endif
-                                        <li><a href="{{ route('posts.edit',$post->id) }}"><img src="{{ asset('/img/edit.png') }}" class="ht20"> Edit</a></li>
-                                        <li><a href="#!" data-toggle="modal" data-target="#modal1"><img src="{{ asset('/img/delete.png') }}" class="ht20"> Delete</a></li>
-                                    </ul>
-                                </div>
-                            @endif
-                        @endif
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-lg-12 text-center">
-                            <img src="{{ asset('/img/uploads/' . $post->image) }}" class="img-responsive mgb40">
+                            <img src="" class="img-responsive mgb40">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row mgb20">
                         <div class="col-lg-12 post-body">
                             {!! $post->body !!}

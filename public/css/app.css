@@ -114,6 +114,8 @@
 .mgb25 { margin-bottom: 25px; }
 .mgb30 { margin-bottom: 30px; }
 .mgb40 { margin-bottom: 40px; }
+.mgb450 { margin-bottom: 450px; }
+.mgb500 { margin-bottom: 500px; }
 .mgl5 { margin-left: 5px; }
 .mgl10 { margin-left: 10px; }
 .mgl15 { margin-left: 15px; }
@@ -130,7 +132,7 @@
 .mgv15 { margin-top: 15px; margin-bottom: 15px; }
 .mgv20 { margin-top: 20px; margin-bottom: 20px; }
 .mgv30 { margin-top: 30px; margin-bottom: 30px; }
-.mgv40 { margin-top: 40px; margin-bottom: 40px; }
+.mgv00 { margin-top: 40px; margin-bottom: 40px; }
 .mgv50 { margin-top: 50px; margin-bottom: 50px; }
 .mgv100 { margin-top: 100px; margin-bottom: 100px; }
 .mgh0 { margin-right: 0; margin-left: 0; }
@@ -207,6 +209,11 @@ body {
 
 a { cursor:pointer; text-decoration: none; }
 a:hover, a:focus, a:active { text-decoration: none; }
+
+.fw700 { font-weight: 700; }
+.fw800 { font-weight: 800; }
+
+.italic { font-style: italic; }
 
 .fs10 { font-size: 10px; }
 .fs11 { font-size: 11px; }
@@ -711,6 +718,17 @@ footer {
 	7px 7px 0 #410c0b
 }
 
+.short-shadow {
+	text-shadow:
+	1px 1px 0 #410c0b,
+	2px 2px 0 #410c0b,
+	3px 3px 0 #410c0b
+}
+
+.text-shadow {
+	text-shadow: 2px 2px 0 rgba(0,0,0,.5);
+}
+
 .search-box {
 	position: relative;
 	margin-right: 20px;
@@ -724,4 +742,19 @@ footer {
 	border: none;
 	border-radius: 0;
 	padding: 6px 10px;
+}
+
+.tooltip-arrow, .tooltip > .tooltip-inner {
+	border-radius: 0;
+}
+
+.bg-cover {
+	position: absolute;
+	left: 0; right: 0; top: 0;
+	z-index: 0;
+	width: 100%;
+	height: 500px;
+	/*-webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));*/
+	background-size: cover;
+
 }
