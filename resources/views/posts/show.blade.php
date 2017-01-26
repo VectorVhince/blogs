@@ -5,7 +5,11 @@
     <meta property="og:type"          content="article" />
     <meta property="og:title"         content="{{ $post->title }}" />
     <meta property="og:description"   content="{!! $post->body !!}" />
-    <meta property="og:image"         content="{{ asset('/img/uploads/' . $post->imageExists) }}" />
+    @if(file_exists(public_path('img/uploads/' . $post->image)))
+      <meta property="og:image"         content="{{ asset('/img/uploads/' . $post->image) }}" />
+    @else
+      <meta property="og:image"         content="{{ asset('/img/uploads/default.jpg') }}" />
+    @endif
 @stop
 
 @section('content')
@@ -61,7 +65,11 @@
                   </span>
                 </div>
                 <div style="position: relative;">
-                  <div class="bg-cover" style="background-image: url({{ asset('/img/uploads/' . $post->imageExists) }})"></div>                    
+                  @if(file_exists(public_path('img/uploads/' . $post->image)))
+                    <div class="bg-cover" style="background-image: url({{ asset('/img/uploads/' . $post->image) }})"></div>
+                  @else
+                    <div class="bg-cover" style="background-image: url({{ asset('/img/uploads/default.jpg') }})"></div>
+                  @endif
                 </div>
                 <div class="panel-body pdh45">
                     <div class="pull-right">
