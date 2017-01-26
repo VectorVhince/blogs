@@ -40,7 +40,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img src="{{ asset('/img/uploads/thumbnails/' . $user->image) }}" class="img-responsive img-thumbnail">
+                                    <img src="{{ asset('/img/uploads/thumbnails/' . $user->thumbExists()) }}" class="img-responsive img-thumbnail">
                                 </div>
                                 <div class="col-md-8">
                                     {{ strip_tags(substr($user->body,0,400)) }}...

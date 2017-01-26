@@ -15,7 +15,7 @@
               <div class="row mg0 bg-blue-hover pd5">
                 <div class="col-sm-4 pdl0">
                   <span class="dp-bl fs12 mgb5">{{ ucfirst($story->category) }}</span>
-                  <img src="{{ asset('img/uploads/thumbnails/' . $story->image) }}" class="img-responsive img-thumbnail dp-bl">
+                  <img src="{{ asset('img/uploads/thumbnails/' . $story->thumbExists()) }}" class="img-responsive img-thumbnail dp-bl">
                 </div>
                 <div class="col-sm-8 pdl0">
                   <span class="fs17 dp-bl"><b>{{ $story->title }}</b></span>

@@ -22,7 +22,7 @@
                       {{ $feature->title }}
                     </div>
                   </a>
-                  <img src="{{ asset('img/uploads/' . $feature->image) }}" class="img-responsive" style="width: 100%;">
+                  <img src="{{ asset('img/uploads/' . $feature->imageExists()) }}" class="img-responsive" style="width: 100%;">
                 </div>
                 @endforeach
 
@@ -52,7 +52,7 @@
                 <a href="{{ route('posts.show',$view->id) }}" class="fc-white">
                   <div class="row mgh0 trending-panel bg-blue-hover">
                     <div class="col-sm-4 pdh0">
-                      <img src="{{ asset('img/uploads/thumbnails/' . $view->image) }}" class="img-responsive" style="width: 100%;">
+                      <img src="{{ asset('img/uploads/thumbnails/' . $view->thumbExists()) }}" class="img-responsive" style="width: 100%;">
                     </div>
                     <div class="col-sm-8 pdr0">
                       {{ $view->title }}
@@ -77,10 +77,10 @@
             @if(isset($news_first))
             <div class="row">
               <div class="col-md-6 text-center">
-                <div class="bg-blue-hover pd5">
+                <div class="bg-blue-hover pd15">
                   <a href="{{ route('posts.show', $news_first->id) }}" class="fc-black">
-                    <div>
-                      <img src="{{ asset('img/uploads/' . $news_first->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <div class="mgb10">
+                      <img src="{{ asset('img/uploads/' . $news_first->imageExists()) }}" class="img-responsive img-thumbnail dp-bl">
                     </div>
                     <span class="fs17 dp-bl"><b>{{ $news_first->title }}</b></span>
                   </a>
@@ -91,7 +91,7 @@
               <a href="{{ route('posts.show', $new->id) }}" class="fc-black dp-bl">
                 <div class="row mg0 bg-blue-hover pd5">
                   <div class="col-sm-4 pdl0">
-                    <img src="{{ asset('img/uploads/thumbnails/' . $new->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <img src="{{ asset('img/uploads/thumbnails/' . $new->thumbExists()) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
                   <div class="col-sm-8 pdl0">
                     <span class="fs17 dp-bl"><b>{{ $new->title }}</b></span>
@@ -127,10 +127,10 @@
             @if(isset($editorials_first))
             <div class="row">
               <div class="col-md-6 text-center">
-                <div class="bg-blue-hover pd5">
+                <div class="bg-blue-hover pd15">
                   <a href="{{ route('posts.show', $editorials_first->id) }}" class="fc-black">
-                    <div>
-                      <img src="{{ asset('img/uploads/' . $editorials_first->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <div class="mgb10">
+                      <img src="{{ asset('img/uploads/' . $editorials_first->imageExists()) }}" class="img-responsive img-thumbnail dp-bl">
                     </div>
                     <span class="fs17 dp-bl"><b>{{ $editorials_first->title }}</b></span>
                   </a>
@@ -141,7 +141,7 @@
               <a href="{{ route('posts.show', $editorial->id) }}" class="fc-black dp-bl">
                 <div class="row mg0 bg-blue-hover pd5">
                   <div class="col-sm-4 pdl0">
-                    <img src="{{ asset('img/uploads/thumbnails/' . $editorial->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <img src="{{ asset('img/uploads/thumbnails/' . $editorial->thumbExists()) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
                   <div class="col-sm-8 pdl0">
                     <span class="fs17 dp-bl"><b>{{ $editorial->title }}</b></span>
@@ -177,10 +177,10 @@
             @if(isset($opinions_first))
             <div class="row">
               <div class="col-md-6 text-center">
-                <div class="bg-blue-hover pd5">
+                <div class="bg-blue-hover pd15">
                   <a href="{{ route('posts.show', $opinions_first->id) }}" class="fc-black">
-                    <div>
-                      <img src="{{ asset('img/uploads/' . $opinions_first->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <div class="mgb10">
+                      <img src="{{ asset('img/uploads/' . $opinions_first->imageExists()) }}" class="img-responsive img-thumbnail dp-bl">
                     </div>
                     <span class="fs17 dp-bl"><b>{{ $opinions_first->title }}</b></span>
                   </a>
@@ -191,7 +191,7 @@
               <a href="{{ route('posts.show', $opinion->id) }}" class="fc-black dp-bl">
                 <div class="row mg0 bg-blue-hover pd5">
                   <div class="col-sm-4 pdl0">
-                    <img src="{{ asset('img/uploads/thumbnails/' . $opinion->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <img src="{{ asset('img/uploads/thumbnails/' . $opinion->thumbExists()) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
                   <div class="col-sm-8 pdl0">
                     <span class="fs17 dp-bl"><b>{{ $opinion->title }}</b></span>
@@ -227,10 +227,10 @@
             @if(isset($features_first))
             <div class="row">
               <div class="col-md-6 text-center">
-                <div class="bg-blue-hover pd5">
+                <div class="bg-blue-hover pd15">
                   <a href="{{ route('posts.show', $features_first->id) }}" class="fc-black">
-                    <div>
-                      <img src="{{ asset('img/uploads/' . $features_first->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <div class="mgb10">
+                      <img src="{{ asset('img/uploads/' . $features_first->imageExists()) }}" class="img-responsive img-thumbnail dp-bl">
                     </div>
                     <span class="fs17 dp-bl"><b>{{ $features_first->title }}</b></span>
                   </a>
@@ -241,7 +241,7 @@
               <a href="{{ route('posts.show', $feature->id) }}" class="fc-black dp-bl">
                 <div class="row mg0 bg-blue-hover pd5">
                   <div class="col-sm-4 pdl0">
-                    <img src="{{ asset('img/uploads/thumbnails/' . $feature->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <img src="{{ asset('img/uploads/thumbnails/' . $feature->thumbExists()) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
                   <div class="col-sm-8 pdl0">
                     <span class="fs17 dp-bl"><b>{{ $feature->title }}</b></span>
@@ -277,10 +277,10 @@
             @if(isset($humors_first))
             <div class="row">
               <div class="col-md-6 text-center">
-                <div class="bg-blue-hover pd5">
+                <div class="bg-blue-hover pd15">
                   <a href="{{ route('posts.show', $humors_first->id) }}" class="fc-black">
-                    <div>
-                      <img src="{{ asset('img/uploads/' . $humors_first->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <div class="mgb10">
+                      <img src="{{ asset('img/uploads/' . $humors_first->imageExists()) }}" class="img-responsive img-thumbnail dp-bl">
                     </div>
                     <span class="fs17 dp-bl"><b>{{ $humors_first->title }}</b></span>
                   </a>
@@ -291,7 +291,7 @@
               <a href="{{ route('posts.show', $humor->id) }}" class="fc-black dp-bl">
                 <div class="row mg0 bg-blue-hover pd5">
                   <div class="col-sm-4 pdl0">
-                    <img src="{{ asset('img/uploads/thumbnails/' . $humor->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <img src="{{ asset('img/uploads/thumbnails/' . $humor->thumbExists()) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
                   <div class="col-sm-8 pdl0">
                     <span class="fs17 dp-bl"><b>{{ $humor->title }}</b></span>
@@ -327,10 +327,10 @@
             @if(isset($sports_first))
             <div class="row">
               <div class="col-md-6 text-center">
-                <div class="bg-blue-hover pd5">
+                <div class="bg-blue-hover pd15">
                   <a href="{{ route('posts.show', $sports_first->id) }}" class="fc-black">
-                    <div>
-                      <img src="{{ asset('img/uploads/' . $sports_first->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <div class="mgb10">
+                      <img src="{{ asset('img/uploads/' . $sports_first->imageExists()) }}" class="img-responsive img-thumbnail dp-bl">
                     </div>
                     <span class="fs17 dp-bl"><b>{{ $sports_first->title }}</b></span>
                   </a>
@@ -341,7 +341,7 @@
               <a href="{{ route('posts.show', $sport->id) }}" class="fc-black dp-bl">
                 <div class="row mg0 bg-blue-hover pd5">
                   <div class="col-sm-4 pdl0">
-                    <img src="{{ asset('img/uploads/thumbnails/' . $sport->image) }}" class="img-responsive img-thumbnail dp-bl">
+                    <img src="{{ asset('img/uploads/thumbnails/' . $sport->thumbExists()) }}" class="img-responsive img-thumbnail dp-bl">
                   </div>
                   <div class="col-sm-8 pdl0">
                     <span class="fs17 dp-bl"><b>{{ $sport->title }}</b></span>

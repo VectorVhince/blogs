@@ -39,7 +39,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img src="{{ asset('/img/uploads/thumbnails/' . $post->image) }}" class="img-responsive img-thumbnail">
+                                    <img src="{{ asset('/img/uploads/thumbnails/' . $post->thumbExists()) }}" class="img-responsive img-thumbnail">
                                 </div>
                                 <div class="col-md-8">
                                     {{ strip_tags(substr($post->body,0,400)) }}...
