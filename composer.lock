@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "665a0801652b2b8da2480ba1262f9ee2",
+    "content-hash": "ad656884c1bcab3ad34de858c2915763",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -2137,16 +2137,16 @@
         },
         {
             "name": "unisharp/laravel-filemanager",
-            "version": "1.6.3",
+            "version": "v1.7-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/UniSharp/laravel-filemanager.git",
-                "reference": "4ad58cb7117ab23dc2a96bdf748f120db4945433"
+                "reference": "50bc1f39941873cfd36be82af2c63b420b96749d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UniSharp/laravel-filemanager/zipball/4ad58cb7117ab23dc2a96bdf748f120db4945433",
-                "reference": "4ad58cb7117ab23dc2a96bdf748f120db4945433",
+                "url": "https://api.github.com/repos/UniSharp/laravel-filemanager/zipball/50bc1f39941873cfd36be82af2c63b420b96749d",
+                "reference": "50bc1f39941873cfd36be82af2c63b420b96749d",
                 "shasum": ""
             },
             "require": {
@@ -2156,6 +2156,7 @@
             },
             "require-dev": {
                 "orchestra/testbench": "~3.0",
+                "phpspec/phpspec": "~2.1",
                 "phpunit/phpunit": "~4.8"
             },
             "suggest": {
@@ -2193,7 +2194,7 @@
                 "tinymce",
                 "upload"
             ],
-            "time": "2017-01-03T09:54:33+00:00"
+            "time": "2017-01-23T09:29:13+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -3826,7 +3827,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "greggilbert/recaptcha": 20
+        "greggilbert/recaptcha": 20,
+        "unisharp/laravel-filemanager": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,
