@@ -5,7 +5,7 @@
     <meta property="og:type"          content="article" />
     <meta property="og:title"         content="{{ $post->title }}" />
     <meta property="og:description"   content="{!! $post->body !!}" />
-    <meta property="og:image"         content="{{ asset('/img/uploads/' . $post->image) }}" />
+    <meta property="og:image"         content="{{ asset('/img/uploads/' . $post->imageExists) }}" />
 @stop
 
 @section('content')
@@ -61,7 +61,7 @@
                   </span>
                 </div>
                 <div style="position: relative;">
-                  <div class="bg-cover" style="background-image: url({{ asset('/img/uploads/' . $post->image) }})"></div>                    
+                  <div class="bg-cover" style="background-image: url({{ asset('/img/uploads/' . $post->imageExists) }})"></div>                    
                 </div>
                 <div class="panel-body pdh45">
                     <div class="pull-right">

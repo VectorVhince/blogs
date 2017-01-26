@@ -29,4 +29,22 @@ class Posts extends Model
     public function postMoods() {
         return $this->hasMany('\App\Mood','post_id');
     }
+
+    public function imageExists() {
+        if (file_exists(public_path('img/uploads/' . $this->image))) {
+            return $this->image;
+        }
+        else {
+            return public_path('img/uploads/default.jpg');
+        }
+    }
+
+    public function thumbExists() {
+        if (file_exists(public_path('img/uploads/thumbnails/' . $this->image))) {
+            return $this->image;
+        }
+        else {
+            return public_path('img/uploads/default.jpg');
+        }
+    }
 }
