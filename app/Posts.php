@@ -35,7 +35,7 @@ class Posts extends Model
             return $this->image;
         }
         else {
-            return public_path('img/uploads/default.jpg');
+            return 'default.jpg';
         }
     }
 
@@ -44,7 +44,7 @@ class Posts extends Model
             return $this->image;
         }
         else {
-            return public_path('img/uploads/default.jpg');
+            return 'default.jpg';
         }
     }
 }
