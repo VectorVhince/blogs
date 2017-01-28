@@ -207,7 +207,7 @@ class PostsController extends Controller
             'title' => 'required|max:255|unique:posts,title',
             'category' => 'required',
             'body' => 'required',
-            'image' => 'required|mimes:jpeg,png,gif',
+            'image' => 'required|image|mimes:jpeg,jpg,png,gif',
         ]);
 
         $fileName = time() . '.' . $request->file('image')->getClientOriginalExtension();
@@ -269,13 +269,8 @@ class PostsController extends Controller
 
         $comments = Posts::find($id)->comments;
 
-        $stories = Posts::get();
-        if ($posts->count() <= 7) {
-            $stories = Posts::where('id', '!=', $post->id)->where('approved','1')->inRandomOrder()->get();
-        }
-        else if ($posts->count() > 7) {
-            $stories = Posts::where('id', '!=', $post->id)->where('approved','1')->random(7)->inRandomOrder()->get();
-        }
+        $stories = Posts::where('id', '!=', $post->id)->where('approved','1')->take(7)->inRandomOrder()->get();
+
 
         $counter = Counter::showAndCount('posts.show', $post->id);
         $post->views = $counter;
@@ -344,7 +339,7 @@ class PostsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255|unique:posts,title,'.$post->id,
             'body' => 'required',
-            'image' => 'mimes:jpeg,png,gif',
+            'image' => 'image|mimes:jpeg,jpg,png,gif',
         ]);
         
         if ($request->hasFile('image')) {

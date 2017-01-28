@@ -7,7 +7,7 @@
             <div class="panel panel-default bd-rad0 box-shadow">
                 <div style="height: 20px;" class="bgc-red mg0"></div>
                 <div class="panel-body pdh45">
-                    <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data" runat="server">
+                    <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="mgb20 text-center">
                             <span class="fs40">Add New Post</span>
@@ -45,8 +45,6 @@
                                 <span class="help-block"><strong>{{ $errors->first('body') }}</strong></span>
                             @endif
                         </div>
-                        <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                            <label>Cover photo</label> (Minimum size: 863 x 400 px resolution)
                             @if(Auth::user())
                                 @if(Auth::user()->role == 'superadmin')
                                 <label class="checkbox-inline pull-right"><input type="checkbox" value="1" name="" id="featured">Mark featured</label>
@@ -55,6 +53,8 @@
                                 <label class="checkbox-inline pull-right hidden"><input type="checkbox" value="0" name="featured" id="unfeatured" checked="checked">Unmark featured</label>
                                 @endif
                             @endif
+                        <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                            <label>Cover photo</label> (Minimum size: 863 x 400 px resolution)
                             <div class="box-shadow">
                                 <input type="file" name="image" class="form-control mgb20 bd-rad0" id="imgInp" accept="image/*">
                             </div>
@@ -66,7 +66,7 @@
                         <div class="col-md-4 col-md-offset-4 text-center mgt40">
                             <div class="form-inline">
                                 <button type="submit" class="btn btn-success bd-rad0 fs20">Publish</button>
-                                <button type="reset" class="btn btn-danger bd-rad0 fs20">Cancel</button>
+                                <!-- <button type="reset" class="btn btn-danger bd-rad0 fs20">Cancel</button> -->
                             </div>
                         </div>
                     </form>
