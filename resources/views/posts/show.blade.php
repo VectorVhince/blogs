@@ -96,10 +96,12 @@
                     </div>
                     <div class="row ht500 mgb20">
                         <div class="col-md-10 fc-white">
+                          <div class="bgc-black-t3 pdr10 pdl10 pdb10 mgt10">
                             <span class="fs40 fw800 text-shadow">{{ $post->title }}</span>
                             <div class="dp-bl italic text-shadow-sm fw700">
                                 <span class="text-muted">Author: </span>{{ $post->user }} <span class="text-muted mgl10">Posted: </span>{{ date_format($post->created_at, 'F d, Y') }}
                             </div>
+                          </div>
                         </div>
                         <div class="col-md-2">
                         </div>

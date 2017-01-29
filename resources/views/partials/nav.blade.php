@@ -51,7 +51,7 @@
                     <form action="{{ route('search') }}" method="get">
                         <div class="search-box">
                             <div class="box-shadow">
-                                <input type="text" name="search" class="form-control bd-rad0 input-sm pdr30" placeholder="Search...">
+                                <input type="text" name="search" class="form-control bd-rad0 input-sm pdr30" placeholder="Search..." id="searchBox" data-items="{{ route('search.items') }}">
                             </div>
                             <button type="submit" class="search-button"><i class="glyphicon glyphicon-search pointer"></i></button>
                         </div>

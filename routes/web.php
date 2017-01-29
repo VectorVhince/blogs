@@ -66,6 +66,7 @@ Route::delete('delete/announcement/{id}', 'HomeController@deleteAnnouncement')->
 
 // Search
 Route::get('search', 'HomeController@search')->name('search');
+Route::any('items', 'HomeController@items')->name('search.items');
 
 // Posts
 Route::resource('posts', 'PostsController');

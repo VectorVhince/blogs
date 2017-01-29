@@ -147,6 +147,18 @@ class HomeController extends Controller
         ->with('count',$count);
     }
 
+    public function items(Request $request) {
+        $search = $request->get('term');
+        $array = Posts::where('title', 'like', '%' . $search . '%')->get();
+
+        foreach ($array as $search_item) {
+            $search_items[] = array('label' => $search_item->title , 'value' => route('posts.show',$search_item->id));
+        }
+        // dd($search_items);
+
+        return response()->json($search_items, 200);
+    }
+
     public function settings()
     {
         return view('admin.settings');

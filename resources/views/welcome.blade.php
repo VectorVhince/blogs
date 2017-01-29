@@ -435,16 +435,22 @@
   $(document).ready(function(){
     var galleryTop = new Swiper('.gallery-images', {
         pagination: '.swiper-pagination',
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
+        // nextButton: '.swiper-button-next',
+        // prevButton: '.swiper-button-prev',
         paginationClickable: true,
         spaceBetween: 30,
         autoplay: 7000,
         loop: true,
         effect: 'fade',
         autoplayDisableOnInteraction: false,
-        grabCursor: true,
+        // grabCursor: true,
         lazyLoading: true
+    });
+
+    $('.gallery-images').on('mouseenter', function(){
+      galleryTop.stopAutoplay();
+    }).on('mouseleave', function(){
+      galleryTop.startAutoplay();
     });
 
     var announcementId = "";
